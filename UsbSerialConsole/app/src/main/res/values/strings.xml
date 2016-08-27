@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">USB serial console</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_log_list">Log list</string>
+
+    <string name="remove_log_file_title">Remove log file</string>
+    <string name="remove_log_file_text">Remove file?</string>
+    <string name="file_name">File name</string>
+
+    <string name="on">On</string>
+    <string name="off">Off</string>
+
+    <string name="save">Save</string>
+    <string name="clear">Clear</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="send">Send</string>
+    <string name="send_message_hint">Send message here</string>
+
+    <string name="usb_permission_granted">USB Ready</string>
+    <string name="usb_permission_not_granted">USB Permission not granted</string>
+    <string name="no_usb">No USB connected</string>
+    <string name="usb_disconnected">USB disconnected</string>
+    <string name="usb_not_supported">USB device not supported</string>
+
+    <string name="connection_pref_category">Connection settings</string>
+
+    <string name="baudrate_title">Baud rate</string>
+    <string name="baudrate_key">Baud rate</string>
+
+    <string name="databits_title">Data bits</string>
+    <string name="databits_key">Data bits</string>
+
+    <string name="parity_title">Parity check</string>
+    <string name="parity_key">Parity check</string>
+
+    <string name="stopbits_title">Stop bit</string>
+    <string name="stopbits_key">Stop bit</string>
+
+    <string name="flowcontrol_title">Flow control</string>
+    <string name="flowcontrol_key">Flow control</string>
+
+    <string name="display_pref_category">Display settings</string>
+
+    <string name="timestamp_key">Show Timestamp</string>
+    <string name="timestamp_title">Show Timestamp</string>
+
+    <string name="timestamp_format_key">Timestamp format</string>
+    <string name="timestamp_format_title">Timestamp format</string>
+</resources>

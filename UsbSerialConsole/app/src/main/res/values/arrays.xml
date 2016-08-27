@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="baudrate_entries">
+        <item>100</item>
+        <item>300</item>
+        <item>600</item>
+        <item>1200</item>
+        <item>2400</item>
+        <item>4800</item>
+        <item>9600</item>
+        <item>14400</item>
+        <item>19200</item>
+        <item>38400</item>
+        <item>57600</item>
+        <item>115200</item>
+        <item>230400</item>
+        <item>460800</item>
+        <item>921600</item>
+    </string-array>
+    <string-array name="baudrate_entryvalues">
+        <item>100</item>
+        <item>300</item>
+        <item>600</item>
+        <item>1200</item>
+        <item>2400</item>
+        <item>4800</item>
+        <item>9600</item>
+        <item>14400</item>
+        <item>19200</item>
+        <item>38400</item>
+        <item>57600</item>
+        <item>115200</item>
+        <item>230400</item>
+        <item>460800</item>
+        <item>921600</item>
+    </string-array>
+
+    <string-array name="databits_entries">
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="databits_entryvalues">
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="parity_entries">
+        <item>none</item>
+        <item>odd</item>
+        <item>even</item>
+        <item>mark</item>
+        <item>space</item>
+    </string-array>
+    <string-array name="parity_entryvalues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="stopbits_entries">
+        <item>1</item>
+        <item>1.5</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="stopbits_entryvalues">
+        <item>1</item>
+        <item>3</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="flowcontrol_entries">
+        <item>off</item>
+        <item>RTS/CTS</item>
+        <item>DSR/DTRd</item>
+        <item>Xon/Xoff</item>
+    </string-array>
+    <string-array name="flowcontrol_entryvalues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="timestamp_format_entries">
+        <item>yyyy/MM/dd HH:mm:ss.SSS</item>
+        <item>yyyy/MM/dd HH:mm:ss</item>
+        <item>MM/dd HH:mm:ss.SSS</item>
+        <item>MM/dd HH:mm:ss</item>
+        <item>HH:mm:ss.SSS</item>
+        <item>HH:mm:ss</item>
+    </string-array>
+    <string-array name="timestamp_format_entryvalues">
+        <item>yyyy/MM/dd HH:mm:ss.SSS</item>
+        <item>yyyy/MM/dd HH:mm:ss</item>
+        <item>MM/dd HH:mm:ss.SSS</item>
+        <item>MM/dd HH:mm:ss</item>
+        <item>HH:mm:ss.SSS</item>
+        <item>HH:mm:ss</item>
+    </string-array>
+</resources>

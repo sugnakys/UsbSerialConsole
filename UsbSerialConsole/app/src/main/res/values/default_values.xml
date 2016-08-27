@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="baudrate_default">9600</string>
+    <string name="databits_default">8</string>
+    <string name="parity_default">0</string>
+    <string name="stopbits_default">1</string>
+    <string name="flowcontrol_default">0</string>
+    <string name="timestamp_format_default">yyyy/MM/dd HH:mm:ss.SSS</string>
+</resources>
