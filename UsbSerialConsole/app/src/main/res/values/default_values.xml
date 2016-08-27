@@ -5,5 +5,5 @@
     <string name="parity_default">0</string>
     <string name="stopbits_default">1</string>
     <string name="flowcontrol_default">0</string>
-    <string name="timestamp_format_default">yyyy/MM/dd HH:mm:ss.SSS</string>
+    <string name="timestamp_format_default">HH:mm:ss.SSS</string>
 </resources>
