@@ -13,6 +13,11 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_save_log"
+        android:orderInCategory="100"
+        android:title="@string/action_save_log"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_log_list"
         android:orderInCategory="100"
         android:title="@string/action_log_list"

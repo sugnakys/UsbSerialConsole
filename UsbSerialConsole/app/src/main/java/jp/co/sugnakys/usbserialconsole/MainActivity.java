@@ -176,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_clear_log:
                 receivedMsgView.setText("");
                 break;
+            case R.id.action_save_log:
+                writeToFile(receivedMsgView.getText().toString());
+                break;
             case R.id.action_settings:
                 intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
@@ -191,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void writeToFile(String data) {
+    private void writeToFile(String data) {
         String fileName = Util.getCurrentDateForFile() + Constants.LOG_EXT;
         File dirName = Util.getLogDir(getApplicationContext());
 
