@@ -1,10 +1,12 @@
 package jp.co.sugnakys.usbserialconsole;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,19 +15,32 @@ import android.widget.ListView;
 
 import java.io.File;
 
-public class LogListViewActivity extends ListActivity
+public class LogListViewActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
     private static final String TAG = "LogListViewActivity";
+
+
+    private ListView listView;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.log_list_view_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.action_log_list));
+        setSupportActionBar(toolbar);
+
+        listView = (ListView) findViewById(R.id.listView);
+        listView.setOnItemClickListener(this);
+        listView.setOnItemLongClickListener(this);
+    }
 
     @Override
     public void onResume() {
         super.onResume();
 
         updateList();
-
-        ListView listView = getListView();
-        listView.setOnItemClickListener(this);
-        listView.setOnItemLongClickListener(this);
     }
 
     private boolean deleteLogFile(File file) {
@@ -55,7 +70,7 @@ public class LogListViewActivity extends ListActivity
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 files);
-        setListAdapter(adapter);
+        listView.setAdapter(adapter);
     }
 
     @Override

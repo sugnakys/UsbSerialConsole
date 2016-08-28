@@ -29,7 +29,9 @@
         <activity
             android:name=".SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LogListViewActivity" />
+        <activity
+            android:name=".LogListViewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LogViewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
