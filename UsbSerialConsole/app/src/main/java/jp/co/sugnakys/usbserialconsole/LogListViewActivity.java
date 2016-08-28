@@ -44,7 +44,7 @@ public class LogListViewActivity extends AppCompatActivity
     }
 
     private boolean deleteLogFile(File file) {
-        Log.d(TAG, "remove file path: " + file.getName());
+        Log.d(TAG, "Delete file path: " + file.getName());
         return file.delete();
     }
 
@@ -91,8 +91,8 @@ public class LogListViewActivity extends AppCompatActivity
         ListView listView = (ListView) adapterView;
         final String selectedItem = (String) listView.getItemAtPosition(position);
         new AlertDialog.Builder(LogListViewActivity.this)
-                .setTitle(getResources().getString(R.string.remove_log_file_title))
-                .setMessage(getResources().getString(R.string.remove_log_file_text) + "\n"
+                .setTitle(getResources().getString(R.string.delete_log_file_title))
+                .setMessage(getResources().getString(R.string.delete_log_file_text) + "\n"
                         + getResources().getString(R.string.file_name) + ": " + selectedItem)
                 .setPositiveButton(android.R.string.ok,
                         new DialogInterface.OnClickListener() {
