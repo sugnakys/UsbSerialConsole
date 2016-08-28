@@ -35,14 +35,12 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         super.onStart();
 
         connectBtn = (Button) getActivity().findViewById(R.id.connectBtn);
-        Button clearBtn = (Button) getActivity().findViewById(R.id.clearBtn);
         Button saveBtn = (Button) getActivity().findViewById(R.id.saveBtn);
         Button sendBtn = (Button) getActivity().findViewById(R.id.sendBtn);
         receivedMsgView = (TextView) getActivity().findViewById(R.id.receivedMsgView);
         sendMsgView = (TextView) getActivity().findViewById(R.id.sendMsgView);
 
         connectBtn.setOnClickListener(this);
-        clearBtn.setOnClickListener(this);
         saveBtn.setOnClickListener(this);
         sendBtn.setOnClickListener(this);
 
@@ -60,9 +58,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 } else {
                     connectBtn.setText(getResources().getString(R.string.connect));
                 }
-                break;
-            case R.id.clearBtn:
-                receivedMsgView.setText("");
                 break;
             case R.id.saveBtn:
                 ((MainActivity) getActivity()).writeToFile(receivedMsgView.getText().toString());

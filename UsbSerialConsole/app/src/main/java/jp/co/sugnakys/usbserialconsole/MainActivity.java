@@ -173,6 +173,9 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent;
         switch (item.getItemId()) {
+            case R.id.action_clear_log:
+                receivedMsgView.setText("");
+                break;
             case R.id.action_settings:
                 intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);

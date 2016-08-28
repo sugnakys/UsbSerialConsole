@@ -24,14 +24,6 @@
             tools:ignore="ButtonStyle" />
 
         <Button
-            android:id="@+id/clearBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/clear"
-            tools:ignore="ButtonStyle" />
-
-        <Button
             android:id="@+id/saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
