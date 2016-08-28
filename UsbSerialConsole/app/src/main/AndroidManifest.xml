@@ -28,7 +28,9 @@
         </activity>
         <activity android:name=".SettingsActivity" />
         <activity android:name=".LogListViewActivity" />
-        <activity android:name=".LogViewActivity" />
+        <activity
+            android:name=".LogViewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".UsbService"

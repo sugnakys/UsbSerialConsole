@@ -1,7 +1,8 @@
 package jp.co.sugnakys.usbserialconsole;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -10,21 +11,28 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-public class LogViewActivity extends Activity {
+public class LogViewActivity extends AppCompatActivity {
 
     private static final String TAG = "LogViewActivity";
+
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_view_main);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     public void onResume() {
         super.onResume();
 
         File logFile = (File) getIntent().getExtras().get(Constants.EXTRA_LOG_FILE);
-        setLogText(logFile);
+        if (logFile != null) {
+            toolbar.setTitle(logFile.getName());
+            setLogText(logFile);
+        }
     }
 
     private void setLogText(File file) {
