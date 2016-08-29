@@ -1,6 +1,6 @@
-package jp.co.sugnakys.usbserialconsole;
+package jp.co.sugnakys.usbserialconsole.util;
 
-class Constants {
+public class Constants {
     public static final String LOG_DIR_NAME = "Log";
     public static final String LOG_EXT = ".txt";
 

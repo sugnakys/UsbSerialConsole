@@ -28,6 +28,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 
+import jp.co.sugnakys.usbserialconsole.util.Constants;
+import jp.co.sugnakys.usbserialconsole.util.Util;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";

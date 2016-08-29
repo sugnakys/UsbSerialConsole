@@ -11,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+import jp.co.sugnakys.usbserialconsole.util.Constants;
+
 public class LogViewActivity extends AppCompatActivity {
 
     private static final String TAG = "LogViewActivity";

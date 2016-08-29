@@ -1,4 +1,4 @@
-package jp.co.sugnakys.usbserialconsole;
+package jp.co.sugnakys.usbserialconsole.util;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-class Util {
+public class Util {
     private static final String TAG = "Util";
 
     public static String getCurrentTime(String format) {

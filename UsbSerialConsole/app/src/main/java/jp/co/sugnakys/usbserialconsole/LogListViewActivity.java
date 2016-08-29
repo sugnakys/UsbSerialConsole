@@ -15,6 +15,9 @@ import android.widget.ListView;
 
 import java.io.File;
 
+import jp.co.sugnakys.usbserialconsole.util.Constants;
+import jp.co.sugnakys.usbserialconsole.util.Util;
+
 public class LogListViewActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
     private static final String TAG = "LogListViewActivity";

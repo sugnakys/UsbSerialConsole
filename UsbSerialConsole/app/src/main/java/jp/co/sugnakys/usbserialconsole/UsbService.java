@@ -24,6 +24,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import jp.co.sugnakys.usbserialconsole.util.Constants;
+
 public class UsbService extends Service {
 
     private static final String TAG = "UsbService";
