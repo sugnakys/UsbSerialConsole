@@ -4,6 +4,8 @@ import jp.co.sugnakys.usbserialconsole.BuildConfig;
 
 public class Log {
 
+    public static final boolean ENABLE_RECEIVED_OUTPUT = false;
+
     public static void e(String tag, String msg) {
         android.util.Log.e(tag, msg);
     }

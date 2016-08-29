@@ -6,10 +6,11 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
+import jp.co.sugnakys.usbserialconsole.util.Log;
+
 public class SettingsPreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    //private static final String TAG = "SettingsPreferenceFragment";
-    //private static final boolean DBG = true;
+    private static final String TAG = "SettingsPreferenceFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Sh
         ListPreference listPref;
         for (String prefKey : prefKeys) {
             listPref = (ListPreference) findPreference(prefKey);
+            Log.d(TAG, "Preference: " + prefKey + ", value: " + listPref.getEntry());
             listPref.setSummary(listPref.getEntry());
         }
     }

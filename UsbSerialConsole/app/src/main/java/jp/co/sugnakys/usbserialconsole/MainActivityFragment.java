@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "MainActivityFragment";
@@ -44,6 +41,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.connectBtn:
+                Log.d(TAG, "Connect button clicked");
                 if (((MainActivity) getActivity()).toggleShowLog()) {
                     connectBtn.setText(getResources().getString(R.string.disconnect));
                 } else {
@@ -51,6 +49,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 }
                 break;
             case R.id.sendBtn:
+                Log.d(TAG, "Send button clicked");
                 String message = sendMsgView.getText().toString();
                 if (!message.isEmpty()) {
                     message += System.lineSeparator();

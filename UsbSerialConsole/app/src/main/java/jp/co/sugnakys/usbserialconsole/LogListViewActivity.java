@@ -20,8 +20,8 @@ import jp.co.sugnakys.usbserialconsole.util.Util;
 
 public class LogListViewActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
-    private static final String TAG = "LogListViewActivity";
 
+    private static final String TAG = "LogListViewActivity";
 
     private ListView listView;
 
@@ -54,6 +54,7 @@ public class LogListViewActivity extends AppCompatActivity
     private String[] getFileNameList() {
         File[] file = Util.getLogDir(getApplicationContext()).listFiles();
         if (file == null) {
+            Log.w(TAG, "File not found");
             return null;
         }
 
@@ -67,6 +68,7 @@ public class LogListViewActivity extends AppCompatActivity
     private void updateList() {
         String[] files = getFileNameList();
         if (files == null) {
+            Log.w(TAG, "File not found");
             return;
         }
 

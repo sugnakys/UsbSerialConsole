@@ -14,7 +14,6 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -29,6 +28,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 
 import jp.co.sugnakys.usbserialconsole.util.Constants;
+import jp.co.sugnakys.usbserialconsole.util.Log;
 import jp.co.sugnakys.usbserialconsole.util.Util;
 
 public class MainActivity extends AppCompatActivity {
@@ -177,16 +177,20 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.action_clear_log:
+                Log.d(TAG, "Clear log clicked");
                 receivedMsgView.setText("");
                 break;
             case R.id.action_save_log:
+                Log.d(TAG, "Save log clicked");
                 writeToFile(receivedMsgView.getText().toString());
                 break;
             case R.id.action_settings:
+                Log.d(TAG, "Settings clicked");
                 intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.action_log_list:
+                Log.d(TAG, "Log list clicked");
                 intent = new Intent(this, LogListViewActivity.class);
                 startActivity(intent);
                 break;
@@ -205,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             fos = new FileOutputStream(new File(dirName, fileName));
             fos.write(data.getBytes(Constants.CHARSET));
+            Log.d(TAG, "Save: " + fileName);
             Toast.makeText(this, "Save: " + fileName, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e(TAG, e.toString());
@@ -222,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
     public void sendMessage(String msg) {
         try {
             usbService.write(msg.getBytes(Constants.CHARSET));
+            Log.d(TAG, "SendMessage: " + msg);
         } catch (UnsupportedEncodingException e) {
             Log.e(TAG, e.toString());
         }
@@ -253,9 +259,11 @@ public class MainActivity extends AppCompatActivity {
                     mActivity.get().addReceivedData(data);
                     break;
                 case UsbService.CTS_CHANGE:
+                    Log.d(TAG, "CTS_CHANGE");
                     Toast.makeText(mActivity.get(), "CTS_CHANGE", Toast.LENGTH_LONG).show();
                     break;
                 case UsbService.DSR_CHANGE:
+                    Log.d(TAG, "DSR_CHANGE");
                     Toast.makeText(mActivity.get(), "DSR_CHANGE", Toast.LENGTH_LONG).show();
                     break;
                 default:
@@ -275,6 +283,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (data.contains(System.getProperty("line.separator"))) {
             receivedMsgView.append(tmpReceivedData);
+            if (Log.ENABLE_RECEIVED_OUTPUT) {
+                Log.i(TAG, "Show message: " + tmpReceivedData);
+            }
             tmpReceivedData = "";
             scrollView.scrollTo(0, receivedMsgView.getBottom());
             hasLineSeparator = true;
