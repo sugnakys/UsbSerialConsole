@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">USB serial console</string>
 
@@ -7,11 +8,8 @@
     <string name="action_log_list">Log list</string>
 
     <string name="delete_log_file_title">Delete log file</string>
-    <string name="delete_log_file_text">Delete file?</string>
+    <string name="delete_log_file_text">Delete log file?</string>
     <string name="file_name">File name</string>
-
-    <string name="on">On</string>
-    <string name="off">Off</string>
 
     <string name="connect">Connect</string>
     <string name="disconnect">Disconnect</string>
@@ -24,28 +22,16 @@
     <string name="usb_disconnected">USB disconnected</string>
     <string name="usb_not_supported">USB device not supported</string>
 
-    <string name="connection_pref_category">Connection settings</string>
+    <string name="connection_pref_category">Connection</string>
 
     <string name="baudrate_title">Baud rate</string>
-    <string name="baudrate_key">Baud rate</string>
-
     <string name="databits_title">Data bits</string>
-    <string name="databits_key">Data bits</string>
-
     <string name="parity_title">Parity check</string>
-    <string name="parity_key">Parity check</string>
-
     <string name="stopbits_title">Stop bit</string>
-    <string name="stopbits_key">Stop bit</string>
-
     <string name="flowcontrol_title">Flow control</string>
-    <string name="flowcontrol_key">Flow control</string>
 
-    <string name="display_pref_category">Display settings</string>
+    <string name="display_pref_category">Display</string>
 
-    <string name="timestamp_key">Show Timestamp</string>
     <string name="timestamp_title">Show Timestamp</string>
-
-    <string name="timestamp_format_key">Timestamp format</string>
     <string name="timestamp_format_title">Timestamp format</string>
 </resources>

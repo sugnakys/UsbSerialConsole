@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="on" translatable="false">On</string>
+    <string name="off" translatable="false">Off</string>
+
+    <string name="baudrate_key" translatable="false">Baud rate</string>
+    <string name="databits_key" translatable="false">Data bits</string>
+    <string name="parity_key" translatable="false">Parity check</string>
+    <string name="stopbits_key" translatable="false">Stop bit</string>
+    <string name="flowcontrol_key" translatable="false">Flow control</string>
+    <string name="timestamp_key" translatable="false">Show Timestamp</string>
+    <string name="timestamp_format_key" translatable="false">Timestamp format</string>
+</resources>

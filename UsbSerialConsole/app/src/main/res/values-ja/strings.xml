@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">USBシリアルコンソール</string>
+
+    <string name="action_clear_log">ログクリア</string>
+    <string name="action_save_log">ログの保存</string>
+    <string name="action_settings">設定</string>
+    <string name="action_log_list">ログリスト</string>
+
+    <string name="delete_log_file_title">ログファイルの削除</string>
+    <string name="delete_log_file_text">ログファイルを削除しますか？</string>
+    <string name="file_name">ファイル名</string>
+
+    <string name="connect">接続</string>
+    <string name="disconnect">切断</string>
+    <string name="send">送信</string>
+    <string name="send_message_hint">送信メッセージを入力</string>
+
+    <string name="usb_permission_granted">USB準備完了</string>
+    <string name="usb_permission_not_granted">USBの権限取得に失敗しました</string>
+    <string name="no_usb">USBが接続されていません</string>
+    <string name="usb_disconnected">USBが切断されました</string>
+    <string name="usb_not_supported">USBデバイスがサポートされていません</string>
+
+    <string name="connection_pref_category">接続</string>
+
+    <string name="baudrate_title">ボーレート</string>
+    <string name="databits_title">データビット</string>
+    <string name="parity_title">パリティチェック</string>
+    <string name="stopbits_title">ストップビット</string>
+    <string name="flowcontrol_title">フロー制御</string>
+
+    <string name="display_pref_category">表示</string>
+
+    <string name="timestamp_title">タイムスタンプ表示</string>
+    <string name="timestamp_format_title">タイムスタンプ表記</string>
+</resources>
