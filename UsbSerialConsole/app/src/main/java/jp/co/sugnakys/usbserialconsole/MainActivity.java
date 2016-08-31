@@ -264,7 +264,9 @@ public class MainActivity extends AppCompatActivity {
             switch (msg.what) {
                 case UsbService.MESSAGE_FROM_SERIAL_PORT:
                     String data = (String) msg.obj;
-                    mActivity.get().addReceivedData(data);
+                    if (data != null) {
+                        mActivity.get().addReceivedData(data);
+                    }
                     break;
                 case UsbService.CTS_CHANGE:
                     Log.d(TAG, "CTS_CHANGE");
