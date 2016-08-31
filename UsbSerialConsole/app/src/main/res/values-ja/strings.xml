@@ -7,6 +7,9 @@
     <string name="action_settings">設定</string>
     <string name="action_log_list">ログリスト</string>
 
+    <string name="visible">表示</string>
+    <string name="invisible">非表示</string>
+
     <string name="delete_log_file_title">ログファイルの削除</string>
     <string name="delete_log_file_text">ログファイルを削除しますか？</string>
     <string name="file_name">ファイル名</string>
@@ -32,7 +35,7 @@
 
     <string name="display_pref_category">表示</string>
 
-    <string name="send_view_visible_title">送信コマンド表示</string>
-    <string name="timestamp_title">タイムスタンプ表示</string>
+    <string name="send_view_visible_title">送信コマンド</string>
+    <string name="timestamp_title">タイムスタンプ</string>
     <string name="timestamp_format_title">タイムスタンプ表記</string>
 </resources>

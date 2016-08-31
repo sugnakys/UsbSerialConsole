@@ -7,6 +7,9 @@
     <string name="action_settings">Settings</string>
     <string name="action_log_list">Log list</string>
 
+    <string name="visible">Visible</string>
+    <string name="invisible">Invisible</string>
+
     <string name="delete_log_file_title">Delete log file</string>
     <string name="delete_log_file_text">Delete log file?</string>
     <string name="file_name">File name</string>
@@ -32,7 +35,7 @@
 
     <string name="display_pref_category">Display</string>
 
-    <string name="send_view_visible_title">Show send view</string>
-    <string name="timestamp_title">Show Timestamp</string>
+    <string name="send_view_visible_title">Send view</string>
+    <string name="timestamp_title">Timestamp</string>
     <string name="timestamp_format_title">Timestamp format</string>
 </resources>

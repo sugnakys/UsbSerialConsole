@@ -44,14 +44,14 @@
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/send_view_visible_key"
-            android:summaryOff="@string/off"
-            android:summaryOn="@string/on"
+            android:summaryOff="@string/invisible"
+            android:summaryOn="@string/visible"
             android:title="@string/send_view_visible_title" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/timestamp_key"
-            android:summaryOff="@string/off"
-            android:summaryOn="@string/on"
+            android:summaryOff="@string/invisible"
+            android:summaryOn="@string/visible"
             android:title="@string/timestamp_title" />
         <ListPreference
             android:defaultValue="@string/timestamp_format_default"
