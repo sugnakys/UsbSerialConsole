@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean showTimeStamp = true;
     private String timestampFormat;
 
-    private boolean hasLineSeparator = true;
     private String tmpReceivedData = "";
 
     private static final String RECEIVED_TEXT_VIEW_STR = "RECEIVED_TEXT_VIEW_STR";
@@ -283,21 +282,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addReceivedData(String data) {
-        if (showTimeStamp && hasLineSeparator) {
-            tmpReceivedData = "[" + Util.getCurrentTime(timestampFormat) + "] ";
-            hasLineSeparator = false;
+        String timeStamp = "";
+        if (showTimeStamp) {
+            timeStamp = "[" + Util.getCurrentTime(timestampFormat) + "] ";
         }
 
         tmpReceivedData += data;
 
-        if (data.contains(System.getProperty("line.separator"))) {
-            receivedMsgView.append(tmpReceivedData);
-            if (Log.ENABLE_RECEIVED_OUTPUT) {
-                Log.i(TAG, "Show message: " + tmpReceivedData);
+        String separateStr = getLineSeparater(tmpReceivedData);
+        if (!separateStr.isEmpty()) {
+            String[] strArray = tmpReceivedData.split(separateStr);
+            for (String str : strArray) {
+                if (str.isEmpty()) {
+                    continue;
+                }
+                receivedMsgView.append(timeStamp + str + System.lineSeparator());
+                if (Log.ENABLE_RECEIVED_OUTPUT) {
+                    Log.i(TAG, "Show message: " + tmpReceivedData);
+                }
             }
             tmpReceivedData = "";
             scrollView.scrollTo(0, receivedMsgView.getBottom());
-            hasLineSeparator = true;
+        }
+    }
+
+    private String getLineSeparater(String str) {
+        if (str.contains(Constants.CR_LF)) {
+            return Constants.CR_LF;
+        } else if (str.contains(Constants.LF)) {
+            return Constants.LF;
+        } else if (str.contains(Constants.CR)) {
+            return Constants.CR;
+        } else {
+            return "";
         }
     }
 }
