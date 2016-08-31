@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        showTimeStamp = pref.getBoolean(getResources().getString(R.string.timestamp_key), true);
+        showTimeStamp = pref.getBoolean(getResources().getString(R.string.timestamp_visible_key), true);
         timestampFormat = pref.getString(getString(R.string.timestamp_format_key), getString(R.string.timestamp_format_default));
 
         setFilters();
