@@ -17,7 +17,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     private static final String TAG = "MainActivityFragment";
 
     private TextView sendMsgView;
-    private Button connectBtn;
     private LinearLayout sendViewLayout;
 
     public MainActivityFragment() {
@@ -33,12 +32,10 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     public void onStart() {
         super.onStart();
 
-        connectBtn = (Button) getActivity().findViewById(R.id.connectBtn);
         Button sendBtn = (Button) getActivity().findViewById(R.id.sendBtn);
         sendMsgView = (TextView) getActivity().findViewById(R.id.sendMsgView);
         sendViewLayout = (LinearLayout) getActivity().findViewById(R.id.sendViewLayout);
 
-        connectBtn.setOnClickListener(this);
         sendBtn.setOnClickListener(this);
     }
 
@@ -57,14 +54,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.connectBtn:
-                Log.d(TAG, "Connect button clicked");
-                if (((MainActivity) getActivity()).toggleShowLog()) {
-                    connectBtn.setText(getResources().getString(R.string.disconnect));
-                } else {
-                    connectBtn.setText(getResources().getString(R.string.connect));
-                }
-                break;
             case R.id.sendBtn:
                 Log.d(TAG, "Send button clicked");
                 String message = sendMsgView.getText().toString();

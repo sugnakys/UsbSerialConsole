@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">USB serial console</string>
 
+    <string name="action_connect">Connect</string>
+    <string name="action_disconnect">Disconnect</string>
     <string name="action_clear_log">Clear log</string>
     <string name="action_save_log">Save log</string>
     <string name="action_settings">Settings</string>
@@ -14,8 +16,6 @@
     <string name="delete_log_file_text">Delete log file?</string>
     <string name="file_name">File name</string>
 
-    <string name="connect">Connect</string>
-    <string name="disconnect">Disconnect</string>
     <string name="send">Send</string>
     <string name="send_message_hint">Send message here</string>
 

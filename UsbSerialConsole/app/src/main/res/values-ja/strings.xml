@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">USBシリアルコンソール</string>
 
+    <string name="action_connect">接続</string>
+    <string name="action_disconnect">切断</string>
     <string name="action_clear_log">ログクリア</string>
     <string name="action_save_log">ログの保存</string>
     <string name="action_settings">設定</string>
@@ -14,8 +16,6 @@
     <string name="delete_log_file_text">ログファイルを削除しますか？</string>
     <string name="file_name">ファイル名</string>
 
-    <string name="connect">接続</string>
-    <string name="disconnect">切断</string>
     <string name="send">送信</string>
     <string name="send_message_hint">送信メッセージを入力</string>
 

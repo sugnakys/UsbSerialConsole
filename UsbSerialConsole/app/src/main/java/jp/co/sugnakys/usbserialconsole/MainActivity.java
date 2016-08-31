@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView receivedMsgView;
     private ScrollView scrollView;
-    private Button connectBtn;
 
     private boolean showTimeStamp = true;
     private String timestampFormat;
@@ -50,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String RECEIVED_TEXT_VIEW_STR = "RECEIVED_TEXT_VIEW_STR";
 
+    private boolean isUSBReady = false;
     private boolean isConnect = false;
 
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             switch (intent.getAction()) {
                 case UsbService.ACTION_USB_PERMISSION_GRANTED:
                     Toast.makeText(context, getString(R.string.usb_permission_granted), Toast.LENGTH_SHORT).show();
-                    connectBtn.setEnabled(true);
+                    isUSBReady = true;
                     break;
                 case UsbService.ACTION_USB_PERMISSION_NOT_GRANTED:
                     Toast.makeText(context, getString(R.string.usb_permission_not_granted), Toast.LENGTH_SHORT).show();
@@ -68,12 +67,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case UsbService.ACTION_USB_DISCONNECTED:
                     Toast.makeText(context, getString(R.string.usb_disconnected), Toast.LENGTH_SHORT).show();
-                    if (toggleShowLog()) {
-                        connectBtn.setText(getResources().getString(R.string.disconnect));
-                    } else {
-                        connectBtn.setText(getResources().getString(R.string.connect));
-                    }
-                    connectBtn.setEnabled(false);
+                    toggleShowLog();
+                    isUSBReady = false;
                     break;
                 case UsbService.ACTION_USB_NOT_SUPPORTED:
                     Toast.makeText(context, getString(R.string.usb_not_supported), Toast.LENGTH_SHORT).show();
@@ -104,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
         mHandler = new MyHandler(this);
 
         setContentView(R.layout.activity_main);
-        connectBtn = (Button) findViewById(R.id.connectBtn);
         receivedMsgView = (TextView) findViewById(R.id.receivedMsgView);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
 
@@ -172,10 +166,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_connect);
+        item.setEnabled(isUSBReady);
+        if (isConnect) {
+            item.setTitle(getString(R.string.action_disconnect));
+        } else {
+            item.setTitle(getString(R.string.action_connect));
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         Intent intent;
         switch (item.getItemId()) {
+            case R.id.action_connect:
+                android.util.Log.d(TAG, "Connect clicked");
+                toggleShowLog();
+                break;
             case R.id.action_clear_log:
                 Log.d(TAG, "Clear log clicked");
                 receivedMsgView.setText("");
@@ -233,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean toggleShowLog() {
+    private void toggleShowLog() {
         if (isConnect) {
             usbService.setHandler(null);
             isConnect = false;
@@ -241,7 +251,6 @@ public class MainActivity extends AppCompatActivity {
             usbService.setHandler(mHandler);
             isConnect = true;
         }
-        return isConnect;
     }
 
     private static class MyHandler extends Handler {

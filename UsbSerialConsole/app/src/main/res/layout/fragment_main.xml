@@ -11,20 +11,6 @@
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/connectBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:text="@string/connect"
-            tools:ignore="ButtonStyle" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/sendViewLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
