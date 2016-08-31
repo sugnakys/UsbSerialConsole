@@ -10,4 +10,5 @@
     <string name="flowcontrol_key" translatable="false">Flow control</string>
     <string name="timestamp_key" translatable="false">Show Timestamp</string>
     <string name="timestamp_format_key" translatable="false">Timestamp format</string>
+    <string name="send_view_visible_key" translatable="false">Show send view</string>
 </resources>

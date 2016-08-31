@@ -32,6 +32,7 @@
 
     <string name="display_pref_category">Display</string>
 
+    <string name="send_view_visible_title">Show send view</string>
     <string name="timestamp_title">Show Timestamp</string>
     <string name="timestamp_format_title">Timestamp format</string>
 </resources>

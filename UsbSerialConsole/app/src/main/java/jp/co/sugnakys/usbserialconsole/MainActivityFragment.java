@@ -1,12 +1,15 @@
 package jp.co.sugnakys.usbserialconsole;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
@@ -15,6 +18,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     private TextView sendMsgView;
     private Button connectBtn;
+    private LinearLayout sendViewLayout;
 
     public MainActivityFragment() {
     }
@@ -32,9 +36,22 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         connectBtn = (Button) getActivity().findViewById(R.id.connectBtn);
         Button sendBtn = (Button) getActivity().findViewById(R.id.sendBtn);
         sendMsgView = (TextView) getActivity().findViewById(R.id.sendMsgView);
+        sendViewLayout = (LinearLayout) getActivity().findViewById(R.id.sendViewLayout);
 
         connectBtn.setOnClickListener(this);
         sendBtn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if (pref.getBoolean(getString(R.string.send_view_visible_key), true)) {
+            sendViewLayout.setVisibility(View.VISIBLE);
+        } else {
+            sendViewLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override

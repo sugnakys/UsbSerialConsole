@@ -43,6 +43,12 @@
     <PreferenceCategory android:title="@string/display_pref_category">
         <CheckBoxPreference
             android:defaultValue="true"
+            android:key="@string/send_view_visible_key"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/send_view_visible_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
             android:key="@string/timestamp_key"
             android:summaryOff="@string/off"
             android:summaryOn="@string/on"

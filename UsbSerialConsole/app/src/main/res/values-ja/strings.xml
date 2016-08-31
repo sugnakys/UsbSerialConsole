@@ -32,6 +32,7 @@
 
     <string name="display_pref_category">表示</string>
 
+    <string name="send_view_visible_title">送信コマンド表示</string>
     <string name="timestamp_title">タイムスタンプ表示</string>
     <string name="timestamp_format_title">タイムスタンプ表記</string>
 </resources>
