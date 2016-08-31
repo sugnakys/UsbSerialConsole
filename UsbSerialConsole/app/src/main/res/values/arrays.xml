@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="baudrate_entries">
+    <string-array name="baudrate_entries" translatable="false">
         <item>100</item>
         <item>300</item>
         <item>600</item>
@@ -17,7 +17,7 @@
         <item>460800</item>
         <item>921600</item>
     </string-array>
-    <string-array name="baudrate_entryvalues">
+    <string-array name="baudrate_entryvalues" translatable="false">
         <item>100</item>
         <item>300</item>
         <item>600</item>
@@ -35,27 +35,27 @@
         <item>921600</item>
     </string-array>
 
-    <string-array name="databits_entries">
+    <string-array name="databits_entries" translatable="false">
         <item>5</item>
         <item>6</item>
         <item>7</item>
         <item>8</item>
     </string-array>
-    <string-array name="databits_entryvalues">
+    <string-array name="databits_entryvalues" translatable="false">
         <item>5</item>
         <item>6</item>
         <item>7</item>
         <item>8</item>
     </string-array>
 
-    <string-array name="parity_entries">
+    <string-array name="parity_entries" translatable="false">
         <item>none</item>
         <item>odd</item>
         <item>even</item>
         <item>mark</item>
         <item>space</item>
     </string-array>
-    <string-array name="parity_entryvalues">
+    <string-array name="parity_entryvalues" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -63,31 +63,31 @@
         <item>4</item>
     </string-array>
 
-    <string-array name="stopbits_entries">
+    <string-array name="stopbits_entries" translatable="false">
         <item>1</item>
         <item>1.5</item>
         <item>2</item>
     </string-array>
-    <string-array name="stopbits_entryvalues">
+    <string-array name="stopbits_entryvalues" translatable="false">
         <item>1</item>
         <item>3</item>
         <item>2</item>
     </string-array>
 
-    <string-array name="flowcontrol_entries">
+    <string-array name="flowcontrol_entries" translatable="false">
         <item>off</item>
         <item>RTS/CTS</item>
         <item>DSR/DTRd</item>
         <item>Xon/Xoff</item>
     </string-array>
-    <string-array name="flowcontrol_entryvalues">
+    <string-array name="flowcontrol_entryvalues" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
     </string-array>
 
-    <string-array name="timestamp_format_entries">
+    <string-array name="timestamp_format_entries" translatable="false">
         <item>yyyy/MM/dd HH:mm:ss.SSS</item>
         <item>yyyy/MM/dd HH:mm:ss</item>
         <item>MM/dd HH:mm:ss.SSS</item>
@@ -95,7 +95,7 @@
         <item>HH:mm:ss.SSS</item>
         <item>HH:mm:ss</item>
     </string-array>
-    <string-array name="timestamp_format_entryvalues">
+    <string-array name="timestamp_format_entryvalues" translatable="false">
         <item>yyyy/MM/dd HH:mm:ss.SSS</item>
         <item>yyyy/MM/dd HH:mm:ss</item>
         <item>MM/dd HH:mm:ss.SSS</item>
