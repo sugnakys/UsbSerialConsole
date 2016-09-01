@@ -24,6 +24,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import jp.sugnakys.usbserialconsole.util.Constants;
 import jp.sugnakys.usbserialconsole.util.Log;
@@ -231,9 +233,11 @@ public class MainActivity extends BaseAppCompatActivity {
     }
 
     public void sendMessage(String msg) {
-        msg += lineFeedCode;
+        Pattern pattern = Pattern.compile("\n$");
+        Matcher matcher = pattern.matcher(msg);
+        String strResult = matcher.replaceAll("") + lineFeedCode;
         try {
-            usbService.write(msg.getBytes(Constants.CHARSET));
+            usbService.write(strResult.getBytes(Constants.CHARSET));
             Log.d(TAG, "SendMessage: " + msg);
         } catch (UnsupportedEncodingException e) {
             Log.e(TAG, e.toString());

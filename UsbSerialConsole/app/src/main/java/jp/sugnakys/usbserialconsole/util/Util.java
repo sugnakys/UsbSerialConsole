@@ -46,11 +46,14 @@ public class Util {
     }
 
     public static String getLineFeedCd(String lineFeedCode, Context context) {
-        if (lineFeedCode.equals(context.getString(R.string.line_feed_code_cr))) {
+        if (lineFeedCode.equals(context.getString(R.string.line_feed_code_cr_value))) {
+            Log.d(TAG, "Line feed code: CR");
             return Constants.CR;
-        } else if (lineFeedCode.equals(context.getString(R.string.line_feed_code_lf))) {
+        } else if (lineFeedCode.equals(context.getString(R.string.line_feed_code_lf_value))) {
+            Log.d(TAG, "Line feed code: LF");
             return Constants.LF;
         } else {
+            Log.d(TAG, "Line feed code: CRLF");
             return Constants.CR_LF;
         }
     }
