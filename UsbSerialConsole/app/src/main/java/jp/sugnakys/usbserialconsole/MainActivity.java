@@ -32,25 +32,29 @@ import jp.sugnakys.usbserialconsole.util.Util;
 public class MainActivity extends BaseAppCompatActivity {
 
     private static final String TAG = "MainActivity";
-
+    private static final String RECEIVED_TEXT_VIEW_STR = "RECEIVED_TEXT_VIEW_STR";
     private UsbService usbService;
-    private MyHandler mHandler;
+    private final ServiceConnection usbConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName arg0, IBinder arg1) {
+            usbService = ((UsbService.UsbBinder) arg1).getService();
+        }
 
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            usbService = null;
+        }
+    };
+    private MyHandler mHandler;
     private TextView receivedMsgView;
     private ScrollView scrollView;
-
     private boolean showTimeStamp;
     private String timestampFormat;
     private boolean autoScroll;
     private String lineFeedCode;
-
     private String tmpReceivedData = "";
-
-    private static final String RECEIVED_TEXT_VIEW_STR = "RECEIVED_TEXT_VIEW_STR";
-
     private boolean isUSBReady = false;
     private boolean isConnect = false;
-
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -77,18 +81,6 @@ public class MainActivity extends BaseAppCompatActivity {
                     Log.e(TAG, "Unknown action");
                     break;
             }
-        }
-    };
-
-    private final ServiceConnection usbConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName arg0, IBinder arg1) {
-            usbService = ((UsbService.UsbBinder) arg1).getService();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            usbService = null;
         }
     };
 
@@ -256,37 +248,6 @@ public class MainActivity extends BaseAppCompatActivity {
         }
     }
 
-    private static class MyHandler extends Handler {
-        private final WeakReference<MainActivity> mActivity;
-
-        public MyHandler(MainActivity activity) {
-            mActivity = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case UsbService.MESSAGE_FROM_SERIAL_PORT:
-                    String data = (String) msg.obj;
-                    if (data != null) {
-                        mActivity.get().addReceivedData(data);
-                    }
-                    break;
-                case UsbService.CTS_CHANGE:
-                    Log.d(TAG, "CTS_CHANGE");
-                    Toast.makeText(mActivity.get(), "CTS_CHANGE", Toast.LENGTH_LONG).show();
-                    break;
-                case UsbService.DSR_CHANGE:
-                    Log.d(TAG, "DSR_CHANGE");
-                    Toast.makeText(mActivity.get(), "DSR_CHANGE", Toast.LENGTH_LONG).show();
-                    break;
-                default:
-                    Log.e(TAG, "Unknown message");
-                    break;
-            }
-        }
-    }
-
     public void addReceivedData(String data) {
         String timeStamp = "";
         if (showTimeStamp) {
@@ -324,6 +285,37 @@ public class MainActivity extends BaseAppCompatActivity {
             return Constants.CR;
         } else {
             return "";
+        }
+    }
+
+    private static class MyHandler extends Handler {
+        private final WeakReference<MainActivity> mActivity;
+
+        public MyHandler(MainActivity activity) {
+            mActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case UsbService.MESSAGE_FROM_SERIAL_PORT:
+                    String data = (String) msg.obj;
+                    if (data != null) {
+                        mActivity.get().addReceivedData(data);
+                    }
+                    break;
+                case UsbService.CTS_CHANGE:
+                    Log.d(TAG, "CTS_CHANGE");
+                    Toast.makeText(mActivity.get(), "CTS_CHANGE", Toast.LENGTH_LONG).show();
+                    break;
+                case UsbService.DSR_CHANGE:
+                    Log.d(TAG, "DSR_CHANGE");
+                    Toast.makeText(mActivity.get(), "DSR_CHANGE", Toast.LENGTH_LONG).show();
+                    break;
+                default:
+                    Log.e(TAG, "Unknown message");
+                    break;
+            }
         }
     }
 }

@@ -28,43 +28,29 @@ import jp.sugnakys.usbserialconsole.util.Constants;
 
 public class UsbService extends Service {
 
-    private static final String TAG = "UsbService";
-    private static final boolean DBG = true;
-
     public static final String ACTION_USB_NOT_SUPPORTED = "jp.sugnakys.usbserialconsole.USB_NOT_SUPPORTED";
     public static final String ACTION_NO_USB = "jp.sugnakys.usbserialconsole.NO_USB";
     public static final String ACTION_USB_PERMISSION_GRANTED = "jp.sugnakys.usbserialconsole.USB_PERMISSION_GRANTED";
     public static final String ACTION_USB_PERMISSION_NOT_GRANTED = "jp.sugnakys.usbserialconsole.USB_PERMISSION_NOT_GRANTED";
     public static final String ACTION_USB_DISCONNECTED = "jp.sugnakys.usbserialconsole.USB_DISCONNECTED";
-
-    private static final String ACTION_USB_READY = "jp.sugnakys.usbserialconsole.USB_READY";
-    private static final String ACTION_CDC_DRIVER_NOT_WORKING = "jp.sugnakys.usbserialconsole.ACTION_CDC_DRIVER_NOT_WORKING";
-    private static final String ACTION_USB_DEVICE_NOT_WORKING = "jp.sugnakys.usbserialconsole.ACTION_USB_DEVICE_NOT_WORKING";
-
-    private static final String ACTION_USB_ATTACHED = "android.hardware.usb.action.USB_DEVICE_ATTACHED";
-    private static final String ACTION_USB_DETACHED = "android.hardware.usb.action.USB_DEVICE_DETACHED";
-
     public static final String ACTION_SERIAL_CONFIG_CHANGED = "jp.sugnakys.usbserialconsole.SERIAL_CONFIG_CHANGED";
-
-    private static final String ACTION_USB_PERMISSION = "jp.sugnakys.usbserialconsole.USB_PERMISSION";
-
     public static final int MESSAGE_FROM_SERIAL_PORT = 0;
     public static final int CTS_CHANGE = 1;
     public static final int DSR_CHANGE = 2;
-
+    private static final String TAG = "UsbService";
+    private static final boolean DBG = true;
+    private static final String ACTION_USB_READY = "jp.sugnakys.usbserialconsole.USB_READY";
+    private static final String ACTION_CDC_DRIVER_NOT_WORKING = "jp.sugnakys.usbserialconsole.ACTION_CDC_DRIVER_NOT_WORKING";
+    private static final String ACTION_USB_DEVICE_NOT_WORKING = "jp.sugnakys.usbserialconsole.ACTION_USB_DEVICE_NOT_WORKING";
+    private static final String ACTION_USB_ATTACHED = "android.hardware.usb.action.USB_DEVICE_ATTACHED";
+    private static final String ACTION_USB_DETACHED = "android.hardware.usb.action.USB_DEVICE_DETACHED";
+    private static final String ACTION_USB_PERMISSION = "jp.sugnakys.usbserialconsole.USB_PERMISSION";
     static boolean SERVICE_CONNECTED = false;
 
     private final IBinder binder = new UsbBinder();
 
     private Context context;
     private Handler mHandler;
-    private UsbManager usbManager;
-    private UsbDevice device;
-    private UsbDeviceConnection connection;
-    private UsbSerialDevice serialPort;
-
-    private boolean serialPortConnected;
-
     private final UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() {
         @Override
         public void onReceivedData(byte[] arg) {
@@ -78,7 +64,6 @@ public class UsbService extends Service {
             }
         }
     };
-
     private final UsbSerialInterface.UsbCTSCallback ctsCallback = new UsbSerialInterface.UsbCTSCallback() {
         @Override
         public void onCTSChanged(boolean state) {
@@ -87,7 +72,6 @@ public class UsbService extends Service {
             }
         }
     };
-
     private final UsbSerialInterface.UsbDSRCallback dsrCallback = new UsbSerialInterface.UsbDSRCallback() {
         @Override
         public void onDSRChanged(boolean state) {
@@ -96,7 +80,11 @@ public class UsbService extends Service {
             }
         }
     };
-
+    private UsbManager usbManager;
+    private UsbDevice device;
+    private UsbDeviceConnection connection;
+    private UsbSerialDevice serialPort;
+    private boolean serialPortConnected;
     private final BroadcastReceiver usbReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
