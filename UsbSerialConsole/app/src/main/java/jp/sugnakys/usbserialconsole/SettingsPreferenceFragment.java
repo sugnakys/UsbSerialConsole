@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import jp.sugnakys.usbserialconsole.util.Log;
+import jp.sugnakys.usbserialconsole.util.Util;
 
 public class SettingsPreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -32,7 +33,8 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Sh
         listPrefKeys = new String[]{
                 getString(R.string.baudrate_key), getString(R.string.databits_key),
                 getString(R.string.stopbits_key), getString(R.string.parity_key),
-                getString(R.string.flowcontrol_key), getString(R.string.timestamp_format_key)
+                getString(R.string.flowcontrol_key), getString(R.string.timestamp_format_key),
+                getString(R.string.screen_orientation_key)
         };
 
     }
@@ -56,7 +58,13 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Sh
 
         Preference preference = findPreference(key);
         if (preference instanceof ListPreference) {
-            preference.setSummary(((ListPreference) preference).getEntry());
+            ListPreference listPref = (ListPreference) preference;
+
+            preference.setSummary(listPref.getEntry());
+
+            if (key.equals(getString(R.string.screen_orientation_key))) {
+                Util.setScreenOrientation(listPref.getValue(), getActivity());
+            }
         }
     }
 

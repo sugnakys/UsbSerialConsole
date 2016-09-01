@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +29,7 @@ import jp.sugnakys.usbserialconsole.util.Constants;
 import jp.sugnakys.usbserialconsole.util.Log;
 import jp.sugnakys.usbserialconsole.util.Util;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseAppCompatActivity {
 
     private static final String TAG = "MainActivity";
 

@@ -38,4 +38,9 @@
     <string name="send_view_visible_title">Send view</string>
     <string name="timestamp_title">Timestamp</string>
     <string name="timestamp_format_title">Timestamp format</string>
+
+    <string name="screen_orientation_title">Screen orientation</string>
+    <string name="screen_orientation_device_setting">Device setting</string>
+    <string name="screen_orientation_portrait">Portrait</string>
+    <string name="screen_orientation_landscape">Landscape</string>
 </resources>

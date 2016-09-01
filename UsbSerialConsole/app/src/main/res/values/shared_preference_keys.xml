@@ -8,4 +8,5 @@
     <string name="timestamp_visible_key" translatable="false">timestamp_visible</string>
     <string name="timestamp_format_key" translatable="false">timestamp_format</string>
     <string name="send_view_visible_key" translatable="false">send_view_visible</string>
+    <string name="screen_orientation_key" translatable="false">screen_orientation</string>
 </resources>

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +17,7 @@ import java.io.File;
 import jp.sugnakys.usbserialconsole.util.Constants;
 import jp.sugnakys.usbserialconsole.util.Util;
 
-public class LogListViewActivity extends AppCompatActivity
+public class LogListViewActivity extends BaseAppCompatActivity
         implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private static final String TAG = "LogListViewActivity";

@@ -1,7 +1,6 @@
 package jp.sugnakys.usbserialconsole;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
@@ -13,7 +12,7 @@ import java.nio.charset.Charset;
 
 import jp.sugnakys.usbserialconsole.util.Constants;
 
-public class LogViewActivity extends AppCompatActivity {
+public class LogViewActivity extends BaseAppCompatActivity {
 
     private static final String TAG = "LogViewActivity";
 

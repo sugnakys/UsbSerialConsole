@@ -38,4 +38,9 @@
     <string name="send_view_visible_title">送信コマンド</string>
     <string name="timestamp_title">タイムスタンプ</string>
     <string name="timestamp_format_title">タイムスタンプ表記</string>
+
+    <string name="screen_orientation_title">画面の向き</string>
+    <string name="screen_orientation_device_setting">端末設定</string>
+    <string name="screen_orientation_portrait">縦固定</string>
+    <string name="screen_orientation_landscape">横固定</string>
 </resources>

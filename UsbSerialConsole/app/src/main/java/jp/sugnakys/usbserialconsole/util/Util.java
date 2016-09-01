@@ -1,12 +1,16 @@
 package jp.sugnakys.usbserialconsole.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.util.Log;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import jp.sugnakys.usbserialconsole.R;
 
 public class Util {
     private static final String TAG = "Util";
@@ -29,5 +33,15 @@ public class Util {
             }
         }
         return file;
+    }
+
+    public static void setScreenOrientation(String screenOrientation, Activity activity) {
+        if (screenOrientation.equals(activity.getString(R.string.screen_orientation_portrait_value))) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else if (screenOrientation.equals(activity.getString(R.string.screen_orientation_landscape_value))) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        }
     }
 }

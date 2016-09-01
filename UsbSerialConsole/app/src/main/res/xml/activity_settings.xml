@@ -47,6 +47,12 @@
             android:summaryOff="@string/invisible"
             android:summaryOn="@string/visible"
             android:title="@string/send_view_visible_title" />
+        <ListPreference
+            android:defaultValue="@string/screen_orientation_default"
+            android:entries="@array/screen_orientation_entries"
+            android:entryValues="@array/screen_orientation_entryvalues"
+            android:key="@string/screen_orientation_key"
+            android:title="@string/screen_orientation_title" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/timestamp_visible_key"
