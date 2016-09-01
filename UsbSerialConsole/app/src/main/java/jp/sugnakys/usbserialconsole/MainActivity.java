@@ -271,9 +271,6 @@ public class MainActivity extends BaseAppCompatActivity {
         if (!separateStr.isEmpty()) {
             String[] strArray = tmpReceivedData.split(separateStr);
             for (String str : strArray) {
-                if (str.isEmpty()) {
-                    continue;
-                }
                 receivedMsgView.append(timeStamp + str + System.lineSeparator());
                 if (Log.ENABLE_RECEIVED_OUTPUT) {
                     Log.i(TAG, "Show message: " + tmpReceivedData);
