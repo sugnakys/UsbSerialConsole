@@ -3,6 +3,7 @@ package jp.sugnakys.usbserialconsole;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -21,6 +22,9 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Sh
     private static List<String> prefSerialList;
     private static String[] listPrefKeys;
 
+    private ListPreference timestampFormatPref;
+    private ListPreference lineFeedCodePref;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,8 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Sh
                 getString(R.string.screen_orientation_key), getString(R.string.line_feed_code_key)
         };
 
+        timestampFormatPref = (ListPreference) findPreference(getString(R.string.timestamp_format_key));
+        lineFeedCodePref = (ListPreference) findPreference(getString(R.string.line_feed_code_key));
     }
 
     private void setSummary() {
@@ -66,13 +72,28 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Sh
                 Util.setScreenOrientation(listPref.getValue(), getActivity());
             }
         }
+
+        if (preference instanceof CheckBoxPreference) {
+            CheckBoxPreference checkPref = (CheckBoxPreference) preference;
+
+            if (key.equals(getString(R.string.timestamp_visible_key))) {
+                timestampFormatPref.setEnabled(checkPref.isChecked());
+            }
+            if (key.equals(getString(R.string.send_view_visible_key))) {
+                lineFeedCodePref.setEnabled(checkPref.isChecked());
+            }
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        SharedPreferences pref = getPreferenceManager().getSharedPreferences();
+        pref.registerOnSharedPreferenceChangeListener(this);
         setSummary();
+
+        timestampFormatPref.setEnabled(pref.getBoolean(getString(R.string.timestamp_visible_key), true));
+        lineFeedCodePref.setEnabled(pref.getBoolean(getString(R.string.send_view_visible_key), true));
     }
 
     @Override
