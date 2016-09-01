@@ -47,4 +47,7 @@
     <string name="auto_scroll_title">Auto scroll</string>
 
     <string name="line_feed_code_title">Line feed code</string>
+
+    <string name="send_pref_category">Send</string>
+    <string name="receive_pref_category">Receive</string>
 </resources>

@@ -47,4 +47,7 @@
     <string name="auto_scroll_title">自動スクロール</string>
 
     <string name="line_feed_code_title">改行コード</string>
+
+    <string name="send_pref_category">送信</string>
+    <string name="receive_pref_category">受信</string>
 </resources>

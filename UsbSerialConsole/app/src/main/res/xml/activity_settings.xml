@@ -41,6 +41,38 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/display_pref_category">
+        <ListPreference
+            android:defaultValue="@string/screen_orientation_default"
+            android:entries="@array/screen_orientation_entries"
+            android:entryValues="@array/screen_orientation_entryvalues"
+            android:key="@string/screen_orientation_key"
+            android:title="@string/screen_orientation_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/auto_scroll_key"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/auto_scroll_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/receive_pref_category">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/timestamp_visible_key"
+            android:summaryOff="@string/invisible"
+            android:summaryOn="@string/visible"
+            android:title="@string/timestamp_title" />
+
+        <ListPreference
+            android:defaultValue="@string/timestamp_format_default"
+            android:entries="@array/timestamp_format_entries"
+            android:entryValues="@array/timestamp_format_entryvalues"
+            android:key="@string/timestamp_format_key"
+            android:title="@string/timestamp_format_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/send_pref_category">
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/send_view_visible_key"
@@ -53,29 +85,7 @@
             android:entryValues="@array/line_feed_code_entryvalues"
             android:key="@string/line_feed_code_key"
             android:title="@string/line_feed_code_title" />
-        <ListPreference
-            android:defaultValue="@string/screen_orientation_default"
-            android:entries="@array/screen_orientation_entries"
-            android:entryValues="@array/screen_orientation_entryvalues"
-            android:key="@string/screen_orientation_key"
-            android:title="@string/screen_orientation_title" />
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/auto_scroll_key"
-            android:summaryOff="@string/off"
-            android:summaryOn="@string/on"
-            android:title="@string/auto_scroll_title" />
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/timestamp_visible_key"
-            android:summaryOff="@string/invisible"
-            android:summaryOn="@string/visible"
-            android:title="@string/timestamp_title" />
-        <ListPreference
-            android:defaultValue="@string/timestamp_format_default"
-            android:entries="@array/timestamp_format_entries"
-            android:entryValues="@array/timestamp_format_entryvalues"
-            android:key="@string/timestamp_format_key"
-            android:title="@string/timestamp_format_title" />
     </PreferenceCategory>
+
+
 </PreferenceScreen>
