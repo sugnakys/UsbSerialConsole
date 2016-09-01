@@ -1,4 +1,4 @@
-package jp.co.sugnakys.usbserialconsole;
+package jp.sugnakys.usbserialconsole;
 
 import android.app.PendingIntent;
 import android.app.Service;
@@ -24,29 +24,29 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import jp.co.sugnakys.usbserialconsole.util.Constants;
+import jp.sugnakys.usbserialconsole.util.Constants;
 
 public class UsbService extends Service {
 
     private static final String TAG = "UsbService";
     private static final boolean DBG = true;
 
-    public static final String ACTION_USB_NOT_SUPPORTED = "jp.co.sugnakys.usbserialconsole.USB_NOT_SUPPORTED";
-    public static final String ACTION_NO_USB = "jp.co.sugnakys.usbserialconsole.NO_USB";
-    public static final String ACTION_USB_PERMISSION_GRANTED = "jp.co.sugnakys.usbserialconsole.USB_PERMISSION_GRANTED";
-    public static final String ACTION_USB_PERMISSION_NOT_GRANTED = "jp.co.sugnakys.usbserialconsole.USB_PERMISSION_NOT_GRANTED";
-    public static final String ACTION_USB_DISCONNECTED = "jp.co.sugnakys.usbserialconsole.USB_DISCONNECTED";
+    public static final String ACTION_USB_NOT_SUPPORTED = "jp.sugnakys.usbserialconsole.USB_NOT_SUPPORTED";
+    public static final String ACTION_NO_USB = "jp.sugnakys.usbserialconsole.NO_USB";
+    public static final String ACTION_USB_PERMISSION_GRANTED = "jp.sugnakys.usbserialconsole.USB_PERMISSION_GRANTED";
+    public static final String ACTION_USB_PERMISSION_NOT_GRANTED = "jp.sugnakys.usbserialconsole.USB_PERMISSION_NOT_GRANTED";
+    public static final String ACTION_USB_DISCONNECTED = "jp.sugnakys.usbserialconsole.USB_DISCONNECTED";
 
-    private static final String ACTION_USB_READY = "jp.co.sugnakys.usbserialconsole.USB_READY";
-    private static final String ACTION_CDC_DRIVER_NOT_WORKING = "jp.co.sugnakys.usbserialconsole.ACTION_CDC_DRIVER_NOT_WORKING";
-    private static final String ACTION_USB_DEVICE_NOT_WORKING = "jp.co.sugnakys.usbserialconsole.ACTION_USB_DEVICE_NOT_WORKING";
+    private static final String ACTION_USB_READY = "jp.sugnakys.usbserialconsole.USB_READY";
+    private static final String ACTION_CDC_DRIVER_NOT_WORKING = "jp.sugnakys.usbserialconsole.ACTION_CDC_DRIVER_NOT_WORKING";
+    private static final String ACTION_USB_DEVICE_NOT_WORKING = "jp.sugnakys.usbserialconsole.ACTION_USB_DEVICE_NOT_WORKING";
 
     private static final String ACTION_USB_ATTACHED = "android.hardware.usb.action.USB_DEVICE_ATTACHED";
     private static final String ACTION_USB_DETACHED = "android.hardware.usb.action.USB_DEVICE_DETACHED";
 
-    public static final String ACTION_SERIAL_CONFIG_CHANGED = "jp.co.sugnakys.usbserialconsole.SERIAL_CONFIG_CHANGED";
+    public static final String ACTION_SERIAL_CONFIG_CHANGED = "jp.sugnakys.usbserialconsole.SERIAL_CONFIG_CHANGED";
 
-    private static final String ACTION_USB_PERMISSION = "jp.co.sugnakys.usbserialconsole.USB_PERMISSION";
+    private static final String ACTION_USB_PERMISSION = "jp.sugnakys.usbserialconsole.USB_PERMISSION";
 
     public static final int MESSAGE_FROM_SERIAL_PORT = 0;
     public static final int CTS_CHANGE = 1;

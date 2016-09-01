@@ -1,4 +1,4 @@
-package jp.co.sugnakys.usbserialconsole;
+package jp.sugnakys.usbserialconsole;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

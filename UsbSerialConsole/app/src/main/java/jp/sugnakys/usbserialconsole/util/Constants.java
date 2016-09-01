@@ -1,4 +1,4 @@
-package jp.co.sugnakys.usbserialconsole.util;
+package jp.sugnakys.usbserialconsole.util;
 
 public class Constants {
     public static final String LOG_DIR_NAME = "Log";

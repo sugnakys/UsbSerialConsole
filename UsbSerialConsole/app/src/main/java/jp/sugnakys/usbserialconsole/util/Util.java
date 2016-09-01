@@ -1,4 +1,4 @@
-package jp.co.sugnakys.usbserialconsole.util;
+package jp.sugnakys.usbserialconsole.util;
 
 import android.content.Context;
 import android.util.Log;

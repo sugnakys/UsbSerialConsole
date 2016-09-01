@@ -1,6 +1,6 @@
-package jp.co.sugnakys.usbserialconsole.util;
+package jp.sugnakys.usbserialconsole.util;
 
-import jp.co.sugnakys.usbserialconsole.BuildConfig;
+import jp.sugnakys.usbserialconsole.BuildConfig;
 
 public class Log {
 

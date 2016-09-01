@@ -1,4 +1,4 @@
-package jp.co.sugnakys.usbserialconsole;
+package jp.sugnakys.usbserialconsole;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -26,9 +26,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 
-import jp.co.sugnakys.usbserialconsole.util.Constants;
-import jp.co.sugnakys.usbserialconsole.util.Log;
-import jp.co.sugnakys.usbserialconsole.util.Util;
+import jp.sugnakys.usbserialconsole.util.Constants;
+import jp.sugnakys.usbserialconsole.util.Log;
+import jp.sugnakys.usbserialconsole.util.Util;
 
 public class MainActivity extends AppCompatActivity {
 

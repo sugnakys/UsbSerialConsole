@@ -1,4 +1,4 @@
-package jp.co.sugnakys.usbserialconsole;
+package jp.sugnakys.usbserialconsole;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import jp.co.sugnakys.usbserialconsole.util.Constants;
+import jp.sugnakys.usbserialconsole.util.Constants;
 
 public class LogViewActivity extends AppCompatActivity {
 

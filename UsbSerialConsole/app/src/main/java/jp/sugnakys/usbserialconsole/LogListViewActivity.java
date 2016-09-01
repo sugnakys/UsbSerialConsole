@@ -1,4 +1,4 @@
-package jp.co.sugnakys.usbserialconsole;
+package jp.sugnakys.usbserialconsole;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,8 +15,8 @@ import android.widget.ListView;
 
 import java.io.File;
 
-import jp.co.sugnakys.usbserialconsole.util.Constants;
-import jp.co.sugnakys.usbserialconsole.util.Util;
+import jp.sugnakys.usbserialconsole.util.Constants;
+import jp.sugnakys.usbserialconsole.util.Util;
 
 public class LogListViewActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
