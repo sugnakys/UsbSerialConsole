@@ -44,4 +44,14 @@ public class Util {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         }
     }
+
+    public static String getLineFeedCd(String lineFeedCode, Context context) {
+        if (lineFeedCode.equals(context.getString(R.string.line_feed_code_cr))) {
+            return Constants.CR;
+        } else if (lineFeedCode.equals(context.getString(R.string.line_feed_code_lf))) {
+            return Constants.LF;
+        } else {
+            return Constants.CR_LF;
+        }
+    }
 }

@@ -120,7 +120,9 @@ public class MainActivity extends BaseAppCompatActivity {
         showTimeStamp = pref.getBoolean(getResources().getString(R.string.timestamp_visible_key), true);
         timestampFormat = pref.getString(getString(R.string.timestamp_format_key), getString(R.string.timestamp_format_default));
         autoScroll = pref.getBoolean(getString(R.string.auto_scroll_key), true);
-        lineFeedCode = pref.getString(getString(R.string.line_feed_code_key), Constants.CR_LF);
+        lineFeedCode = Util.getLineFeedCd(
+                pref.getString(getString(R.string.line_feed_code_key),
+                        getString(R.string.line_feed_code_cr_lf_value)), this);
 
         setFilters();
         startService(UsbService.class, usbConnection);

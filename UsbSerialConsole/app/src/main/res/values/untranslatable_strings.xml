@@ -11,7 +11,7 @@
     <string name="line_feed_code_lf" translatable="false">LF</string>
     <string name="line_feed_code_cr_lf" translatable="false">CR+LF</string>
 
-    <string name="line_feed_code_cr_value" translatable="false">\r</string>
-    <string name="line_feed_code_lf_value" translatable="false">\n</string>
-    <string name="line_feed_code_cr_lf_value" translatable="false">\r\n</string>
+    <string name="line_feed_code_cr_value" translatable="false">cr</string>
+    <string name="line_feed_code_lf_value" translatable="false">lf</string>
+    <string name="line_feed_code_cr_lf_value" translatable="false">cr_lf</string>
 </resources>
