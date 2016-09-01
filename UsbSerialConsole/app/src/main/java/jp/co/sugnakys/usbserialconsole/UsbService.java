@@ -44,7 +44,9 @@ public class UsbService extends Service {
     private static final String ACTION_USB_ATTACHED = "android.hardware.usb.action.USB_DEVICE_ATTACHED";
     private static final String ACTION_USB_DETACHED = "android.hardware.usb.action.USB_DEVICE_DETACHED";
 
-    private static final String ACTION_USB_PERMISSION = "USB_PERMISSION";
+    public static final String ACTION_SERIAL_CONFIG_CHANGED = "jp.co.sugnakys.usbserialconsole.SERIAL_CONFIG_CHANGED";
+
+    private static final String ACTION_USB_PERMISSION = "jp.co.sugnakys.usbserialconsole.USB_PERMISSION";
 
     public static final int MESSAGE_FROM_SERIAL_PORT = 0;
     public static final int CTS_CHANGE = 1;
@@ -123,6 +125,14 @@ public class UsbService extends Service {
                         serialPort.close();
                     }
                     serialPortConnected = false;
+                    break;
+                case ACTION_SERIAL_CONFIG_CHANGED:
+                    if (serialPortConnected) {
+                        Log.d(TAG, "Restart Connection");
+                        serialPort.close();
+                        connection = usbManager.openDevice(device);
+                        new ConnectionThread().start();
+                    }
                     break;
                 default:
                     Log.e(TAG, "Unknown action");
@@ -211,6 +221,7 @@ public class UsbService extends Service {
         filter.addAction(ACTION_USB_PERMISSION);
         filter.addAction(ACTION_USB_DETACHED);
         filter.addAction(ACTION_USB_ATTACHED);
+        filter.addAction(ACTION_SERIAL_CONFIG_CHANGED);
         registerReceiver(usbReceiver, filter);
     }
 
