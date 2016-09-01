@@ -33,6 +33,15 @@ public class LogListViewActivity extends BaseAppCompatActivity
         toolbar.setTitle(getString(R.string.action_log_list));
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(this);
         listView.setOnItemLongClickListener(this);
