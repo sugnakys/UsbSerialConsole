@@ -24,6 +24,7 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Sh
 
     private ListPreference timestampFormatPref;
     private ListPreference lineFeedCodePref;
+    private CheckBoxPreference sendMessagePref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Sh
         };
 
         timestampFormatPref = (ListPreference) findPreference(getString(R.string.timestamp_format_key));
+        sendMessagePref = (CheckBoxPreference) findPreference(getString(R.string.send_message_visible_key));
         lineFeedCodePref = (ListPreference) findPreference(getString(R.string.line_feed_code_key));
     }
 
@@ -80,6 +82,7 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Sh
                 timestampFormatPref.setEnabled(checkPref.isChecked());
             }
             if (key.equals(getString(R.string.send_view_visible_key))) {
+                sendMessagePref.setEnabled(checkPref.isChecked());
                 lineFeedCodePref.setEnabled(checkPref.isChecked());
             }
         }
@@ -94,6 +97,7 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Sh
 
         timestampFormatPref.setEnabled(pref.getBoolean(getString(R.string.timestamp_visible_key), true));
         lineFeedCodePref.setEnabled(pref.getBoolean(getString(R.string.send_view_visible_key), true));
+        sendMessagePref.setEnabled(pref.getBoolean(getString(R.string.send_message_visible_key), true));
     }
 
     @Override

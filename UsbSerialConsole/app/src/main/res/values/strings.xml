@@ -50,4 +50,6 @@
 
     <string name="send_pref_category">Send</string>
     <string name="receive_pref_category">Receive</string>
+
+    <string name="send_message_visible_title">Send message</string>
 </resources>

@@ -50,4 +50,6 @@
 
     <string name="send_pref_category">送信</string>
     <string name="receive_pref_category">受信</string>
+
+    <string name="send_message_visible_title">送信メッセージ</string>
 </resources>

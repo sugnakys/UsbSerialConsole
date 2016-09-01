@@ -50,6 +50,7 @@ public class MainActivity extends BaseAppCompatActivity {
     private MyHandler mHandler;
     private TextView receivedMsgView;
     private ScrollView scrollView;
+    private boolean sendMessageVisible;
     private boolean showTimeStamp;
     private String timestampFormat;
     private boolean autoScroll;
@@ -125,6 +126,7 @@ public class MainActivity extends BaseAppCompatActivity {
         lineFeedCode = Util.getLineFeedCd(
                 pref.getString(getString(R.string.line_feed_code_key),
                         getString(R.string.line_feed_code_cr_lf_value)), this);
+        sendMessageVisible = pref.getBoolean(getString(R.string.send_message_visible_key), true);
 
         setFilters();
         startService(UsbService.class, usbConnection);
@@ -239,6 +241,9 @@ public class MainActivity extends BaseAppCompatActivity {
         try {
             usbService.write(strResult.getBytes(Constants.CHARSET));
             Log.d(TAG, "SendMessage: " + msg);
+            if (sendMessageVisible) {
+                addReceivedData(msg);
+            }
         } catch (UnsupportedEncodingException e) {
             Log.e(TAG, e.toString());
         }
@@ -254,7 +259,7 @@ public class MainActivity extends BaseAppCompatActivity {
         }
     }
 
-    public void addReceivedData(String data) {
+    private void addReceivedData(String data) {
         String timeStamp = "";
         if (showTimeStamp) {
             timeStamp = "[" + Util.getCurrentTime(timestampFormat) + "] ";

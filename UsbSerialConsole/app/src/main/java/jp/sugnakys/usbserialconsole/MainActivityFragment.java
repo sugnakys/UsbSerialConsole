@@ -60,7 +60,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 if (!message.isEmpty()) {
                     message += System.lineSeparator();
                     ((MainActivity) getActivity()).sendMessage(message);
-                    ((MainActivity) getActivity()).addReceivedData(message);
                     sendMsgView.setText("");
                 }
             default:
