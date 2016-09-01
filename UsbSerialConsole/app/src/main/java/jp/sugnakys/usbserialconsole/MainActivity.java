@@ -39,8 +39,10 @@ public class MainActivity extends BaseAppCompatActivity {
     private TextView receivedMsgView;
     private ScrollView scrollView;
 
-    private boolean showTimeStamp = true;
+    private boolean showTimeStamp;
     private String timestampFormat;
+    private boolean autoScroll;
+    private String lineFeedCode;
 
     private String tmpReceivedData = "";
 
@@ -125,6 +127,8 @@ public class MainActivity extends BaseAppCompatActivity {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         showTimeStamp = pref.getBoolean(getResources().getString(R.string.timestamp_visible_key), true);
         timestampFormat = pref.getString(getString(R.string.timestamp_format_key), getString(R.string.timestamp_format_default));
+        autoScroll = pref.getBoolean(getString(R.string.auto_scroll_key), true);
+        lineFeedCode = pref.getString(getString(R.string.line_feed_code_key), Constants.CR_LF);
 
         setFilters();
         startService(UsbService.class, usbConnection);
@@ -233,6 +237,7 @@ public class MainActivity extends BaseAppCompatActivity {
     }
 
     public void sendMessage(String msg) {
+        msg += lineFeedCode;
         try {
             usbService.write(msg.getBytes(Constants.CHARSET));
             Log.d(TAG, "SendMessage: " + msg);
@@ -303,7 +308,10 @@ public class MainActivity extends BaseAppCompatActivity {
                 }
             }
             tmpReceivedData = "";
-            scrollView.scrollTo(0, receivedMsgView.getBottom());
+
+            if (autoScroll) {
+                scrollView.scrollTo(0, receivedMsgView.getBottom());
+            }
         }
     }
 

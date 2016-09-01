@@ -43,4 +43,8 @@
     <string name="screen_orientation_device_setting">端末設定</string>
     <string name="screen_orientation_portrait">縦固定</string>
     <string name="screen_orientation_landscape">横固定</string>
+
+    <string name="auto_scroll_title">自動スクロール</string>
+
+    <string name="line_feed_code_title">改行コード</string>
 </resources>

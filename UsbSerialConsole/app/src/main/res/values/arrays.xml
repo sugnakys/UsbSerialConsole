@@ -114,4 +114,15 @@
         <item>@string/screen_orientation_portrait_value</item>
         <item>@string/screen_orientation_landscape_value</item>
     </string-array>
+
+    <string-array name="line_feed_code_entries" translatable="false">
+        <item>@string/line_feed_code_cr</item>
+        <item>@string/line_feed_code_lf</item>
+        <item>@string/line_feed_code_cr_lf</item>
+    </string-array>
+    <string-array name="line_feed_code_entryvalues" translatable="false">
+        <item>@string/line_feed_code_cr_value</item>
+        <item>@string/line_feed_code_lf_value</item>
+        <item>@string/line_feed_code_cr_lf_value</item>
+    </string-array>
 </resources>

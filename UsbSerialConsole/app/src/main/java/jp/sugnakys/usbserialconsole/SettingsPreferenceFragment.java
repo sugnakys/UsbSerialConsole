@@ -34,7 +34,7 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Sh
                 getString(R.string.baudrate_key), getString(R.string.databits_key),
                 getString(R.string.stopbits_key), getString(R.string.parity_key),
                 getString(R.string.flowcontrol_key), getString(R.string.timestamp_format_key),
-                getString(R.string.screen_orientation_key)
+                getString(R.string.screen_orientation_key), getString(R.string.line_feed_code_key)
         };
 
     }

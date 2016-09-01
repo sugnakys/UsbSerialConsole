@@ -9,4 +9,6 @@
     <string name="timestamp_format_key" translatable="false">timestamp_format</string>
     <string name="send_view_visible_key" translatable="false">send_view_visible</string>
     <string name="screen_orientation_key" translatable="false">screen_orientation</string>
+    <string name="auto_scroll_key" translatable="false">auto_scroll</string>
+    <string name="line_feed_code_key" translatable="false">line_feed_code</string>
 </resources>
