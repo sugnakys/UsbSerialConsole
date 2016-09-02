@@ -1,4 +1,4 @@
-package jp.sugnakys.usbserialconsole;
+package jp.sugnakys.usbserialconsole.settings;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import jp.sugnakys.usbserialconsole.R;
+import jp.sugnakys.usbserialconsole.UsbService;
 import jp.sugnakys.usbserialconsole.util.Log;
 import jp.sugnakys.usbserialconsole.util.Util;
 

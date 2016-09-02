@@ -27,6 +27,7 @@ import java.lang.ref.WeakReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jp.sugnakys.usbserialconsole.settings.SettingsActivity;
 import jp.sugnakys.usbserialconsole.util.Constants;
 import jp.sugnakys.usbserialconsole.util.Log;
 import jp.sugnakys.usbserialconsole.util.Util;

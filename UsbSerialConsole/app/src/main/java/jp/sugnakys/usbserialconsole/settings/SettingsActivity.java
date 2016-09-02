@@ -1,10 +1,13 @@
-package jp.sugnakys.usbserialconsole;
+package jp.sugnakys.usbserialconsole.settings;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import jp.sugnakys.usbserialconsole.BaseAppCompatActivity;
+import jp.sugnakys.usbserialconsole.R;
 
 public class SettingsActivity extends BaseAppCompatActivity {
     @Override
