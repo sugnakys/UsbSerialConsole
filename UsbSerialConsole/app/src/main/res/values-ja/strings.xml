@@ -25,7 +25,8 @@
     <string name="usb_disconnected">USBが切断されました</string>
     <string name="usb_not_supported">USBデバイスがサポートされていません</string>
 
-    <string name="connection_pref_category">シリアルポート</string>
+    <string name="serial_port_title">シリアルポート</string>
+    <string name="connection_title">接続</string>
 
     <string name="baudrate_title">ボーレート</string>
     <string name="databits_title">データビット</string>
@@ -33,7 +34,7 @@
     <string name="stopbits_title">ストップビット</string>
     <string name="flowcontrol_title">フロー制御</string>
 
-    <string name="display_pref_category">表示</string>
+    <string name="display_title">ディスプレイ</string>
 
     <string name="send_view_visible_title">送信コマンド</string>
     <string name="timestamp_title">タイムスタンプ</string>

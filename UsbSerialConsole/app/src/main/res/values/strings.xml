@@ -25,7 +25,8 @@
     <string name="usb_disconnected">USB disconnected</string>
     <string name="usb_not_supported">USB device not supported</string>
 
-    <string name="connection_pref_category">Serial port</string>
+    <string name="serial_port_title">Serial port</string>
+    <string name="connection_title">Connection</string>
 
     <string name="baudrate_title">Baud rate</string>
     <string name="databits_title">Data bits</string>
@@ -33,7 +34,7 @@
     <string name="stopbits_title">Stop bit</string>
     <string name="flowcontrol_title">Flow control</string>
 
-    <string name="display_pref_category">Display</string>
+    <string name="display_title">Display</string>
 
     <string name="send_view_visible_title">Send view</string>
     <string name="timestamp_title">Timestamp</string>
