@@ -8,7 +8,7 @@
         android:key="@string/screen_orientation_key"
         android:title="@string/screen_orientation_title" />
 
-    <CheckBoxPreference
+    <SwitchPreference
         android:defaultValue="true"
         android:key="@string/auto_scroll_key"
         android:summaryOff="@string/off"

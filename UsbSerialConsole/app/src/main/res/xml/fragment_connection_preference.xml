@@ -2,13 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="@string/send_pref_category">
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:key="@string/send_view_visible_key"
             android:summaryOff="@string/invisible"
             android:summaryOn="@string/visible"
             android:title="@string/send_view_visible_title" />
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:key="@string/send_message_visible_key"
             android:summaryOff="@string/invisible"
@@ -23,7 +23,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/receive_pref_category">
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:key="@string/timestamp_visible_key"
             android:summaryOff="@string/invisible"
