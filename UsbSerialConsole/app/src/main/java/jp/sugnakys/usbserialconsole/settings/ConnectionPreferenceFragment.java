@@ -35,13 +35,8 @@ public class ConnectionPreferenceFragment extends BasePreferenceFragment {
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.connection_title));
 
-        SharedPreferences pref = getPreferenceManager().getSharedPreferences();
-
-        timestampFormatPref.setEnabled(pref.getBoolean(getString(R.string.timestamp_visible_key), true));
-
-        boolean sendViewVisible = pref.getBoolean(getString(R.string.send_view_visible_key), true);
-        sendMessagePref.setEnabled(sendViewVisible);
-        lineFeedCodePref.setEnabled(sendViewVisible);
+        setTimestampEnable(sharedPreference.getBoolean(getString(R.string.timestamp_visible_key), true));
+        setSendViewEnable(sharedPreference.getBoolean(getString(R.string.send_view_visible_key), true));
     }
 
     @Override
@@ -49,12 +44,18 @@ public class ConnectionPreferenceFragment extends BasePreferenceFragment {
         super.onSharedPreferenceChanged(sharedPreferences, key);
 
         if (key.equals(getString(R.string.timestamp_visible_key))) {
-            SwitchPreference switchPref = (SwitchPreference) findPreference(key);
-            timestampFormatPref.setEnabled(switchPref.isChecked());
+            setTimestampEnable(((SwitchPreference) findPreference(key)).isChecked());
         } else if (key.equals(getString(R.string.send_view_visible_key))) {
-            SwitchPreference switchPref = (SwitchPreference) findPreference(key);
-            sendMessagePref.setEnabled(switchPref.isChecked());
-            lineFeedCodePref.setEnabled(switchPref.isChecked());
+            setSendViewEnable(((SwitchPreference) findPreference(key)).isChecked());
         }
+    }
+
+    private void setTimestampEnable(boolean isEnable) {
+        timestampFormatPref.setEnabled(isEnable);
+    }
+
+    private void setSendViewEnable(boolean isEnable) {
+        sendMessagePref.setEnabled(isEnable);
+        lineFeedCodePref.setEnabled(isEnable);
     }
 }

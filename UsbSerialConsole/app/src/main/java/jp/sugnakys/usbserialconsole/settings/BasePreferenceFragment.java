@@ -1,6 +1,7 @@
 package jp.sugnakys.usbserialconsole.settings;
 
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -13,6 +14,8 @@ import jp.sugnakys.usbserialconsole.util.Log;
 public class BasePreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String TAG = "BasePreferenceFragment";
+
+    SharedPreferences sharedPreference;
 
     String[] listPrefKeys;
 
@@ -28,8 +31,9 @@ public class BasePreferenceFragment extends PreferenceFragment implements Shared
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences pref = getPreferenceManager().getSharedPreferences();
-        pref.registerOnSharedPreferenceChangeListener(this);
+
+        sharedPreference = getPreferenceManager().getSharedPreferences();
+        sharedPreference.registerOnSharedPreferenceChangeListener(this);
         setSummary();
 
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
@@ -56,7 +60,7 @@ public class BasePreferenceFragment extends PreferenceFragment implements Shared
 
     @Override
     public void onPause() {
-        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        sharedPreference.unregisterOnSharedPreferenceChangeListener(this);
         super.onPause();
     }
 }

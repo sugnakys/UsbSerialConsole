@@ -31,8 +31,9 @@ public class DisplayPreferenceFragment extends BasePreferenceFragment {
         super.onSharedPreferenceChanged(sharedPreferences, key);
 
         if (key.equals(getString(R.string.screen_orientation_key))) {
-            ListPreference listPref = (ListPreference) findPreference(key);
-            Util.setScreenOrientation(listPref.getValue(), getActivity());
+            Util.setScreenOrientation(
+                    ((ListPreference) findPreference(key)).getValue(),
+                    getActivity());
         }
     }
 }
