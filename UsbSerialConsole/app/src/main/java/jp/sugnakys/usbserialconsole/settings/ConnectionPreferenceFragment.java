@@ -11,7 +11,6 @@ import jp.sugnakys.usbserialconsole.R;
 public class ConnectionPreferenceFragment extends BasePreferenceFragment {
 
     private ListPreference timestampFormatPref;
-    private SwitchPreference sendMessagePref;
     private ListPreference lineFeedCodePref;
 
     @Override
@@ -24,7 +23,6 @@ public class ConnectionPreferenceFragment extends BasePreferenceFragment {
                 getString(R.string.timestamp_format_key)};
 
         timestampFormatPref = (ListPreference) findPreference(getString(R.string.timestamp_format_key));
-        sendMessagePref = (SwitchPreference) findPreference(getString(R.string.send_message_visible_key));
         lineFeedCodePref = (ListPreference) findPreference(getString(R.string.line_feed_code_key));
     }
 
@@ -55,7 +53,6 @@ public class ConnectionPreferenceFragment extends BasePreferenceFragment {
     }
 
     private void setSendViewEnable(boolean isEnable) {
-        sendMessagePref.setEnabled(isEnable);
         lineFeedCodePref.setEnabled(isEnable);
     }
 }

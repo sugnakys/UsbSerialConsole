@@ -8,12 +8,6 @@
             android:summaryOff="@string/invisible"
             android:summaryOn="@string/visible"
             android:title="@string/send_view_visible_title" />
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="@string/send_message_visible_key"
-            android:summaryOff="@string/invisible"
-            android:summaryOn="@string/visible"
-            android:title="@string/send_message_visible_title" />
         <ListPreference
             android:defaultValue="@string/line_feed_code_default"
             android:entries="@array/line_feed_code_entries"

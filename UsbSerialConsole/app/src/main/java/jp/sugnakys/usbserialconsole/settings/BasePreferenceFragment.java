@@ -1,7 +1,6 @@
 package jp.sugnakys.usbserialconsole.settings;
 
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
