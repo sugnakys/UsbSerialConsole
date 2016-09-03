@@ -3,6 +3,8 @@ package jp.sugnakys.usbserialconsole.settings;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import jp.sugnakys.usbserialconsole.R;
 
@@ -22,6 +24,20 @@ public class SettingsPreferenceFragment extends BasePreferenceFragment
         for (String prefKey : prefKeys) {
             findPreference(prefKey).setOnPreferenceClickListener(this);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.action_settings));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
     }
 
     @Override

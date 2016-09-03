@@ -4,7 +4,10 @@ import android.content.SharedPreferences;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
+import jp.sugnakys.usbserialconsole.R;
 import jp.sugnakys.usbserialconsole.util.Log;
 
 public class BasePreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -28,6 +31,14 @@ public class BasePreferenceFragment extends PreferenceFragment implements Shared
         SharedPreferences pref = getPreferenceManager().getSharedPreferences();
         pref.registerOnSharedPreferenceChangeListener(this);
         setSummary();
+
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().popBackStack();
+            }
+        });
     }
 
     private void setSummary() {
