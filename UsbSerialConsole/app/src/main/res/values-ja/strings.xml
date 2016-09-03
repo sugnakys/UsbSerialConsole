@@ -53,4 +53,6 @@
     <string name="receive_pref_category">受信</string>
 
     <string name="action_send_to">送る</string>
+
+    <string name="confirm_connect">デバイスとの通信を開始しますか?</string>
 </resources>

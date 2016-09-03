@@ -53,4 +53,6 @@
     <string name="receive_pref_category">Receive</string>
 
     <string name="action_send_to">Send to</string>
+
+    <string name="confirm_connect">Connect device?</string>
 </resources>

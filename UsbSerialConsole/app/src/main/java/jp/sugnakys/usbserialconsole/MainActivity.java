@@ -1,8 +1,10 @@
 package jp.sugnakys.usbserialconsole;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -48,6 +50,7 @@ public class MainActivity extends BaseAppCompatActivity {
             usbService = null;
         }
     };
+    private Menu mOptionMenu;
     private MyHandler mHandler;
     private TextView receivedMsgView;
     private ScrollView scrollView;
@@ -65,6 +68,8 @@ public class MainActivity extends BaseAppCompatActivity {
                 case UsbService.ACTION_USB_PERMISSION_GRANTED:
                     Toast.makeText(context, getString(R.string.usb_permission_granted), Toast.LENGTH_SHORT).show();
                     isUSBReady = true;
+                    updateOptionsMenu();
+                    requestConnection();
                     break;
                 case UsbService.ACTION_USB_PERMISSION_NOT_GRANTED:
                     Toast.makeText(context, getString(R.string.usb_permission_not_granted), Toast.LENGTH_SHORT).show();
@@ -74,8 +79,8 @@ public class MainActivity extends BaseAppCompatActivity {
                     break;
                 case UsbService.ACTION_USB_DISCONNECTED:
                     Toast.makeText(context, getString(R.string.usb_disconnected), Toast.LENGTH_SHORT).show();
-                    toggleShowLog();
                     isUSBReady = false;
+                    toggleShowLog();
                     break;
                 case UsbService.ACTION_USB_NOT_SUPPORTED:
                     Toast.makeText(context, getString(R.string.usb_not_supported), Toast.LENGTH_SHORT).show();
@@ -86,6 +91,19 @@ public class MainActivity extends BaseAppCompatActivity {
             }
         }
     };
+
+    private void requestConnection() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        alertDialog.setMessage(getString(R.string.confirm_connect));
+        alertDialog.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                toggleShowLog();
+            }
+        });
+        alertDialog.setNegativeButton(getString(android.R.string.cancel), null);
+        alertDialog.create().show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,8 +178,15 @@ public class MainActivity extends BaseAppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        mOptionMenu = menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    private void updateOptionsMenu() {
+        if (mOptionMenu != null) {
+            onPrepareOptionsMenu(mOptionMenu);
+        }
     }
 
     @Override
@@ -255,6 +280,7 @@ public class MainActivity extends BaseAppCompatActivity {
             usbService.setHandler(mHandler);
             isConnect = true;
         }
+        updateOptionsMenu();
     }
 
     private void addReceivedData(String data) {
