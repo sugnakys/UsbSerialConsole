@@ -219,7 +219,8 @@ public class MainActivity extends BaseAppCompatActivity {
             fos = new FileOutputStream(new File(dirName, fileName));
             fos.write(data.getBytes(Constants.CHARSET));
             Log.d(TAG, "Save: " + fileName);
-            Toast.makeText(this, "Save: " + fileName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.action_save_log)
+                    + " : " + fileName, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e(TAG, e.toString());
         } finally {
