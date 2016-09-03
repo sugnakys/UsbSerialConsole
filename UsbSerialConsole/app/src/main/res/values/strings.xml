@@ -51,4 +51,6 @@
 
     <string name="send_pref_category">Send</string>
     <string name="receive_pref_category">Receive</string>
+
+    <string name="action_send_to">Send to</string>
 </resources>

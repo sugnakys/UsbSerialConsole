@@ -51,4 +51,6 @@
 
     <string name="send_pref_category">送信</string>
     <string name="receive_pref_category">受信</string>
+
+    <string name="action_send_to">送る</string>
 </resources>
