@@ -258,26 +258,36 @@ public class MainActivity extends BaseAppCompatActivity {
     }
 
     private void addReceivedData(String data) {
-        String timeStamp = "";
         if (showTimeStamp) {
-            timeStamp = "[" + Util.getCurrentTime(timestampFormat) + "] ";
+            addReceivedDataWithTime(data);
+        } else {
+            addTextView(data);
         }
+    }
+
+    private void addTextView(String data) {
+        receivedMsgView.append(data);
+        if (autoScroll) {
+            scrollView.scrollTo(0, receivedMsgView.getBottom());
+        }
+    }
+
+    private void addReceivedDataWithTime(String data) {
+        String timeStamp = "[" + Util.getCurrentTime(timestampFormat) + "] ";
 
         tmpReceivedData += data;
-
         String separateStr = getLineSeparater(tmpReceivedData);
         if (!separateStr.isEmpty()) {
             String[] strArray = tmpReceivedData.split(separateStr);
-            for (String str : strArray) {
-                receivedMsgView.append(timeStamp + str + System.lineSeparator());
-                if (Log.ENABLE_RECEIVED_OUTPUT) {
-                    Log.i(TAG, "Show message: " + tmpReceivedData);
-                }
-            }
             tmpReceivedData = "";
-
-            if (autoScroll) {
-                scrollView.scrollTo(0, receivedMsgView.getBottom());
+            for (int i = 0; i < strArray.length; i++) {
+                if (strArray.length != 1
+                        && i == (strArray.length - 1)
+                        && !strArray[i].isEmpty()) {
+                    tmpReceivedData = strArray[i];
+                } else {
+                    addTextView(timeStamp + strArray[i] + System.lineSeparator());
+                }
             }
         }
     }
