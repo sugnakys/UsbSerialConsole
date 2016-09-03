@@ -16,7 +16,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import jp.sugnakys.usbserialconsole.settings.SettingsActivity;
 import jp.sugnakys.usbserialconsole.util.Constants;
 
 public class LogViewActivity extends BaseAppCompatActivity {

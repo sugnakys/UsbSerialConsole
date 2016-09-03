@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +14,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainActivityFragment extends Fragment implements View.OnClickListener {
+public class MainActivityFragment extends Fragment
+        implements View.OnClickListener, TextWatcher {
 
     private static final String TAG = "MainActivityFragment";
 
+    private Button sendBtn;
     private TextView sendMsgView;
     private LinearLayout sendViewLayout;
 
@@ -32,11 +36,29 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     public void onStart() {
         super.onStart();
 
-        Button sendBtn = (Button) getActivity().findViewById(R.id.sendBtn);
+        sendBtn = (Button) getActivity().findViewById(R.id.sendBtn);
         sendMsgView = (TextView) getActivity().findViewById(R.id.sendMsgView);
         sendViewLayout = (LinearLayout) getActivity().findViewById(R.id.sendViewLayout);
 
         sendBtn.setOnClickListener(this);
+        sendMsgView.addTextChangedListener(this);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (s.length() == 0) {
+            sendBtn.setEnabled(false);
+        } else {
+            sendBtn.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
     }
 
     @Override
