@@ -15,8 +15,13 @@ import android.os.IBinder;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,10 +39,12 @@ import jp.sugnakys.usbserialconsole.util.Constants;
 import jp.sugnakys.usbserialconsole.util.Log;
 import jp.sugnakys.usbserialconsole.util.Util;
 
-public class MainActivity extends BaseAppCompatActivity {
+public class MainActivity extends BaseAppCompatActivity
+        implements View.OnClickListener, TextWatcher {
 
     private static final String TAG = "MainActivity";
     private static final String RECEIVED_TEXT_VIEW_STR = "RECEIVED_TEXT_VIEW_STR";
+
     private UsbService usbService;
     private final ServiceConnection usbConnection = new ServiceConnection() {
         @Override
@@ -50,40 +57,58 @@ public class MainActivity extends BaseAppCompatActivity {
             usbService = null;
         }
     };
-    private Menu mOptionMenu;
-    private MyHandler mHandler;
+
+    private Button sendBtn;
+    private TextView sendMsgView;
+    private LinearLayout sendViewLayout;
     private TextView receivedMsgView;
     private ScrollView scrollView;
-    private boolean showTimeStamp;
+
+    private Menu mOptionMenu;
+
+    private MyHandler mHandler;
+
     private String timestampFormat;
-    private boolean autoScroll;
     private String lineFeedCode;
     private String tmpReceivedData = "";
+
+    private boolean showTimeStamp;
+    private boolean autoScroll;
     private boolean isUSBReady = false;
     private boolean isConnect = false;
+
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
                 case UsbService.ACTION_USB_PERMISSION_GRANTED:
-                    Toast.makeText(context, getString(R.string.usb_permission_granted), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,
+                            getString(R.string.usb_permission_granted),
+                            Toast.LENGTH_SHORT).show();
                     isUSBReady = true;
                     updateOptionsMenu();
                     requestConnection();
                     break;
                 case UsbService.ACTION_USB_PERMISSION_NOT_GRANTED:
-                    Toast.makeText(context, getString(R.string.usb_permission_not_granted), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,
+                            getString(R.string.usb_permission_not_granted),
+                            Toast.LENGTH_SHORT).show();
                     break;
                 case UsbService.ACTION_NO_USB:
-                    Toast.makeText(context, getString(R.string.no_usb), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,
+                            getString(R.string.no_usb),
+                            Toast.LENGTH_SHORT).show();
                     break;
                 case UsbService.ACTION_USB_DISCONNECTED:
-                    Toast.makeText(context, getString(R.string.usb_disconnected), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,
+                            getString(R.string.usb_disconnected),
+                            Toast.LENGTH_SHORT).show();
                     isUSBReady = false;
                     toggleShowLog();
                     break;
                 case UsbService.ACTION_USB_NOT_SUPPORTED:
-                    Toast.makeText(context, getString(R.string.usb_not_supported), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.usb_not_supported),
+                            Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     Log.e(TAG, "Unknown action");
@@ -112,8 +137,15 @@ public class MainActivity extends BaseAppCompatActivity {
         mHandler = new MyHandler(this);
 
         setContentView(R.layout.activity_main);
+
         receivedMsgView = (TextView) findViewById(R.id.receivedMsgView);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
+        sendBtn = (Button) findViewById(R.id.sendBtn);
+        sendMsgView = (TextView) findViewById(R.id.sendMsgView);
+        sendViewLayout = (LinearLayout) findViewById(R.id.sendViewLayout);
+
+        sendBtn.setOnClickListener(this);
+        sendMsgView.addTextChangedListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -138,12 +170,21 @@ public class MainActivity extends BaseAppCompatActivity {
         super.onResume();
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        showTimeStamp = pref.getBoolean(getResources().getString(R.string.timestamp_visible_key), true);
-        timestampFormat = pref.getString(getString(R.string.timestamp_format_key), getString(R.string.timestamp_format_default));
-        autoScroll = pref.getBoolean(getString(R.string.auto_scroll_key), true);
+        showTimeStamp = pref.getBoolean(
+                getResources().getString(R.string.timestamp_visible_key), true);
+        timestampFormat = pref.getString(getString(R.string.timestamp_format_key),
+                getString(R.string.timestamp_format_default));
+        autoScroll = pref.getBoolean(getString(R.string.auto_scroll_key),
+                true);
         lineFeedCode = Util.getLineFeedCd(
                 pref.getString(getString(R.string.line_feed_code_key),
-                        getString(R.string.line_feed_code_cr_lf_value)), this);
+                        getString(R.string.line_feed_code_cr_lf_value)),
+                this);
+        if (pref.getBoolean(getString(R.string.send_view_visible_key), true)) {
+            sendViewLayout.setVisibility(View.VISIBLE);
+        } else {
+            sendViewLayout.setVisibility(View.GONE);
+        }
 
         setFilters();
         startService(UsbService.class, usbConnection);
@@ -177,6 +218,19 @@ public class MainActivity extends BaseAppCompatActivity {
     }
 
     @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        sendBtn.setEnabled(!(s.length() == 0));
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionMenu = menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -203,7 +257,6 @@ public class MainActivity extends BaseAppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         Intent intent;
         switch (item.getItemId()) {
             case R.id.action_connect:
@@ -259,7 +312,7 @@ public class MainActivity extends BaseAppCompatActivity {
         }
     }
 
-    public void sendMessage(String msg) {
+    private void sendMessage(String msg) {
         Pattern pattern = Pattern.compile("\n$");
         Matcher matcher = pattern.matcher(msg);
         String strResult = matcher.replaceAll("") + lineFeedCode;
@@ -327,6 +380,23 @@ public class MainActivity extends BaseAppCompatActivity {
             return Constants.CR;
         } else {
             return "";
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.sendBtn:
+                android.util.Log.d(TAG, "Send button clicked");
+                String message = sendMsgView.getText().toString();
+                if (!message.isEmpty()) {
+                    message += System.lineSeparator();
+                    sendMessage(message);
+                    sendMsgView.setText("");
+                }
+            default:
+                android.util.Log.e(TAG, "Unknown view");
+                break;
         }
     }
 
