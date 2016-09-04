@@ -108,11 +108,15 @@
         <item>@string/screen_orientation_device_setting</item>
         <item>@string/screen_orientation_portrait</item>
         <item>@string/screen_orientation_landscape</item>
+        <item>@string/screen_orientation_reverse_portrait</item>
+        <item>@string/screen_orientation_reverse_landscape</item>
     </string-array>
     <string-array name="screen_orientation_entryvalues" translatable="false">
         <item>@string/screen_orientation_device_setting_value</item>
         <item>@string/screen_orientation_portrait_value</item>
         <item>@string/screen_orientation_landscape_value</item>
+        <item>@string/screen_orientation_reverse_portrait_value</item>
+        <item>@string/screen_orientation_reverse_landscape_value</item>
     </string-array>
 
     <string-array name="line_feed_code_entries" translatable="false">

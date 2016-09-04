@@ -43,7 +43,9 @@
     <string name="screen_orientation_title">画面の向き</string>
     <string name="screen_orientation_device_setting">端末設定</string>
     <string name="screen_orientation_portrait">縦固定</string>
+    <string name="screen_orientation_reverse_portrait">逆さ縦固定</string>
     <string name="screen_orientation_landscape">横固定</string>
+    <string name="screen_orientation_reverse_landscape">逆さ横固定</string>
 
     <string name="line_feed_code_title">改行コード</string>
 

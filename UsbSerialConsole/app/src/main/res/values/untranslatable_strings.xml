@@ -2,7 +2,9 @@
 <resources>
     <string name="screen_orientation_device_setting_value" translatable="false">device_setting</string>
     <string name="screen_orientation_portrait_value" translatable="false">portrait</string>
+    <string name="screen_orientation_reverse_portrait_value" translatable="false">reverse_portrait</string>
     <string name="screen_orientation_landscape_value" translatable="false">landscape</string>
+    <string name="screen_orientation_reverse_landscape_value" translatable="false">reverse_landscape</string>
 
     <string name="line_feed_code_cr" translatable="false">CR</string>
     <string name="line_feed_code_lf" translatable="false">LF</string>

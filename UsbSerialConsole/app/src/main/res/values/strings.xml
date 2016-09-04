@@ -43,7 +43,9 @@
     <string name="screen_orientation_title">Screen orientation</string>
     <string name="screen_orientation_device_setting">Device setting</string>
     <string name="screen_orientation_portrait">Portrait</string>
+    <string name="screen_orientation_reverse_portrait">Reverse portrait</string>
     <string name="screen_orientation_landscape">Landscape</string>
+    <string name="screen_orientation_reverse_landscape">Reverse landscape</string>
 
     <string name="line_feed_code_title">Line feed code</string>
 

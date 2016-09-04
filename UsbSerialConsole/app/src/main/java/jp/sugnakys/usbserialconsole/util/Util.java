@@ -36,10 +36,18 @@ public class Util {
     }
 
     public static void setScreenOrientation(String screenOrientation, Activity activity) {
-        if (screenOrientation.equals(activity.getString(R.string.screen_orientation_portrait_value))) {
+        if (screenOrientation.equals(
+                activity.getString(R.string.screen_orientation_portrait_value))) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        } else if (screenOrientation.equals(activity.getString(R.string.screen_orientation_landscape_value))) {
+        } else if (screenOrientation.equals(
+                activity.getString(R.string.screen_orientation_landscape_value))) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else if (screenOrientation.equals(
+                activity.getString(R.string.screen_orientation_reverse_portrait_value))) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+        } else if (screenOrientation.equals(
+                activity.getString(R.string.screen_orientation_reverse_landscape_value))) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
         } else {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         }
