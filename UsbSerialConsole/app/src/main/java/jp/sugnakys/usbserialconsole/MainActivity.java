@@ -73,7 +73,6 @@ public class MainActivity extends BaseAppCompatActivity
     private String tmpReceivedData = "";
 
     private boolean showTimeStamp;
-    private boolean autoScroll;
     private boolean isUSBReady = false;
     private boolean isConnect = false;
 
@@ -174,8 +173,6 @@ public class MainActivity extends BaseAppCompatActivity
                 getResources().getString(R.string.timestamp_visible_key), true);
         timestampFormat = pref.getString(getString(R.string.timestamp_format_key),
                 getString(R.string.timestamp_format_default));
-        autoScroll = pref.getBoolean(getString(R.string.auto_scroll_key),
-                true);
         lineFeedCode = Util.getLineFeedCd(
                 pref.getString(getString(R.string.line_feed_code_key),
                         getString(R.string.line_feed_code_cr_lf_value)),
@@ -351,9 +348,7 @@ public class MainActivity extends BaseAppCompatActivity
 
     private void addTextView(String data) {
         receivedMsgView.append(data);
-        if (autoScroll) {
-            scrollView.scrollTo(0, receivedMsgView.getBottom());
-        }
+        scrollView.scrollTo(0, receivedMsgView.getBottom());
     }
 
     private void addReceivedDataWithTime(String data) {

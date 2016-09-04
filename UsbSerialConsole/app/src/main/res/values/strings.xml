@@ -45,8 +45,6 @@
     <string name="screen_orientation_portrait">Portrait</string>
     <string name="screen_orientation_landscape">Landscape</string>
 
-    <string name="auto_scroll_title">Auto scroll</string>
-
     <string name="line_feed_code_title">Line feed code</string>
 
     <string name="send_pref_category">Send</string>
