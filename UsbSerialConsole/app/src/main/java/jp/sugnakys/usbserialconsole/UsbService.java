@@ -27,6 +27,8 @@ import java.util.Map;
 import jp.sugnakys.usbserialconsole.util.Constants;
 
 public class UsbService extends Service {
+    private static final String TAG = "UsbService";
+    private static final boolean DBG = true;
 
     public static final String ACTION_USB_NOT_SUPPORTED = "jp.sugnakys.usbserialconsole.USB_NOT_SUPPORTED";
     public static final String ACTION_NO_USB = "jp.sugnakys.usbserialconsole.NO_USB";
@@ -34,23 +36,25 @@ public class UsbService extends Service {
     public static final String ACTION_USB_PERMISSION_NOT_GRANTED = "jp.sugnakys.usbserialconsole.USB_PERMISSION_NOT_GRANTED";
     public static final String ACTION_USB_DISCONNECTED = "jp.sugnakys.usbserialconsole.USB_DISCONNECTED";
     public static final String ACTION_SERIAL_CONFIG_CHANGED = "jp.sugnakys.usbserialconsole.SERIAL_CONFIG_CHANGED";
-    public static final int MESSAGE_FROM_SERIAL_PORT = 0;
-    public static final int CTS_CHANGE = 1;
-    public static final int DSR_CHANGE = 2;
-    private static final String TAG = "UsbService";
-    private static final boolean DBG = true;
+
     private static final String ACTION_USB_READY = "jp.sugnakys.usbserialconsole.USB_READY";
     private static final String ACTION_CDC_DRIVER_NOT_WORKING = "jp.sugnakys.usbserialconsole.ACTION_CDC_DRIVER_NOT_WORKING";
     private static final String ACTION_USB_DEVICE_NOT_WORKING = "jp.sugnakys.usbserialconsole.ACTION_USB_DEVICE_NOT_WORKING";
     private static final String ACTION_USB_ATTACHED = "android.hardware.usb.action.USB_DEVICE_ATTACHED";
     private static final String ACTION_USB_DETACHED = "android.hardware.usb.action.USB_DEVICE_DETACHED";
     private static final String ACTION_USB_PERMISSION = "jp.sugnakys.usbserialconsole.USB_PERMISSION";
+
+    public static final int MESSAGE_FROM_SERIAL_PORT = 0;
+    public static final int CTS_CHANGE = 1;
+    public static final int DSR_CHANGE = 2;
+
     static boolean SERVICE_CONNECTED = false;
 
     private final IBinder binder = new UsbBinder();
 
     private Context context;
     private Handler mHandler;
+
     private final UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() {
         @Override
         public void onReceivedData(byte[] arg) {
@@ -64,6 +68,7 @@ public class UsbService extends Service {
             }
         }
     };
+
     private final UsbSerialInterface.UsbCTSCallback ctsCallback = new UsbSerialInterface.UsbCTSCallback() {
         @Override
         public void onCTSChanged(boolean state) {
@@ -72,6 +77,7 @@ public class UsbService extends Service {
             }
         }
     };
+
     private final UsbSerialInterface.UsbDSRCallback dsrCallback = new UsbSerialInterface.UsbDSRCallback() {
         @Override
         public void onDSRChanged(boolean state) {
@@ -80,17 +86,20 @@ public class UsbService extends Service {
             }
         }
     };
+
     private UsbManager usbManager;
     private UsbDevice device;
     private UsbDeviceConnection connection;
     private UsbSerialDevice serialPort;
     private boolean serialPortConnected;
+
     private final BroadcastReceiver usbReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
                 case ACTION_USB_PERMISSION:
-                    boolean granted = intent.getExtras().getBoolean(UsbManager.EXTRA_PERMISSION_GRANTED);
+                    boolean granted =
+                            intent.getExtras().getBoolean(UsbManager.EXTRA_PERMISSION_GRANTED);
                     if (granted) {
                         Intent in = new Intent(ACTION_USB_PERMISSION_GRANTED);
                         context.sendBroadcast(in);
@@ -185,7 +194,8 @@ public class UsbService extends Service {
                 Log.d(TAG, "VendorID: " + deviceVID + ", ProductID: " + devicePID);
             }
 
-            if (deviceVID != 0x1d6b && (devicePID != 0x0001 && devicePID != 0x0002 && devicePID != 0x0003)) {
+            if (deviceVID != 0x1d6b
+                    &&(devicePID != 0x0001 && devicePID != 0x0002 && devicePID != 0x0003)) {
                 requestUserPermission();
                 keep = false;
             } else {
@@ -214,7 +224,8 @@ public class UsbService extends Service {
     }
 
     private void requestUserPermission() {
-        PendingIntent mPendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+        PendingIntent mPendingIntent =
+                PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
         usbManager.requestPermission(device, mPendingIntent);
     }
 
@@ -237,7 +248,8 @@ public class UsbService extends Service {
             if (serialPort.open()) {
                 serialPortConnected = true;
 
-                SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences pref =
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
                 serialPort.setBaudRate(Integer.parseInt(pref.getString(getString(R.string.baudrate_key),
                         getResources().getString(R.string.baudrate_default))));
