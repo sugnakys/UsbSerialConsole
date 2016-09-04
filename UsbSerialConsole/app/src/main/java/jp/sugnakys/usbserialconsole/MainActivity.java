@@ -104,7 +104,7 @@ public class MainActivity extends BaseAppCompatActivity
                             getString(R.string.usb_disconnected),
                             Toast.LENGTH_SHORT).show();
                     isUSBReady = false;
-                    toggleShowLog();
+                    stopConnection();
                     break;
                 case UsbService.ACTION_USB_NOT_SUPPORTED:
                     Toast.makeText(context, getString(R.string.usb_not_supported),
@@ -123,7 +123,7 @@ public class MainActivity extends BaseAppCompatActivity
         alertDialog.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                toggleShowLog();
+                startConnection();
             }
         });
         alertDialog.setNegativeButton(getString(android.R.string.cancel), null);
@@ -261,7 +261,11 @@ public class MainActivity extends BaseAppCompatActivity
         switch (item.getItemId()) {
             case R.id.action_connect:
                 android.util.Log.d(TAG, "Connect clicked");
-                toggleShowLog();
+                if (isConnect) {
+                    stopConnection();
+                } else {
+                    startConnection();
+                }
                 break;
             case R.id.action_clear_log:
                 Log.d(TAG, "Clear log clicked");
@@ -325,14 +329,15 @@ public class MainActivity extends BaseAppCompatActivity
         }
     }
 
-    private void toggleShowLog() {
-        if (isConnect) {
-            usbService.setHandler(null);
-            isConnect = false;
-        } else {
-            usbService.setHandler(mHandler);
-            isConnect = true;
-        }
+    private void startConnection() {
+        usbService.setHandler(mHandler);
+        isConnect = true;
+        updateOptionsMenu();
+    }
+
+    private void stopConnection() {
+        usbService.setHandler(null);
+        isConnect = false;
         updateOptionsMenu();
     }
 
