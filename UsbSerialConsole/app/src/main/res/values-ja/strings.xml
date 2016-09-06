@@ -36,7 +36,7 @@
 
     <string name="display_title">ディスプレイ</string>
 
-    <string name="send_view_visible_title">送信コマンド</string>
+    <string name="send_view_visible_title">送信フォーム</string>
     <string name="timestamp_title">タイムスタンプ</string>
     <string name="timestamp_format_title">タイムスタンプ表記</string>
 

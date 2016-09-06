@@ -36,7 +36,7 @@
 
     <string name="display_title">Display</string>
 
-    <string name="send_view_visible_title">Send view</string>
+    <string name="send_view_visible_title">Send form</string>
     <string name="timestamp_title">Timestamp</string>
     <string name="timestamp_format_title">Timestamp format</string>
 
