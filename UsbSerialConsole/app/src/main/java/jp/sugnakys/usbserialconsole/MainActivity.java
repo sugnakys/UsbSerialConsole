@@ -330,12 +330,16 @@ public class MainActivity extends BaseAppCompatActivity
     private void startConnection() {
         usbService.setHandler(mHandler);
         isConnect = true;
+        Toast.makeText(getApplicationContext(),
+                getString(R.string.start_connection),Toast.LENGTH_SHORT).show();
         updateOptionsMenu();
     }
 
     private void stopConnection() {
         usbService.setHandler(null);
         isConnect = false;
+        Toast.makeText(getApplicationContext(),
+                getString(R.string.stop_connection),Toast.LENGTH_SHORT).show();
         updateOptionsMenu();
     }
 

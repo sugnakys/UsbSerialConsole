@@ -19,10 +19,10 @@
     <string name="send">送信</string>
     <string name="send_message_hint">送信メッセージを入力</string>
 
-    <string name="usb_permission_granted">USB準備完了</string>
-    <string name="usb_permission_not_granted">USBの権限取得に失敗しました</string>
-    <string name="no_usb">USBが接続されていません</string>
-    <string name="usb_disconnected">USBが切断されました</string>
+    <string name="usb_permission_granted">接続の準備ができました</string>
+    <string name="usb_permission_not_granted">権限の取得に失敗しました</string>
+    <string name="no_usb">デバイスが接続されていません</string>
+    <string name="usb_disconnected">接続が切断されました</string>
     <string name="usb_not_supported">USBデバイスがサポートされていません</string>
 
     <string name="serial_port_title">シリアルポート</string>
@@ -55,4 +55,7 @@
     <string name="action_send_to">送る</string>
 
     <string name="confirm_connect">デバイスとの通信を開始しますか?</string>
+
+    <string name="start_connection">通信を開始しました</string>
+    <string name="stop_connection">通信を停止しました</string>
 </resources>

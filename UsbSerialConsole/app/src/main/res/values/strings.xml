@@ -19,10 +19,10 @@
     <string name="send">Send</string>
     <string name="send_message_hint">Send message here</string>
 
-    <string name="usb_permission_granted">USB Ready</string>
-    <string name="usb_permission_not_granted">USB Permission not granted</string>
-    <string name="no_usb">No USB connected</string>
-    <string name="usb_disconnected">USB disconnected</string>
+    <string name="usb_permission_granted">Device ready</string>
+    <string name="usb_permission_not_granted">Permission not granted</string>
+    <string name="no_usb">No device connected</string>
+    <string name="usb_disconnected">Disconnected</string>
     <string name="usb_not_supported">USB device not supported</string>
 
     <string name="serial_port_title">Serial port</string>
@@ -55,4 +55,7 @@
     <string name="action_send_to">Send to</string>
 
     <string name="confirm_connect">Connect device?</string>
+
+    <string name="start_connection">Connection start</string>
+    <string name="stop_connection">Connection stop</string>
 </resources>
