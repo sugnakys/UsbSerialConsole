@@ -132,6 +132,7 @@ public class MainActivity extends BaseAppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme_NoActionBar);
 
         mHandler = new MyHandler(this);
 
