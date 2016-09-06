@@ -13,4 +13,5 @@
     <string name="serial_port_key" translatable="false">serial_port</string>
     <string name="display_key" translatable="false">display</string>
     <string name="connection_key" translatable="false">connection</string>
+    <string name="sleep_mode_key" translatable="false">sleep_mode</string>
 </resources>

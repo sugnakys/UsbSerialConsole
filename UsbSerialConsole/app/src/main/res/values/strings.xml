@@ -58,4 +58,8 @@
 
     <string name="start_connection">Connection start</string>
     <string name="stop_connection">Connection stop</string>
+
+    <string name="sleep_mode_title">Stay awake</string>
+    <string name="sleep_mode_on">Screen will never sleep</string>
+    <string name="sleep_mode_off">Screen will sleep</string>
 </resources>

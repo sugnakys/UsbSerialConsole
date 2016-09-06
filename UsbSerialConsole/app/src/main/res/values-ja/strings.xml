@@ -58,4 +58,8 @@
 
     <string name="start_connection">通信を開始しました</string>
     <string name="stop_connection">通信を停止しました</string>
+
+    <string name="sleep_mode_title">スリープモードにしない</string>
+    <string name="sleep_mode_on">画面をスリープにしない</string>
+    <string name="sleep_mode_off">画面をスリープにする</string>
 </resources>

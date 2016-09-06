@@ -8,4 +8,10 @@
         android:key="@string/screen_orientation_key"
         android:title="@string/screen_orientation_title" />
 
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/sleep_mode_key"
+        android:summaryOff="@string/sleep_mode_off"
+        android:summaryOn="@string/sleep_mode_on"
+        android:title="@string/sleep_mode_title" />
 </PreferenceScreen>

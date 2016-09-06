@@ -20,6 +20,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -182,6 +183,12 @@ public class MainActivity extends BaseAppCompatActivity
             sendViewLayout.setVisibility(View.VISIBLE);
         } else {
             sendViewLayout.setVisibility(View.GONE);
+        }
+
+        if (pref.getBoolean(getString(R.string.sleep_mode_key), false)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
         setFilters();
