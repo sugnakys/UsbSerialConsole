@@ -19,11 +19,11 @@ public class ConnectionPreferenceFragment extends BasePreferenceFragment {
         addPreferencesFromResource(R.xml.fragment_connection_preference);
 
         listPrefKeys = new String[]{
-                getString(R.string.line_feed_code_key),
+                getString(R.string.line_feed_code_send_key),
                 getString(R.string.timestamp_format_key)};
 
         timestampFormatPref = (ListPreference) findPreference(getString(R.string.timestamp_format_key));
-        lineFeedCodePref = (ListPreference) findPreference(getString(R.string.line_feed_code_key));
+        lineFeedCodePref = (ListPreference) findPreference(getString(R.string.line_feed_code_send_key));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ConnectionPreferenceFragment extends BasePreferenceFragment {
         toolbar.setTitle(getString(R.string.connection_title));
 
         setTimestampEnable(sharedPreference.getBoolean(getString(R.string.timestamp_visible_key), true));
-        setSendViewEnable(sharedPreference.getBoolean(getString(R.string.send_view_visible_key), true));
+        setSendViewEnable(sharedPreference.getBoolean(getString(R.string.send_form_visible_key), true));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ConnectionPreferenceFragment extends BasePreferenceFragment {
 
         if (key.equals(getString(R.string.timestamp_visible_key))) {
             setTimestampEnable(((SwitchPreference) findPreference(key)).isChecked());
-        } else if (key.equals(getString(R.string.send_view_visible_key))) {
+        } else if (key.equals(getString(R.string.send_form_visible_key))) {
             setSendViewEnable(((SwitchPreference) findPreference(key)).isChecked());
         }
     }

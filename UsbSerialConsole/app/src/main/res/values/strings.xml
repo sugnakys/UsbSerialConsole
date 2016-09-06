@@ -36,7 +36,7 @@
 
     <string name="display_title">Display</string>
 
-    <string name="send_view_visible_title">Send form</string>
+    <string name="send_form_visible_title">Send form</string>
     <string name="timestamp_title">Timestamp</string>
     <string name="timestamp_format_title">Timestamp format</string>
 
@@ -49,8 +49,8 @@
 
     <string name="line_feed_code_title">Line feed code</string>
 
-    <string name="send_pref_category">Send</string>
-    <string name="receive_pref_category">Receive</string>
+    <string name="send_pref_category_title">Send</string>
+    <string name="receive_pref_category_title">Receive</string>
 
     <string name="action_send_to">Send to</string>
 
@@ -60,6 +60,6 @@
     <string name="stop_connection">Connection stop</string>
 
     <string name="sleep_mode_title">Stay awake</string>
-    <string name="sleep_mode_on">Screen will never sleep</string>
-    <string name="sleep_mode_off">Screen will sleep</string>
+    <string name="sleep_mode_summary_on">Screen will never sleep</string>
+    <string name="sleep_mode_summary_off">Screen will sleep</string>
 </resources>

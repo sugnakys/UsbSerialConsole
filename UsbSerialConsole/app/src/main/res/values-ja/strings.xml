@@ -36,7 +36,7 @@
 
     <string name="display_title">ディスプレイ</string>
 
-    <string name="send_view_visible_title">送信フォーム</string>
+    <string name="send_form_visible_title">送信フォーム</string>
     <string name="timestamp_title">タイムスタンプ</string>
     <string name="timestamp_format_title">タイムスタンプ表記</string>
 
@@ -49,8 +49,8 @@
 
     <string name="line_feed_code_title">改行コード</string>
 
-    <string name="send_pref_category">送信</string>
-    <string name="receive_pref_category">受信</string>
+    <string name="send_pref_category_title">送信</string>
+    <string name="receive_pref_category_title">受信</string>
 
     <string name="action_send_to">送る</string>
 
@@ -60,6 +60,6 @@
     <string name="stop_connection">通信を停止しました</string>
 
     <string name="sleep_mode_title">スリープモードにしない</string>
-    <string name="sleep_mode_on">画面をスリープにしない</string>
-    <string name="sleep_mode_off">画面をスリープにする</string>
+    <string name="sleep_mode_summary_on">画面をスリープにしない</string>
+    <string name="sleep_mode_summary_off">画面をスリープにする</string>
 </resources>

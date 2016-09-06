@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/send_pref_category">
+    <PreferenceCategory android:title="@string/send_pref_category_title">
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/send_view_visible_key"
+            android:key="@string/send_form_visible_key"
             android:summaryOff="@string/invisible"
             android:summaryOn="@string/visible"
-            android:title="@string/send_view_visible_title" />
+            android:title="@string/send_form_visible_title" />
         <ListPreference
-            android:defaultValue="@string/line_feed_code_default"
+            android:defaultValue="@string/line_feed_code_send_default"
             android:entries="@array/line_feed_code_entries"
             android:entryValues="@array/line_feed_code_entryvalues"
-            android:key="@string/line_feed_code_key"
+            android:key="@string/line_feed_code_send_key"
             android:title="@string/line_feed_code_title" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/receive_pref_category">
+    <PreferenceCategory android:title="@string/receive_pref_category_title">
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/timestamp_visible_key"

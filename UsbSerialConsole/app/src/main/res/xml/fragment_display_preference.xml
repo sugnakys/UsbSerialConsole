@@ -11,7 +11,7 @@
     <SwitchPreference
         android:defaultValue="false"
         android:key="@string/sleep_mode_key"
-        android:summaryOff="@string/sleep_mode_off"
-        android:summaryOn="@string/sleep_mode_on"
+        android:summaryOff="@string/sleep_mode_summary_off"
+        android:summaryOn="@string/sleep_mode_summary_on"
         android:title="@string/sleep_mode_title" />
 </PreferenceScreen>

@@ -7,5 +7,5 @@
     <string name="flowcontrol_default" translatable="false">0</string>
     <string name="timestamp_format_default" translatable="false">HH:mm:ss.SSS</string>
     <string name="screen_orientation_default" translatable="false">@string/screen_orientation_device_setting_value</string>
-    <string name="line_feed_code_default" translatable="false">@string/line_feed_code_cr_lf_value</string>
+    <string name="line_feed_code_send_default" translatable="false">@string/line_feed_code_cr_lf_value</string>
 </resources>

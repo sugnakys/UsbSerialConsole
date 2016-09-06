@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="serial_port_key" translatable="false">serial_port</string>
+
     <string name="baudrate_key" translatable="false">baudrate</string>
     <string name="databits_key" translatable="false">data_bits</string>
     <string name="parity_key" translatable="false">parity_check</string>
     <string name="stopbits_key" translatable="false">stop_bit</string>
     <string name="flowcontrol_key" translatable="false">flow_control</string>
+
+    <string name="display_key" translatable="false">display</string>
+
+    <string name="screen_orientation_key" translatable="false">screen_orientation</string>
+    <string name="sleep_mode_key" translatable="false">sleep_mode</string>
+
+    <string name="connection_key" translatable="false">connection</string>
+
+    <string name="send_form_visible_key" translatable="false">send_form_visible</string>
+    <string name="line_feed_code_send_key" translatable="false">line_feed_code_send</string>
     <string name="timestamp_visible_key" translatable="false">timestamp_visible</string>
     <string name="timestamp_format_key" translatable="false">timestamp_format</string>
-    <string name="send_view_visible_key" translatable="false">send_view_visible</string>
-    <string name="screen_orientation_key" translatable="false">screen_orientation</string>
-    <string name="line_feed_code_key" translatable="false">line_feed_code</string>
-    <string name="serial_port_key" translatable="false">serial_port</string>
-    <string name="display_key" translatable="false">display</string>
-    <string name="connection_key" translatable="false">connection</string>
-    <string name="sleep_mode_key" translatable="false">sleep_mode</string>
+
+
 </resources>

@@ -176,10 +176,10 @@ public class MainActivity extends BaseAppCompatActivity
         timestampFormat = pref.getString(getString(R.string.timestamp_format_key),
                 getString(R.string.timestamp_format_default));
         lineFeedCode = Util.getLineFeedCd(
-                pref.getString(getString(R.string.line_feed_code_key),
+                pref.getString(getString(R.string.line_feed_code_send_key),
                         getString(R.string.line_feed_code_cr_lf_value)),
                 this);
-        if (pref.getBoolean(getString(R.string.send_view_visible_key), true)) {
+        if (pref.getBoolean(getString(R.string.send_form_visible_key), true)) {
             sendViewLayout.setVisibility(View.VISIBLE);
         } else {
             sendViewLayout.setVisibility(View.GONE);
