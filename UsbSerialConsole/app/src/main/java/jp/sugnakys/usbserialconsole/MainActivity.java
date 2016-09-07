@@ -17,6 +17,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -193,14 +194,36 @@ public class MainActivity extends BaseAppCompatActivity
 
         setFilters();
         startService(UsbService.class, usbConnection);
+        updateOptionsMenu();
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-
+    public void onDestroy() {
+        if(isConnect) {
+            stopConnection();
+        }
         unregisterReceiver(mUsbReceiver);
         unbindService(usbConnection);
+
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+            alertDialog.setMessage(getString(R.string.confirm_finish_text));
+            alertDialog.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            alertDialog.setNegativeButton(getString(android.R.string.cancel), null);
+            alertDialog.create().show();
+            return true;
+        }
+        return false;
     }
 
     private void startService(Class<?> service, ServiceConnection serviceConnection) {

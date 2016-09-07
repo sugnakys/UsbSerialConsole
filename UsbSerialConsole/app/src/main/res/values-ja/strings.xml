@@ -62,4 +62,6 @@
     <string name="sleep_mode_title">スリープモードにしない</string>
     <string name="sleep_mode_summary_on">画面をスリープにしない</string>
     <string name="sleep_mode_summary_off">画面をスリープにする</string>
+
+    <string name="confirm_finish_text">アプリを終了しますか?</string>
 </resources>

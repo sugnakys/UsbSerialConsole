@@ -62,4 +62,6 @@
     <string name="sleep_mode_title">Stay awake</string>
     <string name="sleep_mode_summary_on">Screen will never sleep</string>
     <string name="sleep_mode_summary_off">Screen will sleep</string>
+
+    <string name="confirm_finish_text">Finish app?</string>
 </resources>
