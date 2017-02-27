@@ -1,5 +1,6 @@
 package jp.sugnakys.usbserialconsole.settings;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -19,7 +20,8 @@ public class SettingsPreferenceFragment extends BasePreferenceFragment
         String[] prefKeys = new String[]{
                 getString(R.string.serial_port_key),
                 getString(R.string.display_key),
-                getString(R.string.connection_key)};
+                getString(R.string.connection_key),
+                getString(R.string.license_key)};
 
         for (String prefKey : prefKeys) {
             findPreference(prefKey).setOnPreferenceClickListener(this);
@@ -55,6 +57,9 @@ public class SettingsPreferenceFragment extends BasePreferenceFragment
         } else if (key.equals(getString(R.string.connection_key))) {
             simpleName = ConnectionPreferenceFragment.class.getSimpleName();
             fragment = new ConnectionPreferenceFragment();
+        } else if (key.equals(getString(R.string.license_key))) {
+            DialogFragment licenseFragment = new LicenseDialogFragment();
+            licenseFragment.show(getFragmentManager(), LicenseDialogFragment.class.getSimpleName());
         }
 
         if (simpleName != null) {

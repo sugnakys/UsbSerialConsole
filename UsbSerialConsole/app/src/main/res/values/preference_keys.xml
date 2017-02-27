@@ -20,5 +20,6 @@
     <string name="timestamp_visible_key" translatable="false">timestamp_visible</string>
     <string name="timestamp_format_key" translatable="false">timestamp_format</string>
 
+    <string name="license_key" translatable="false">license</string>
 
 </resources>

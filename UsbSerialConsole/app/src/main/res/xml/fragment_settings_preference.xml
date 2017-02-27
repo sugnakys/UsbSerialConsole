@@ -16,4 +16,9 @@
         android:key="@string/connection_key"
         android:title="@string/connection_title" />
 
+    <Preference
+        android:icon="@drawable/ic_info_outline_black_24dp"
+        android:key="@string/license_key"
+        android:title="@string/license_title" />
+
 </PreferenceScreen>
