@@ -12,6 +12,8 @@
 
     <string name="screen_orientation_key" translatable="false">screen_orientation</string>
     <string name="sleep_mode_key" translatable="false">sleep_mode</string>
+    <string name="color_console_text_key" translatable="false">color_console_text</string>
+    <string name="color_console_background_key" translatable="false">color_console_background</string>
 
     <string name="connection_key" translatable="false">connection</string>
 

@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -23,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -60,8 +64,9 @@ public class MainActivity extends BaseAppCompatActivity
         }
     };
 
+    private LinearLayout mainLayout;
     private Button sendBtn;
-    private TextView sendMsgView;
+    private EditText sendMsgView;
     private LinearLayout sendViewLayout;
     private TextView receivedMsgView;
     private ScrollView scrollView;
@@ -140,10 +145,11 @@ public class MainActivity extends BaseAppCompatActivity
 
         setContentView(R.layout.activity_main);
 
+        mainLayout = (LinearLayout) findViewById(R.id.mainLayout);
         receivedMsgView = (TextView) findViewById(R.id.receivedMsgView);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
         sendBtn = (Button) findViewById(R.id.sendBtn);
-        sendMsgView = (TextView) findViewById(R.id.sendMsgView);
+        sendMsgView = (EditText) findViewById(R.id.sendMsgView);
         sendViewLayout = (LinearLayout) findViewById(R.id.sendViewLayout);
 
         sendBtn.setOnClickListener(this);
@@ -151,6 +157,29 @@ public class MainActivity extends BaseAppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    private void setDefaultColor() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = pref.edit();
+
+        if (!pref.contains(getString(R.string.color_console_background_key))) {
+            int defaultBackgroundColor = Color.TRANSPARENT;
+            Drawable background = mainLayout.getBackground();
+            if (background instanceof ColorDrawable) {
+                defaultBackgroundColor = ((ColorDrawable) background).getColor();
+            }
+            editor.putInt(getString(R.string.color_console_background_key), defaultBackgroundColor);
+            editor.apply();
+            Log.d(TAG, "Default background color: " + String.format("#%08X", defaultBackgroundColor));
+        }
+
+        if (!pref.contains(getString(R.string.color_console_text_key))) {
+            int defaultTextColor = receivedMsgView.getTextColors().getDefaultColor();
+            editor.putInt(getString(R.string.color_console_text_key), defaultTextColor);
+            editor.apply();
+            Log.d(TAG, "Default text color: " + String.format("#%08X", defaultTextColor));
+        }
     }
 
     @Override
@@ -170,6 +199,8 @@ public class MainActivity extends BaseAppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
+
+        setDefaultColor();
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         showTimeStamp = pref.getBoolean(
@@ -191,6 +222,15 @@ public class MainActivity extends BaseAppCompatActivity
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
+
+        int backgroundColor = pref.getInt(getString(R.string.color_console_background_key), Color.WHITE);
+        Log.d(TAG, "Background color: " + String.format("#%08X", backgroundColor));
+        mainLayout.setBackgroundColor(backgroundColor);
+
+        int textColor = pref.getInt(getString(R.string.color_console_text_key), Color.BLACK);
+        Log.d(TAG, "Text color: " + String.format("#%08X", textColor));
+        receivedMsgView.setTextColor(textColor);
+        sendMsgView.setTextColor(textColor);
 
         setFilters();
         startService(UsbService.class, usbConnection);
