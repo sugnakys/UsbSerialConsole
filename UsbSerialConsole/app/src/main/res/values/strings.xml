@@ -49,6 +49,8 @@
 
     <string name="line_feed_code_title">Line feed code</string>
 
+    <string name="license_title">License</string>
+
     <string name="send_pref_category_title">Send</string>
     <string name="receive_pref_category_title">Receive</string>
 
@@ -64,4 +66,9 @@
     <string name="sleep_mode_summary_off">Screen will sleep</string>
 
     <string name="confirm_finish_text">Finish app?</string>
+
+    <string name="color_pref_category_title">Color</string>
+    <string name="color_console_text_title">Text</string>
+    <string name="color_console_background_title">Background</string>
+
 </resources>

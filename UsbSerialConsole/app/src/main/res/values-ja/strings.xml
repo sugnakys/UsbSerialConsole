@@ -49,6 +49,8 @@
 
     <string name="line_feed_code_title">改行コード</string>
 
+    <string name="license_title">ライセンス</string>
+
     <string name="send_pref_category_title">送信</string>
     <string name="receive_pref_category_title">受信</string>
 
@@ -64,4 +66,9 @@
     <string name="sleep_mode_summary_off">画面をスリープにする</string>
 
     <string name="confirm_finish_text">アプリを終了しますか?</string>
+
+    <string name="color_pref_category_title">色</string>
+    <string name="color_console_text_title">テキスト</string>
+    <string name="color_console_background_title">背景</string>
+
 </resources>
