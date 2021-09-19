@@ -3,8 +3,7 @@ package jp.sugnakys.usbserialconsole.settings;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-
+import androidx.appcompat.widget.Toolbar;
 import jp.sugnakys.usbserialconsole.R;
 import jp.sugnakys.usbserialconsole.UsbService;
 import jp.sugnakys.usbserialconsole.util.Log;
@@ -28,7 +27,7 @@ public class SerialPortPreferenceFragment extends BasePreferenceFragment {
     public void onResume() {
         super.onResume();
 
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.serial_port_title));
     }
 

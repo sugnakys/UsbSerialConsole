@@ -4,9 +4,8 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-
+import androidx.appcompat.widget.Toolbar;
 import jp.sugnakys.usbserialconsole.R;
 
 public class SettingsPreferenceFragment extends BasePreferenceFragment

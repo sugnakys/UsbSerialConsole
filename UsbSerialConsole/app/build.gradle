@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 31
+    buildToolsVersion '31.0.0'
 
     defaultConfig {
         applicationId "jp.sugnakys.usbserialconsole"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 31
         versionCode 10100
         versionName "1.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -25,14 +25,13 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:0.5'
-    androidTestImplementation 'com.android.support.test:rules:0.5'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
-    androidTestImplementation 'com.android.support:support-annotations:25.2.0'
-    implementation 'com.android.support:appcompat-v7:25.2.0'
-    implementation 'com.android.support:design:25.2.0'
+
+    testImplementation 'junit:junit:4.13.2'
+
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+
     implementation 'com.github.felHR85:UsbSerial:4.5'
+
     implementation 'com.jrummyapps:colorpicker:2.1.5'
 }
