@@ -17,7 +17,7 @@ class LicenseDialogFragment : DialogFragment() {
         val builder = AlertDialog.Builder(activity)
         val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         @SuppressLint("InflateParams") val content =
-            inflater.inflate(R.layout.license_view_main, null)
+            inflater.inflate(R.layout.fragment_license, null)
         val webView = content.findViewById<View>(R.id.webview) as WebView
         webView.webViewClient = WebViewClient()
         webView.loadUrl("file:///android_asset/license/license.html")

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="jp.sugnakys.usbserialconsole.HomeFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/activity_main">
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_logListFragment"
+            app:destination="@id/logListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="jp.sugnakys.usbserialconsole.settings.SettingsFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/logListFragment"
+        android:name="jp.sugnakys.usbserialconsole.LogListFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_log_list">
+        <action
+            android:id="@+id/action_logListFragment_to_logViewFragment"
+            app:destination="@id/logViewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/logViewFragment"
+        android:name="jp.sugnakys.usbserialconsole.LogViewFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_log">
+        <argument
+            android:name="uriString"
+            app:argType="string" />
+    </fragment>
+
+</navigation>
