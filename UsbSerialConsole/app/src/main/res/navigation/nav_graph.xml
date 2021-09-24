@@ -30,8 +30,8 @@
             android:id="@+id/action_settingsFragment_to_connectionPreferenceFragment"
             app:destination="@id/connectionPreferenceFragment" />
         <action
-            android:id="@+id/action_settingsFragment_to_licenseDialogFragment"
-            app:destination="@id/licenseDialogFragment" />
+            android:id="@+id/action_settingsFragment_to_licenseFragment"
+            app:destination="@id/licenseFragment" />
     </fragment>
 
     <fragment
@@ -47,8 +47,8 @@
         android:name="jp.sugnakys.usbserialconsole.settings.ConnectionPreferenceFragment" />
 
     <fragment
-        android:id="@+id/licenseDialogFragment"
-        android:name="jp.sugnakys.usbserialconsole.settings.LicenseDialogFragment" />
+        android:id="@+id/licenseFragment"
+        android:name="jp.sugnakys.usbserialconsole.settings.LicenseFragment" />
 
     <fragment
         android:id="@+id/logListFragment"

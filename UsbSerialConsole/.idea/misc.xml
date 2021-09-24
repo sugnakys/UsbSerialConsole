@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable/background_splash.xml" value="0.15416666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_license.xml" value="0.14990942028985507" />
         <entry key="app/src/main/res/layout/fragment_log.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_log_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.14791666666666667" />
