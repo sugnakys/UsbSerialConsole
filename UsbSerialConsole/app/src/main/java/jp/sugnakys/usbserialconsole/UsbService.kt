@@ -93,7 +93,7 @@ class UsbService : Service() {
         findSerialPortDevice()
     }
 
-    override fun onBind(intent: Intent): IBinder? {
+    override fun onBind(intent: Intent): IBinder {
         return binder
     }
 
@@ -128,9 +128,8 @@ class UsbService : Service() {
             device = value
             val deviceVID = device!!.vendorId
             val devicePID = device!!.productId
-            if (DBG) {
-                Log.d(TAG, "VendorID: $deviceVID, ProductID: $devicePID")
-            }
+            Timber.d("VendorID: $deviceVID, ProductID: $devicePID")
+
             if (deviceVID != 0x1d6b
                 && devicePID != 0x0001 && devicePID != 0x0002 && devicePID != 0x0003
             ) {

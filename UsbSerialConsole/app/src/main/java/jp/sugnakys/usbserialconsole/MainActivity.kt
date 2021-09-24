@@ -9,10 +9,10 @@ import android.content.IntentFilter
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
-import android.preference.PreferenceManager
 import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import jp.sugnakys.usbserialconsole.UsbService.UsbBinder
 import jp.sugnakys.usbserialconsole.util.Util
 import timber.log.Timber

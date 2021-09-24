@@ -39,7 +39,8 @@
                     android:hint="@string/send_message_hint"
                     android:imeOptions="flagNoFullscreen"
                     android:inputType="textUri"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:importantForAutofill="no" />
 
                 <Button
                     android:id="@+id/send_btn"

@@ -26,7 +26,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         findPreference<Preference>(getString(R.string.license_key))?.setOnPreferenceClickListener {
-            findNavController().navigate(R.id.action_settingsFragment_to_licenseDialogFragment)
+            findNavController().navigate(R.id.action_settingsFragment_to_licenseFragment)
             false
         }
     }
