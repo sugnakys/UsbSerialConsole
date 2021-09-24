@@ -13,6 +13,7 @@
             android:entries="@array/line_feed_code_entries"
             android:entryValues="@array/line_feed_code_entryvalues"
             android:key="@string/line_feed_code_send_key"
+            android:summary="%s"
             android:title="@string/line_feed_code_title" />
     </PreferenceCategory>
 
@@ -29,6 +30,7 @@
             android:entries="@array/timestamp_format_entries"
             android:entryValues="@array/timestamp_format_entryvalues"
             android:key="@string/timestamp_format_key"
+            android:summary="%s"
             android:title="@string/timestamp_format_title" />
     </PreferenceCategory>
 

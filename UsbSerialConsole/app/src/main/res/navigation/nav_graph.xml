@@ -21,7 +21,40 @@
         android:id="@+id/settingsFragment"
         android:name="jp.sugnakys.usbserialconsole.settings.SettingsFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_serialPortPreferenceFragment"
+            app:destination="@id/serialPortPreferenceFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_displayPreferenceFragment"
+            app:destination="@id/displayPreferenceFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_connectionPreferenceFragment"
+            app:destination="@id/connectionPreferenceFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_licenseDialogFragment"
+            app:destination="@id/licenseDialogFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/serialPortPreferenceFragment"
+        android:name="jp.sugnakys.usbserialconsole.settings.SerialPortPreferenceFragment"
+        android:label="@string/app_name"/>
+
+    <fragment
+        android:id="@+id/displayPreferenceFragment"
+        android:name="jp.sugnakys.usbserialconsole.settings.DisplayPreferenceFragment"
+        android:label="@string/app_name"/>
+
+    <fragment
+        android:id="@+id/connectionPreferenceFragment"
+        android:name="jp.sugnakys.usbserialconsole.settings.ConnectionPreferenceFragment"
+        android:label="@string/app_name"/>
+
+    <fragment
+        android:id="@+id/licenseDialogFragment"
+        android:name="jp.sugnakys.usbserialconsole.settings.LicenseDialogFragment"
+        android:label="@string/app_name"/>
 
     <fragment
         android:id="@+id/logListFragment"
@@ -35,7 +68,7 @@
 
     <fragment
         android:id="@+id/logViewFragment"
-        android:name="jp.sugnakys.usbserialconsole.LogViewFragment"
+        android:name="jp.sugnakys.usbserialconsole.LogFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_log">
         <argument

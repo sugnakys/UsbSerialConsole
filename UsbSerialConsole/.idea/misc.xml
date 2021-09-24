@@ -3,14 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../Library/Android/sdk/platforms/android-31/data/res/layout/simple_list_item_1.xml" value="0.18568840579710144" />
+        <entry key="app/src/main/res/drawable/background_splash.xml" value="0.15416666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_log.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_log_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.14791666666666667" />
         <entry key="app/src/main/res/layout/license_view_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/list_log_at.xml" value="0.18568840579710144" />
+        <entry key="app/src/main/res/layout/log_list_at.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/layout/log_list_view_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/log_view_main.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/settings_main.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.1" />
+        <entry key="app/src/main/res/xml/fragment_connection_preference.xml" value="0.12318840579710146" />
+        <entry key="app/src/main/res/xml/fragment_serial_port_preference.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/xml/fragment_settings_preference.xml" value="0.1" />
+        <entry key="app/src/main/res/xml/provider_path.xml" value="0.1" />
       </map>
     </option>
   </component>

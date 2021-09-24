@@ -14,17 +14,11 @@ import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import jp.sugnakys.usbserialconsole.UsbService.UsbBinder
-import jp.sugnakys.usbserialconsole.util.Constants
 import jp.sugnakys.usbserialconsole.util.Util
-import jp.sugnakys.usbserialconsole.util.Util.currentDateForFile
-import jp.sugnakys.usbserialconsole.util.Util.getLogDir
 import timber.log.Timber
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.nio.charset.Charset
 
 class MainActivity : AppCompatActivity() {
+
     private var usbService: UsbService? = null
     private val usbConnection = object : ServiceConnection {
         override fun onServiceConnected(arg0: ComponentName, arg1: IBinder) {
@@ -37,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var mOptionMenu: Menu? = null
+
     //private var mHandler: MyHandler? = null
     private var timestampFormat: String? = null
     private var lineFeedCode: String? = null
@@ -89,17 +84,15 @@ class MainActivity : AppCompatActivity() {
     private fun requestConnection() {
         val alertDialog = AlertDialog.Builder(this@MainActivity)
         alertDialog.setMessage(getString(R.string.confirm_connect))
-        alertDialog.setPositiveButton(getString(android.R.string.ok)) { dialogInterface, i -> startConnection() }
+        alertDialog.setPositiveButton(getString(android.R.string.ok)) { _, _ -> startConnection() }
         alertDialog.setNegativeButton(getString(android.R.string.cancel), null)
         alertDialog.create().show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setTheme(R.style.AppTheme_NoActionBar)
-        //mHandler = MyHandler(this)
         setContentView(R.layout.activity_main)
+        //mHandler = MyHandler(this)
     }
 
 //    private fun setDefaultColor() {
@@ -221,11 +214,6 @@ class MainActivity : AppCompatActivity() {
         filter.addAction(UsbService.ACTION_USB_PERMISSION_NOT_GRANTED)
         registerReceiver(mUsbReceiver, filter)
     }
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        mOptionMenu = menu
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
 
     private fun updateOptionsMenu() {
         if (mOptionMenu != null) {
@@ -234,38 +222,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        val item = menu.findItem(R.id.action_connect)
-        item.isEnabled = isUSBReady
-        if (isConnect) {
-            item.title = getString(R.string.action_disconnect)
-        } else {
-            item.title = getString(R.string.action_connect)
-        }
+//        val item = menu.findItem(R.id.action_connect)
+//        item.isEnabled = isUSBReady
+//        if (isConnect) {
+//            item.title = getString(R.string.action_disconnect)
+//        } else {
+//            item.title = getString(R.string.action_connect)
+//        }
         return super.onPrepareOptionsMenu(menu)
     }
 
-    private fun writeToFile(data: String) {
-        val fileName = currentDateForFile + Constants.LOG_EXT
-        val dirName = getLogDir(applicationContext)
-        var fos: FileOutputStream? = null
-        try {
-            fos = FileOutputStream(File(dirName, fileName))
-            fos.write(data.toByteArray(Charset.forName(Constants.CHARSET)))
-            Timber.d( "Save: $fileName")
-            Toast.makeText(
-                this, getString(R.string.action_save_log)
-                        + " : " + fileName, Toast.LENGTH_SHORT
-            ).show()
-        } catch (e: IOException) {
-            Timber.e( e.toString())
-        } finally {
-            try {
-                fos?.close()
-            } catch (e: IOException) {
-                Timber.e(e.toString())
-            }
-        }
-    }
 
     private fun startConnection() {
         //usbService!!.setHandler(mHandler)

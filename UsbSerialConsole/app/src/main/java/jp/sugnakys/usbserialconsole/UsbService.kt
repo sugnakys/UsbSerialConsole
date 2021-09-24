@@ -1,16 +1,13 @@
 package jp.sugnakys.usbserialconsole
 
 import android.os.IBinder
-import jp.sugnakys.usbserialconsole.UsbService.UsbBinder
 import com.felhr.usbserial.UsbSerialInterface.UsbReadCallback
-import jp.sugnakys.usbserialconsole.UsbService
 import com.felhr.usbserial.UsbSerialInterface.UsbCTSCallback
 import com.felhr.usbserial.UsbSerialInterface.UsbDSRCallback
 import android.hardware.usb.UsbManager
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbDeviceConnection
 import com.felhr.usbserial.UsbSerialDevice
-import jp.sugnakys.usbserialconsole.UsbService.ConnectionThread
 import android.app.PendingIntent
 import android.app.Service
 import android.content.*
@@ -18,9 +15,8 @@ import android.os.Binder
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.util.Log
-import jp.sugnakys.usbserialconsole.R
 import com.felhr.usbserial.CDCSerialDevice
-import jp.sugnakys.usbserialconsole.util.Constants
+import timber.log.Timber
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 
@@ -30,29 +26,27 @@ class UsbService : Service() {
     private var mHandler: Handler? = null
     private val mCallback = UsbReadCallback { arg ->
         try {
-            val data = String(arg, Charset.forName(Constants.CHARSET))
+            val data = String(arg, Charset.defaultCharset())
             if (mHandler != null) {
                 mHandler!!.obtainMessage(MESSAGE_FROM_SERIAL_PORT, data).sendToTarget()
             }
         } catch (e: UnsupportedEncodingException) {
-            Log.d(TAG, e.toString())
+            Timber.e(e.toString())
         }
     }
     private val ctsCallback = UsbCTSCallback {
-        if (mHandler != null) {
-            mHandler!!.obtainMessage(CTS_CHANGE).sendToTarget()
-        }
+        mHandler?.obtainMessage(CTS_CHANGE)?.sendToTarget()
     }
     private val dsrCallback = UsbDSRCallback {
-        if (mHandler != null) {
-            mHandler!!.obtainMessage(DSR_CHANGE).sendToTarget()
-        }
+        mHandler?.obtainMessage(DSR_CHANGE)?.sendToTarget()
     }
+
     private var usbManager: UsbManager? = null
     private var device: UsbDevice? = null
     private var connection: UsbDeviceConnection? = null
     private var serialPort: UsbSerialDevice? = null
     private var serialPortConnected = false
+
     private val usbReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
@@ -80,12 +74,12 @@ class UsbService : Service() {
                     serialPortConnected = false
                 }
                 ACTION_SERIAL_CONFIG_CHANGED -> if (serialPortConnected) {
-                    Log.d(TAG, "Restart Connection")
+                    Timber.d("Restart Connection")
                     serialPort!!.close()
                     connection = usbManager!!.openDevice(device)
                     ConnectionThread().start()
                 }
-                else -> Log.e(TAG, "Unknown action")
+                else -> Timber.e("Unknown action")
             }
         }
     }
