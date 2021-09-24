@@ -2,22 +2,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
-        android:icon="@drawable/ic_serial_port_black_24dp"
+        android:icon="@drawable/serial_port"
         android:key="@string/serial_port_key"
         android:title="@string/serial_port_title" />
 
     <Preference
-        android:icon="@drawable/ic_cellphone_black_24dp"
+        android:icon="@drawable/cellphone"
         android:key="@string/display_key"
         android:title="@string/display_title" />
 
     <Preference
-        android:icon="@drawable/ic_swap_horizontal_black_24dp"
+        android:icon="@drawable/swap_horizontal"
         android:key="@string/connection_key"
         android:title="@string/connection_title" />
 
     <Preference
-        android:icon="@drawable/ic_info_outline_black_24dp"
+        android:icon="@drawable/info"
         android:key="@string/license_key"
         android:title="@string/license_title" />
 

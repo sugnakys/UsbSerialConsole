@@ -7,7 +7,6 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="jp.sugnakys.usbserialconsole.HomeFragment"
-        android:label="@string/app_name"
         tools:layout="@layout/activity_main">
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
@@ -20,7 +19,6 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="jp.sugnakys.usbserialconsole.settings.SettingsFragment"
-        android:label="@string/app_name"
         tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_serialPortPreferenceFragment"
@@ -38,28 +36,23 @@
 
     <fragment
         android:id="@+id/serialPortPreferenceFragment"
-        android:name="jp.sugnakys.usbserialconsole.settings.SerialPortPreferenceFragment"
-        android:label="@string/app_name"/>
+        android:name="jp.sugnakys.usbserialconsole.settings.SerialPortPreferenceFragment" />
 
     <fragment
         android:id="@+id/displayPreferenceFragment"
-        android:name="jp.sugnakys.usbserialconsole.settings.DisplayPreferenceFragment"
-        android:label="@string/app_name"/>
+        android:name="jp.sugnakys.usbserialconsole.settings.DisplayPreferenceFragment" />
 
     <fragment
         android:id="@+id/connectionPreferenceFragment"
-        android:name="jp.sugnakys.usbserialconsole.settings.ConnectionPreferenceFragment"
-        android:label="@string/app_name"/>
+        android:name="jp.sugnakys.usbserialconsole.settings.ConnectionPreferenceFragment" />
 
     <fragment
         android:id="@+id/licenseDialogFragment"
-        android:name="jp.sugnakys.usbserialconsole.settings.LicenseDialogFragment"
-        android:label="@string/app_name"/>
+        android:name="jp.sugnakys.usbserialconsole.settings.LicenseDialogFragment" />
 
     <fragment
         android:id="@+id/logListFragment"
         android:name="jp.sugnakys.usbserialconsole.LogListFragment"
-        android:label="@string/app_name"
         tools:layout="@layout/fragment_log_list">
         <action
             android:id="@+id/action_logListFragment_to_logViewFragment"
@@ -69,7 +62,6 @@
     <fragment
         android:id="@+id/logViewFragment"
         android:name="jp.sugnakys.usbserialconsole.LogFragment"
-        android:label="@string/app_name"
         tools:layout="@layout/fragment_log">
         <argument
             android:name="uriString"
