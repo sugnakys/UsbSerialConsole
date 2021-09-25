@@ -1,4 +1,4 @@
-package jp.sugnakys.usbserialconsole
+package jp.sugnakys.usbserialconsole.presentation
 
 import android.app.AlertDialog
 import android.content.BroadcastReceiver
@@ -15,7 +15,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
-import jp.sugnakys.usbserialconsole.UsbService.UsbBinder
+import jp.sugnakys.usbserialconsole.R
+import jp.sugnakys.usbserialconsole.usb.UsbService
+import jp.sugnakys.usbserialconsole.usb.UsbService.UsbBinder
 import jp.sugnakys.usbserialconsole.util.Util
 import timber.log.Timber
 

@@ -1,4 +1,4 @@
-package jp.sugnakys.usbserialconsole.settings
+package jp.sugnakys.usbserialconsole.presentation.settings
 
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController

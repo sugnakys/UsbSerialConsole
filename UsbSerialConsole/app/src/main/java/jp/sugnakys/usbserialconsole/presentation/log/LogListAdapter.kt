@@ -1,4 +1,4 @@
-package jp.sugnakys.usbserialconsole
+package jp.sugnakys.usbserialconsole.presentation.log
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.databinding.ListLogAtBinding
 import java.io.File
 

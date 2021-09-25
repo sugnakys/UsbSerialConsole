@@ -1,4 +1,4 @@
-package jp.sugnakys.usbserialconsole
+package jp.sugnakys.usbserialconsole.usb
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -23,6 +23,7 @@ import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
 import com.felhr.usbserial.CDCSerialDevice
 import dagger.hilt.android.AndroidEntryPoint
+import jp.sugnakys.usbserialconsole.R
 import timber.log.Timber
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset

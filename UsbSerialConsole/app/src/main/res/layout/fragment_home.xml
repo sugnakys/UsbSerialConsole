@@ -6,13 +6,13 @@
 
         <variable
             name="viewmodel"
-            type="jp.sugnakys.usbserialconsole.HomeViewModel" />
+            type="jp.sugnakys.usbserialconsole.presentation.HomeViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="jp.sugnakys.usbserialconsole.MainActivity">
+        tools:context="jp.sugnakys.usbserialconsole.presentation.MainActivity">
 
         <LinearLayout
             android:id="@+id/main_layout"

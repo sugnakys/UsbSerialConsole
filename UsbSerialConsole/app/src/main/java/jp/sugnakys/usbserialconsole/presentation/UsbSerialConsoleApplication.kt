@@ -1,7 +1,8 @@
-package jp.sugnakys.usbserialconsole
+package jp.sugnakys.usbserialconsole.presentation
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
+import jp.sugnakys.usbserialconsole.BuildConfig
 import timber.log.Timber
 
 @HiltAndroidApp

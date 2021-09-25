@@ -1,4 +1,4 @@
-package jp.sugnakys.usbserialconsole
+package jp.sugnakys.usbserialconsole.presentation.log
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
