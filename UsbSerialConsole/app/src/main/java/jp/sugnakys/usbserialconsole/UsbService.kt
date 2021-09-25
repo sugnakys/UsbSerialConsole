@@ -1,5 +1,8 @@
 package jp.sugnakys.usbserialconsole
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.os.IBinder
 import com.felhr.usbserial.UsbSerialInterface.UsbReadCallback
 import com.felhr.usbserial.UsbSerialInterface.UsbCTSCallback
@@ -11,15 +14,20 @@ import com.felhr.usbserial.UsbSerialDevice
 import android.app.PendingIntent
 import android.app.Service
 import android.content.*
+import android.graphics.Color
 import android.os.Binder
+import android.os.Build
 import android.os.Handler
-import android.preference.PreferenceManager
-import android.util.Log
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
+import androidx.preference.PreferenceManager
 import com.felhr.usbserial.CDCSerialDevice
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 
+@AndroidEntryPoint
 class UsbService : Service() {
     private val binder: IBinder = UsbBinder()
     private var context: Context? = null
@@ -85,12 +93,50 @@ class UsbService : Service() {
     }
 
     override fun onCreate() {
+        super.onCreate()
+
         context = this
         serialPortConnected = false
         SERVICE_CONNECTED = true
         setFilter()
         usbManager = getSystemService(USB_SERVICE) as UsbManager
         findSerialPortDevice()
+
+        val channelId =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                createNotificationChannel()
+            } else {
+                ""
+            }
+        val notification = NotificationCompat.Builder(this, channelId)
+            .setOngoing(true)
+            .apply {
+                setSmallIcon(R.drawable.swap_horizontal)
+                setContentTitle(getString(R.string.app_name))
+                setContentText(getString(R.string.service_starting_up))
+            }.build()
+
+        startForeground(1, notification)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel(): String {
+        val channelId = "USB_SERIAL_CONSOLE_SERVICE"
+        val channelName = getString(R.string.usb_connection_service)
+
+        val channel = NotificationChannel(
+            channelId,
+            channelName,
+            NotificationManager.IMPORTANCE_MIN
+        )
+
+        channel.lightColor = Color.BLUE
+        channel.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
+
+        val service = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        service.createNotificationChannel(channel)
+
+        return channelId
     }
 
     override fun onBind(intent: Intent): IBinder {
@@ -159,7 +205,14 @@ class UsbService : Service() {
     }
 
     private fun requestUserPermission() {
-        val mPendingIntent = PendingIntent.getBroadcast(this, 0, Intent(ACTION_USB_PERMISSION), 0)
+        val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.FLAG_MUTABLE
+        } else {
+            0
+        }
+
+        val mPendingIntent =
+            PendingIntent.getBroadcast(this, 0, Intent(ACTION_USB_PERMISSION), flag)
         usbManager!!.requestPermission(device, mPendingIntent)
     }
 

@@ -7,16 +7,19 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.ServiceConnection
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.sugnakys.usbserialconsole.UsbService.UsbBinder
 import jp.sugnakys.usbserialconsole.util.Util
 import timber.log.Timber
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var usbService: UsbService? = null
@@ -199,7 +202,11 @@ class MainActivity : AppCompatActivity() {
     private fun startService(service: Class<*>, serviceConnection: ServiceConnection) {
         if (!UsbService.SERVICE_CONNECTED) {
             val startService = Intent(this, service)
-            startService(startService)
+             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                 startForegroundService(startService)
+             } else {
+                 startService(startService)
+             }
         }
         val bindingIntent = Intent(this, service)
         bindService(bindingIntent, serviceConnection, BIND_AUTO_CREATE)

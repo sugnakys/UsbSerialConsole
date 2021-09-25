@@ -12,10 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import jp.sugnakys.usbserialconsole.databinding.FragmentHomeBinding
 import jp.sugnakys.usbserialconsole.util.Util
 import java.io.File
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private val viewModel by viewModels<HomeViewModel>()

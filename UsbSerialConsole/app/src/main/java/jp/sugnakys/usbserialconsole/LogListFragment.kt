@@ -9,9 +9,11 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import jp.sugnakys.usbserialconsole.databinding.FragmentLogListBinding
 import jp.sugnakys.usbserialconsole.util.Util
 
+@AndroidEntryPoint
 class LogListFragment : Fragment() {
     private val viewModel by viewModels<LogListViewModel>()
     private lateinit var binding: FragmentLogListBinding
