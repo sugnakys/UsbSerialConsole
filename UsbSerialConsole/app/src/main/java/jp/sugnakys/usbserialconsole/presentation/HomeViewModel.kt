@@ -1,58 +1,73 @@
 package jp.sugnakys.usbserialconsole.presentation
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.preference.PreferenceManager
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jp.sugnakys.usbserialconsole.R
+import jp.sugnakys.usbserialconsole.usb.UsbRepository
+import jp.sugnakys.usbserialconsole.util.Util.Companion.getLineFeedCd
 import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.UnsupportedEncodingException
 import java.lang.System.lineSeparator
 import java.nio.charset.Charset
+import java.util.regex.Pattern
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val usbRepository: UsbRepository,
+    application: Application
+) : AndroidViewModel(application) {
 
-    private val isConnection = false
+    val receivedMessage = usbRepository.receivedData
 
-    private val _receivedMessage = MutableLiveData<String>()
-    val receivedMessage: LiveData<String> = _receivedMessage
+    val isUSBReady = usbRepository.isUSBReady
+
+    val isConnect get() = usbRepository.isConnect
+
+    private var lineFeedCode: String? = null
+
+    init {
+        val pref = PreferenceManager.getDefaultSharedPreferences(application)
+
+        lineFeedCode = getLineFeedCd(
+            pref.getString(
+                application.getString(R.string.line_feed_code_send_key),
+                application.getString(R.string.line_feed_code_cr_lf_value)
+            )!!,
+            application
+        )
+    }
 
     fun sendMessage(message: String) {
         if (message.isNotEmpty()) {
             val sendMessage = message + lineSeparator()
-
-//        val pattern = Pattern.compile("\n$")
-//        val matcher = pattern.matcher(msg)
-//        val strResult = matcher.replaceAll("") + lineFeedCode
-//        try {
-//            usbService!!.write(strResult.toByteArray(Charset.forName(Constants.CHARSET)))
-//            Timber.d("SendMessage: $msg")
-//            addReceivedData(msg)
-//        } catch (e: UnsupportedEncodingException) {
-//            Timber.e(e.toString())
-//        }
+            val pattern = Pattern.compile("\n$")
+            val matcher = pattern.matcher(message)
+            val strResult = matcher.replaceAll("") + lineFeedCode
+            try {
+                //TODO
+//                usbService!!.write(
+//                    strResult.toByteArray(Charset.defaultCharset())
+//                )
+                Timber.d("SendMessage: $message")
+                usbRepository.updateReceivedData(message)
+            } catch (e: UnsupportedEncodingException) {
+                Timber.e(e.toString())
+            }
 
         }
     }
 
     fun clearReceivedMessage() {
-        _receivedMessage.postValue("")
-    }
-
-    fun changeConnection() {
-        if (isConnection) {
-            stopConnection()
-        } else {
-            startConnection()
-        }
-    }
-
-    private fun startConnection() {
-        //TODO
-    }
-
-    private fun stopConnection() {
-        //TODO
+        usbRepository.clearReceivedData()
     }
 
     fun writeToFile(file: File, text: String): Boolean {

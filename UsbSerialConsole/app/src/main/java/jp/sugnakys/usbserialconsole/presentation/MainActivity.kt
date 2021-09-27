@@ -9,41 +9,45 @@ import android.content.IntentFilter
 import android.content.ServiceConnection
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.os.IBinder
-import android.view.Menu
+import android.os.Looper
+import android.os.Message
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
 import jp.sugnakys.usbserialconsole.R
+import jp.sugnakys.usbserialconsole.usb.UsbRepository
 import jp.sugnakys.usbserialconsole.usb.UsbService
-import jp.sugnakys.usbserialconsole.usb.UsbService.UsbBinder
 import jp.sugnakys.usbserialconsole.util.Util
 import timber.log.Timber
+import java.lang.ref.WeakReference
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var usbRepository: UsbRepository
+
     private var usbService: UsbService? = null
+    private var bound = false
+
     private val usbConnection = object : ServiceConnection {
-        override fun onServiceConnected(arg0: ComponentName, arg1: IBinder) {
-            usbService = (arg1 as UsbBinder).service
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            val binder = service as UsbService.UsbBinder
+            usbService = binder.getService()
+            bound = true
         }
 
         override fun onServiceDisconnected(arg0: ComponentName) {
-            usbService = null
+            bound = false
         }
     }
 
-    private var mOptionMenu: Menu? = null
-
-    //private var mHandler: MyHandler? = null
-    private var timestampFormat: String? = null
-    private var lineFeedCode: String? = null
-    private var tmpReceivedData = ""
-    private var showTimeStamp = false
-    private var isUSBReady = false
-    private var isConnect = false
+    private var mHandler: MyHandler? = null
 
     private val mUsbReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -54,8 +58,7 @@ class MainActivity : AppCompatActivity() {
                         getString(R.string.usb_permission_granted),
                         Toast.LENGTH_SHORT
                     ).show()
-                    isUSBReady = true
-                    updateOptionsMenu()
+                    usbRepository.setUsbReady(true)
                     requestConnection()
                 }
                 UsbService.ACTION_USB_PERMISSION_NOT_GRANTED -> Toast.makeText(
@@ -74,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                         getString(R.string.usb_disconnected),
                         Toast.LENGTH_SHORT
                     ).show()
-                    isUSBReady = false
+                    usbRepository.setUsbReady(false)
                     stopConnection()
                 }
                 UsbService.ACTION_USB_NOT_SUPPORTED -> Toast.makeText(
@@ -97,78 +100,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //mHandler = MyHandler(this)
+        mHandler = MyHandler(this)
     }
-
-//    private fun setDefaultColor() {
-//        val pref = PreferenceManager.getDefaultSharedPreferences(this)
-//        val editor = pref.edit()
-//        if (!pref.contains(getString(R.string.color_console_background_key))) {
-//            var defaultBackgroundColor = Color.TRANSPARENT
-//            val background = mainLayout!!.background
-//            if (background is ColorDrawable) {
-//                defaultBackgroundColor = background.color
-//            }
-//            editor.putInt(getString(R.string.color_console_background_key), defaultBackgroundColor)
-//            editor.apply()
-//            d(TAG, "Default background color: " + String.format("#%08X", defaultBackgroundColor))
-//        }
-//        if (!pref.contains(getString(R.string.color_console_text_key))) {
-//            val defaultTextColor = receivedMsgView!!.textColors.defaultColor
-//            editor.putInt(getString(R.string.color_console_text_key), defaultTextColor)
-//            editor.apply()
-//            d(TAG, "Default text color: " + String.format("#%08X", defaultTextColor))
-//        }
-//    }
-
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState.putString(RECEIVED_TEXT_VIEW_STR, receivedMsgView!!.text.toString())
-//    }
-//
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//        receivedMsgView!!.text = savedInstanceState.getString(RECEIVED_TEXT_VIEW_STR)
-//    }
 
     override fun onResume() {
         super.onResume()
-//        setDefaultColor()
-//        val pref = PreferenceManager.getDefaultSharedPreferences(this)
-//        showTimeStamp = pref.getBoolean(
-//            resources.getString(R.string.timestamp_visible_key), true
-//        )
-//        timestampFormat = pref.getString(
-//            getString(R.string.timestamp_format_key),
-//            getString(R.string.timestamp_format_default)
-//        )
-//        lineFeedCode = getLineFeedCd(
-//            pref.getString(
-//                getString(R.string.line_feed_code_send_key),
-//                getString(R.string.line_feed_code_cr_lf_value)
-//            )!!,
-//            this
-//        )
-//        if (pref.getBoolean(getString(R.string.send_form_visible_key), true)) {
-//            sendViewLayout!!.visibility = View.VISIBLE
-//        } else {
-//            sendViewLayout!!.visibility = View.GONE
-//        }
-//        if (pref.getBoolean(getString(R.string.sleep_mode_key), false)) {
-//            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-//        } else {
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-//        }
-//        val backgroundColor =
-//            pref.getInt(getString(R.string.color_console_background_key), Color.WHITE)
-//        d(TAG, "Background color: " + String.format("#%08X", backgroundColor))
-//        mainLayout!!.setBackgroundColor(backgroundColor)
-//        val textColor = pref.getInt(getString(R.string.color_console_text_key), Color.BLACK)
-//        d(TAG, "Text color: " + String.format("#%08X", textColor))
-//        receivedMsgView!!.setTextColor(textColor)
-//        sendMsgView!!.setTextColor(textColor)
-
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
+
+        if (pref.getBoolean(getString(R.string.sleep_mode_key), false)) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
+
         val screenOrientation = pref.getString(
             getString(R.string.screen_orientation_key),
             getString(R.string.screen_orientation_default)
@@ -176,42 +120,37 @@ class MainActivity : AppCompatActivity() {
         Util.setScreenOrientation(screenOrientation!!, this)
 
         setFilters()
-        startService(UsbService::class.java, usbConnection)
-        updateOptionsMenu()
     }
 
-    public override fun onDestroy() {
-        if (isConnect) {
+    override fun onStart() {
+        super.onStart()
+        startService()
+    }
+
+    override fun onPause() {
+        if (usbRepository.isConnect) {
             stopConnection()
         }
         unregisterReceiver(mUsbReceiver)
         unbindService(usbConnection)
-        super.onDestroy()
+        super.onPause()
     }
 
-//    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-//        if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            val alertDialog = AlertDialog.Builder(this@MainActivity)
-//            alertDialog.setMessage(getString(R.string.confirm_finish_text))
-//            alertDialog.setPositiveButton(getString(android.R.string.ok)) { dialogInterface, i -> finish() }
-//            alertDialog.setNegativeButton(getString(android.R.string.cancel), null)
-//            alertDialog.create().show()
-//            return true
-//        }
-//        return false
-//    }
-
-    private fun startService(service: Class<*>, serviceConnection: ServiceConnection) {
+    private fun startService() {
         if (!UsbService.SERVICE_CONNECTED) {
-            val startService = Intent(this, service)
-             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                 startForegroundService(startService)
-             } else {
-                 startService(startService)
-             }
+            val startService = Intent(this, UsbService::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(startService)
+            } else {
+                startService(startService)
+            }
         }
-        val bindingIntent = Intent(this, service)
-        bindService(bindingIntent, serviceConnection, BIND_AUTO_CREATE)
+        bindService()
+    }
+
+    private fun bindService() {
+        val bindingIntent = Intent(this, UsbService::class.java)
+        bindService(bindingIntent, usbConnection, BIND_AUTO_CREATE)
     }
 
     private fun setFilters() {
@@ -224,114 +163,55 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(mUsbReceiver, filter)
     }
 
-    private fun updateOptionsMenu() {
-        if (mOptionMenu != null) {
-            onPrepareOptionsMenu(mOptionMenu!!)
+    fun changeConnection() {
+        if (usbRepository.isConnect) {
+            stopConnection()
+        } else {
+            startConnection()
         }
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-//        val item = menu.findItem(R.id.action_connect)
-//        item.isEnabled = isUSBReady
-//        if (isConnect) {
-//            item.title = getString(R.string.action_disconnect)
-//        } else {
-//            item.title = getString(R.string.action_connect)
-//        }
-        return super.onPrepareOptionsMenu(menu)
-    }
-
-
     private fun startConnection() {
-        //usbService!!.setHandler(mHandler)
-        isConnect = true
+        usbService?.setHandler(mHandler)
+        usbRepository.isConnect = true
         Toast.makeText(
             applicationContext,
             getString(R.string.start_connection), Toast.LENGTH_SHORT
         ).show()
-        updateOptionsMenu()
     }
 
     private fun stopConnection() {
-        //usbService!!.setHandler(null)
-        isConnect = false
+        usbService?.setHandler(null)
+        usbRepository.isConnect = false
         Toast.makeText(
             applicationContext,
             getString(R.string.stop_connection), Toast.LENGTH_SHORT
         ).show()
-        updateOptionsMenu()
     }
 
-//    private fun addReceivedData(data: String) {
-//        if (showTimeStamp) {
-//            addReceivedDataWithTime(data)
-//        } else {
-//            addTextView(data)
-//        }
-//    }
+    private fun addReceivedData(data: String) {
+        usbRepository.updateReceivedData(data)
+    }
 
-//    private fun addTextView(data: String) {
-//        receivedMsgView!!.append(data)
-//        scrollView!!.scrollTo(0, receivedMsgView!!.bottom)
-//    }
+    private class MyHandler(activity: MainActivity) : Handler(Looper.getMainLooper()) {
+        private val mActivity: WeakReference<MainActivity> = WeakReference(activity)
+        override fun handleMessage(msg: Message) {
+            when (msg.what) {
+                UsbService.MESSAGE_FROM_SERIAL_PORT -> {
+                    val data = msg.obj as String
+                    mActivity.get()?.addReceivedData(data)
+                }
+                UsbService.CTS_CHANGE -> {
+                    Timber.d("CTS_CHANGE")
+                    Toast.makeText(mActivity.get(), "CTS_CHANGE", Toast.LENGTH_LONG).show()
+                }
+                UsbService.DSR_CHANGE -> {
+                    Timber.d("DSR_CHANGE")
+                    Toast.makeText(mActivity.get(), "DSR_CHANGE", Toast.LENGTH_LONG).show()
+                }
+                else -> Timber.e("Unknown message")
+            }
+        }
 
-//    private fun addReceivedDataWithTime(data: String) {
-//        val timeStamp = "[" + getCurrentTime(timestampFormat) + "] "
-//        tmpReceivedData += data
-//        val separateStr = getLineSeparater(tmpReceivedData)
-//        if (!separateStr.isEmpty()) {
-//            val strArray = tmpReceivedData.split(separateStr.toRegex()).toTypedArray()
-//            tmpReceivedData = ""
-//            for (i in strArray.indices) {
-//                if (strArray.size != 1 && i == strArray.size - 1 && !strArray[i].isEmpty()) {
-//                    tmpReceivedData = strArray[i]
-//                } else {
-//                    addTextView(timeStamp + strArray[i] + System.lineSeparator())
-//                }
-//            }
-//        }
-//    }
-
-//    private fun getLineSeparater(str: String): String {
-//        return if (str.contains(Constants.CR_LF)) {
-//            Constants.CR_LF
-//        } else if (str.contains(Constants.LF)) {
-//            Constants.LF
-//        } else if (str.contains(Constants.CR)) {
-//            Constants.CR
-//        } else {
-//            ""
-//        }
-//    }
-//
-//    private class MyHandler(activity: MainActivity) : Handler() {
-//        private val mActivity: WeakReference<MainActivity>
-//        override fun handleMessage(msg: Message) {
-//            when (msg.what) {
-//                UsbService.MESSAGE_FROM_SERIAL_PORT -> {
-//                    val data = msg.obj as String
-//                    if (data != null) {
-//                        mActivity.get()!!.addReceivedData(data)
-//                    }
-//                }
-//                UsbService.CTS_CHANGE -> {
-//                    d(TAG, "CTS_CHANGE")
-//                    Toast.makeText(mActivity.get(), "CTS_CHANGE", Toast.LENGTH_LONG).show()
-//                }
-//                UsbService.DSR_CHANGE -> {
-//                    d(TAG, "DSR_CHANGE")
-//                    Toast.makeText(mActivity.get(), "DSR_CHANGE", Toast.LENGTH_LONG).show()
-//                }
-//                else -> e(TAG, "Unknown message")
-//            }
-//        }
-//
-//        init {
-//            mActivity = WeakReference(activity)
-//        }
-//    }
-
-//    companion object {
-//        private const val RECEIVED_TEXT_VIEW_STR = "RECEIVED_TEXT_VIEW_STR"
-//    }
+    }
 }

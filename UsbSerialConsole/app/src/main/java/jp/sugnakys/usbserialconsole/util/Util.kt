@@ -14,9 +14,9 @@ class Util {
         private const val LOG_DIR_NAME = "Log"
         private const val LOG_EXT = ".txt"
 
-        private const val CR_LF = "\r\n"
-        private const val LF = "\n"
-        private const val CR = "\r"
+        const val CR_LF = "\r\n"
+        const val LF = "\n"
+        const val CR = "\r"
 
         fun getCurrentTime(format: String?): String {
             return SimpleDateFormat(format, Locale.US).format(Date(System.currentTimeMillis()))

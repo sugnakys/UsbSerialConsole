@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import dagger.hilt.android.AndroidEntryPoint
 import jp.sugnakys.usbserialconsole.databinding.FragmentLicenseBinding
 
-@AndroidEntryPoint
 class LicenseFragment : Fragment() {
 
     private lateinit var binding: FragmentLicenseBinding

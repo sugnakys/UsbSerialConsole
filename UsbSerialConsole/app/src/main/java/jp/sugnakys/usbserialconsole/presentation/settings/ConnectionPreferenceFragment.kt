@@ -2,10 +2,8 @@ package jp.sugnakys.usbserialconsole.presentation.settings
 
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
-import dagger.hilt.android.AndroidEntryPoint
 import jp.sugnakys.usbserialconsole.R
 
-@AndroidEntryPoint
 class ConnectionPreferenceFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
