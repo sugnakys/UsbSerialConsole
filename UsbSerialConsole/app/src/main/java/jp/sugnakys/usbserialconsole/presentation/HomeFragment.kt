@@ -13,17 +13,20 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.databinding.FragmentHomeBinding
-import jp.sugnakys.usbserialconsole.usb.UsbRepository
+import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import jp.sugnakys.usbserialconsole.util.Util
 import java.io.File
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+
+    @Inject
+    lateinit var preference: DefaultPreference
 
     private val viewModel by viewModels<HomeViewModel>()
     private lateinit var binding: FragmentHomeBinding
@@ -103,8 +106,6 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
 
-        val pref = PreferenceManager.getDefaultSharedPreferences(context)
-
         setDefaultColor()
 
         activity?.title = getString(R.string.app_name)
@@ -122,37 +123,35 @@ class HomeFragment : Fragment() {
             binding.scrollView.scrollTo(0, binding.receivedMsgView.bottom)
         })
 
-        binding.sendViewLayout.visibility = if(pref.getBoolean(getString(R.string.send_form_visible_key), true)) {
+        binding.sendViewLayout.visibility = if (preference.sendFormVisibility) {
             View.VISIBLE
         } else {
             View.GONE
         }
 
-        val backgroundColor =
-            pref.getInt(getString(R.string.color_console_background_key), Color.WHITE)
-        binding.mainLayout.setBackgroundColor(backgroundColor)
+        preference.colorConsoleBackground?.let {
+            binding.mainLayout.setBackgroundColor(it)
+        }
 
-        val textColor = pref.getInt(getString(R.string.color_console_text_key), Color.BLACK)
-        binding.receivedMsgView.setTextColor(textColor)
-        binding.sendMsgView.setTextColor(textColor)
+        preference.colorConsoleText?.let {
+            binding.receivedMsgView.setTextColor(it)
+            binding.sendMsgView.setTextColor(it)
+        }
     }
 
     private fun setDefaultColor() {
-        val pref = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = pref.edit()
-        if (!pref.contains(getString(R.string.color_console_background_key))) {
+        if (preference.colorConsoleBackground == null) {
             var defaultBackgroundColor = Color.TRANSPARENT
             val background = binding.mainLayout.background
             if (background is ColorDrawable) {
                 defaultBackgroundColor = background.color
             }
-            editor.putInt(getString(R.string.color_console_background_key), defaultBackgroundColor)
-            editor.apply()
+            preference.colorConsoleBackground = defaultBackgroundColor
         }
-        if (!pref.contains(getString(R.string.color_console_text_key))) {
+
+        if (preference.colorConsoleText == null) {
             val defaultTextColor = binding.receivedMsgView.textColors.defaultColor
-            editor.putInt(getString(R.string.color_console_text_key), defaultTextColor)
-            editor.apply()
+            preference.colorConsoleText = defaultTextColor
         }
     }
 }

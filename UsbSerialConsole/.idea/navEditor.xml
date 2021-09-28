@@ -58,7 +58,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="licenseDialogFragment">
+                  <entry key="licenseFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -136,7 +136,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_settingsFragment_to_licenseDialogFragment">
+                            <entry key="action_settingsFragment_to_licenseFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

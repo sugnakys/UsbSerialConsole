@@ -16,9 +16,9 @@ import android.os.Message
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
 import jp.sugnakys.usbserialconsole.R
+import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import jp.sugnakys.usbserialconsole.usb.UsbRepository
 import jp.sugnakys.usbserialconsole.usb.UsbService
 import jp.sugnakys.usbserialconsole.util.Util
@@ -31,6 +31,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var usbRepository: UsbRepository
+
+    @Inject
+    lateinit var preference: DefaultPreference
 
     private var usbService: UsbService? = null
     private var bound = false
@@ -105,19 +108,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val pref = PreferenceManager.getDefaultSharedPreferences(this)
 
-        if (pref.getBoolean(getString(R.string.sleep_mode_key), false)) {
+        if (preference.sleepMode) {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         } else {
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
 
-        val screenOrientation = pref.getString(
-            getString(R.string.screen_orientation_key),
-            getString(R.string.screen_orientation_default)
-        )
-        Util.setScreenOrientation(screenOrientation!!, this)
+        Util.setScreenOrientation(preference.screenOrientation, this)
 
         setFilters()
     }

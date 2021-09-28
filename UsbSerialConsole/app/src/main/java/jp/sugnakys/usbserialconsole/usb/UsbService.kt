@@ -3,30 +3,33 @@ package jp.sugnakys.usbserialconsole.usb
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.os.IBinder
-import com.felhr.usbserial.UsbSerialInterface.UsbReadCallback
-import com.felhr.usbserial.UsbSerialInterface.UsbCTSCallback
-import com.felhr.usbserial.UsbSerialInterface.UsbDSRCallback
-import android.hardware.usb.UsbManager
-import android.hardware.usb.UsbDevice
-import android.hardware.usb.UsbDeviceConnection
-import com.felhr.usbserial.UsbSerialDevice
 import android.app.PendingIntent
 import android.app.Service
 import android.content.*
 import android.graphics.Color
+import android.hardware.usb.UsbDevice
+import android.hardware.usb.UsbDeviceConnection
+import android.hardware.usb.UsbManager
 import android.os.Binder
 import android.os.Build
 import android.os.Handler
+import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.preference.PreferenceManager
 import com.felhr.usbserial.CDCSerialDevice
+import com.felhr.usbserial.UsbSerialDevice
+import com.felhr.usbserial.UsbSerialInterface.UsbCTSCallback
+import com.felhr.usbserial.UsbSerialInterface.UsbDSRCallback
+import com.felhr.usbserial.UsbSerialInterface.UsbReadCallback
+import dagger.hilt.android.AndroidEntryPoint
 import jp.sugnakys.usbserialconsole.R
+import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import timber.log.Timber
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UsbService : Service() {
 
     companion object {
@@ -52,6 +55,9 @@ class UsbService : Service() {
         private const val ACTION_USB_PERMISSION = "jp.sugnakys.usbserialconsole.USB_PERMISSION"
         var SERVICE_CONNECTED = false
     }
+
+    @Inject
+    lateinit var preference: DefaultPreference
 
     private val binder = UsbBinder()
 
@@ -204,7 +210,7 @@ class UsbService : Service() {
 
         for ((_, value) in usbDevices) {
             device = value
-            if (device != null && UsbSerialDevice.isSupported(device)){
+            if (device != null && UsbSerialDevice.isSupported(device)) {
                 requestUserPermission()
                 break
             } else {
@@ -249,37 +255,12 @@ class UsbService : Service() {
             serialPort?.let {
                 if (it.open()) {
                     serialPortConnected = true
-                    val pref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-                    it.setBaudRate(
-                        pref.getString(
-                            getString(R.string.baudrate_key),
-                            resources.getString(R.string.baudrate_default)
-                        )!!.toInt()
-                    )
-                    it.setDataBits(
-                        pref.getString(
-                            getString(R.string.databits_key),
-                            resources.getString(R.string.databits_default)
-                        )!!.toInt()
-                    )
-                    it.setStopBits(
-                        pref.getString(
-                            getString(R.string.stopbits_key),
-                            resources.getString(R.string.stopbits_default)
-                        )!!.toInt()
-                    )
-                    it.setParity(
-                        pref.getString(
-                            getString(R.string.parity_key),
-                            resources.getString(R.string.parity_default)
-                        )!!.toInt()
-                    )
-                    it.setFlowControl(
-                        pref.getString(
-                            getString(R.string.flowcontrol_key),
-                            resources.getString(R.string.flowcontrol_default)
-                        )!!.toInt()
-                    )
+                    it.setBaudRate(preference.baudrate.toInt())
+                    it.setDataBits(preference.databits.toInt())
+                    it.setStopBits(preference.stopbits.toInt())
+                    it.setParity(preference.parity.toInt())
+                    it.setFlowControl(preference.flowcontrol.toInt())
+
                     it.read(mCallback)
                     it.getCTS(ctsCallback)
                     it.getDSR(dsrCallback)

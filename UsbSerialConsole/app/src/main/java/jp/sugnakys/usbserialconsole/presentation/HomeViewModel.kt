@@ -2,12 +2,9 @@ package jp.sugnakys.usbserialconsole.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.preference.PreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.sugnakys.usbserialconsole.R
+import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import jp.sugnakys.usbserialconsole.usb.UsbRepository
 import jp.sugnakys.usbserialconsole.util.Util.Companion.getLineFeedCd
 import timber.log.Timber
@@ -23,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val usbRepository: UsbRepository,
+    preference: DefaultPreference,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -35,13 +33,8 @@ class HomeViewModel @Inject constructor(
     private var lineFeedCode: String? = null
 
     init {
-        val pref = PreferenceManager.getDefaultSharedPreferences(application)
-
         lineFeedCode = getLineFeedCd(
-            pref.getString(
-                application.getString(R.string.line_feed_code_send_key),
-                application.getString(R.string.line_feed_code_cr_lf_value)
-            )!!,
+            preference.lineFeedCodeSend,
             application
         )
     }

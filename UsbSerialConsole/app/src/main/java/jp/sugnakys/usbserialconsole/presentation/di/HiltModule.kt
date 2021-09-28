@@ -2,6 +2,8 @@ package jp.sugnakys.usbserialconsole.presentation.di
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,5 +26,15 @@ object ServiceModule {
     @Singleton
     fun provideUsbService(): UsbService {
         return UsbService()
+    }
+}
+
+@InstallIn(SingletonComponent::class)
+@Module
+object PreferenceModule {
+    @Provides
+    @Singleton
+    fun providePreference(application: Application): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(application.applicationContext)
     }
 }

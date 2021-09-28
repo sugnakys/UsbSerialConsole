@@ -3,8 +3,8 @@ package jp.sugnakys.usbserialconsole.usb
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.preference.PreferenceManager
 import jp.sugnakys.usbserialconsole.R
+import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import jp.sugnakys.usbserialconsole.util.Util
 import timber.log.Timber
 import javax.inject.Inject
@@ -12,7 +12,8 @@ import javax.inject.Singleton
 
 @Singleton
 class UsbRepository @Inject constructor(
-    private val context: Context
+    private val context: Context,
+    private val preference: DefaultPreference
 ) {
 
     private val _receivedData = MutableLiveData("")
@@ -35,16 +36,8 @@ class UsbRepository @Inject constructor(
     }
 
     private fun updateProperties() {
-        val pref = PreferenceManager.getDefaultSharedPreferences(context)
-
-        showTimeStamp = pref.getBoolean(
-            context.resources.getString(R.string.timestamp_visible_key), true
-        )
-
-        timestampFormat = pref.getString(
-            context.getString(R.string.timestamp_format_key),
-            context.getString(R.string.timestamp_format_default)
-        ) ?: context.getString(R.string.timestamp_format_default)
+        showTimeStamp = preference.timestampVisibility
+        timestampFormat = preference.timestampFormat
     }
 
     fun updateReceivedData(data: String) {
