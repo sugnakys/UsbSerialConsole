@@ -3,7 +3,6 @@ package jp.sugnakys.usbserialconsole.presentation
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import jp.sugnakys.usbserialconsole.usb.UsbRepository
 import jp.sugnakys.usbserialconsole.util.Util.Companion.getLineFeedCd
@@ -12,7 +11,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.UnsupportedEncodingException
-import java.lang.System.lineSeparator
 import java.nio.charset.Charset
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -26,8 +24,7 @@ class HomeViewModel @Inject constructor(
 
     val receivedMessage = usbRepository.receivedData
 
-    val isUSBReady = usbRepository.isUSBReady
-
+    val isUSBReady get() = usbRepository.isUSBReady
     val isConnect get() = usbRepository.isConnect
 
     private var lineFeedCode: String? = null
@@ -41,21 +38,16 @@ class HomeViewModel @Inject constructor(
 
     fun sendMessage(message: String) {
         if (message.isNotEmpty()) {
-            val sendMessage = message + lineSeparator()
             val pattern = Pattern.compile("\n$")
             val matcher = pattern.matcher(message)
             val strResult = matcher.replaceAll("") + lineFeedCode
             try {
-                //TODO
-//                usbService!!.write(
-//                    strResult.toByteArray(Charset.defaultCharset())
-//                )
+                usbRepository.sendData(strResult)
                 Timber.d("SendMessage: $message")
                 usbRepository.updateReceivedData(message)
             } catch (e: UnsupportedEncodingException) {
                 Timber.e(e.toString())
             }
-
         }
     }
 

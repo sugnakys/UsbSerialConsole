@@ -51,11 +51,11 @@ class HomeFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         val item = menu.findItem(R.id.action_connect)
-        item.isEnabled = viewModel.isUSBReady.value ?: false
-        if (viewModel.isConnect) {
-            item.title = getString(R.string.action_disconnect)
+        item.isEnabled = viewModel.isUSBReady
+        item.title = if (viewModel.isConnect) {
+            getString(R.string.action_disconnect)
         } else {
-            item.title = getString(R.string.action_connect)
+            getString(R.string.action_connect)
         }
         super.onPrepareOptionsMenu(menu)
     }

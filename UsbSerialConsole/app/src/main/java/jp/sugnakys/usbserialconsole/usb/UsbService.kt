@@ -12,7 +12,6 @@ import android.hardware.usb.UsbDeviceConnection
 import android.hardware.usb.UsbManager
 import android.os.Binder
 import android.os.Build
-import android.os.Handler
 import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -25,7 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import timber.log.Timber
-import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 import javax.inject.Inject
 
@@ -33,28 +31,15 @@ import javax.inject.Inject
 class UsbService : Service() {
 
     companion object {
-        private const val ACTION_USB_READY = "jp.sugnakys.usbserialconsole.USB_READY"
+        private const val ACTION_USB_PERMISSION = "jp.sugnakys.usbserialconsole.USB_PERMISSION"
         private const val ACTION_USB_ATTACHED = "android.hardware.usb.action.USB_DEVICE_ATTACHED"
         private const val ACTION_USB_DETACHED = "android.hardware.usb.action.USB_DEVICE_DETACHED"
-        const val ACTION_USB_NOT_SUPPORTED = "jp.sugnakys.usbserialconsole.USB_NOT_SUPPORTED"
-        const val ACTION_NO_USB = "jp.sugnakys.usbserialconsole.NO_USB"
-        const val ACTION_USB_PERMISSION_GRANTED =
-            "jp.sugnakys.usbserialconsole.USB_PERMISSION_GRANTED"
-        const val ACTION_USB_PERMISSION_NOT_GRANTED =
-            "jp.sugnakys.usbserialconsole.USB_PERMISSION_NOT_GRANTED"
-        const val ACTION_USB_DISCONNECTED = "jp.sugnakys.usbserialconsole.USB_DISCONNECTED"
-        private const val ACTION_CDC_DRIVER_NOT_WORKING =
-            "jp.sugnakys.usbserialconsole.ACTION_CDC_DRIVER_NOT_WORKING"
-        private const val ACTION_USB_DEVICE_NOT_WORKING =
-            "jp.sugnakys.usbserialconsole.ACTION_USB_DEVICE_NOT_WORKING"
         const val ACTION_SERIAL_CONFIG_CHANGED =
             "jp.sugnakys.usbserialconsole.SERIAL_CONFIG_CHANGED"
-        const val MESSAGE_FROM_SERIAL_PORT = 0
-        const val CTS_CHANGE = 1
-        const val DSR_CHANGE = 2
-        private const val ACTION_USB_PERMISSION = "jp.sugnakys.usbserialconsole.USB_PERMISSION"
-        var SERVICE_CONNECTED = false
     }
+
+    @Inject
+    lateinit var usbRepository: UsbRepository
 
     @Inject
     lateinit var preference: DefaultPreference
@@ -62,7 +47,6 @@ class UsbService : Service() {
     private val binder = UsbBinder()
 
     private lateinit var context: Context
-    private var mHandler: Handler? = null
     private lateinit var usbManager: UsbManager
     private var device: UsbDevice? = null
     private var connection: UsbDeviceConnection? = null
@@ -71,20 +55,17 @@ class UsbService : Service() {
     private var serialPortConnected = false
 
     private val mCallback = UsbReadCallback { arg ->
-        try {
-            val data = String(arg, Charset.defaultCharset())
-            mHandler?.obtainMessage(MESSAGE_FROM_SERIAL_PORT, data)?.sendToTarget()
-        } catch (e: UnsupportedEncodingException) {
-            Timber.e(e.toString())
+        if (usbRepository.isConnect) {
+            usbRepository.updateReceivedData(String(arg, Charset.defaultCharset()))
         }
     }
 
     private val ctsCallback = UsbCTSCallback {
-        mHandler?.obtainMessage(CTS_CHANGE)?.sendToTarget()
+        usbRepository.changeCTS()
     }
 
     private val dsrCallback = UsbDSRCallback {
-        mHandler?.obtainMessage(DSR_CHANGE)?.sendToTarget()
+        usbRepository.changeDSR()
     }
 
     private val usbReceiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -94,13 +75,12 @@ class UsbService : Service() {
                     val extra = intent.extras ?: return
                     val granted = extra.getBoolean(UsbManager.EXTRA_PERMISSION_GRANTED)
                     if (granted) {
-                        val sendIntent = Intent(ACTION_USB_PERMISSION_GRANTED)
-                        context.sendBroadcast(sendIntent)
+                        usbRepository.isUSBReady = true
+                        usbRepository.changePermission(UsbPermission.Granted)
                         connection = usbManager.openDevice(device)
                         ConnectionThread().start()
                     } else {
-                        val sendIntent = Intent(ACTION_USB_PERMISSION_NOT_GRANTED)
-                        context.sendBroadcast(sendIntent)
+                        usbRepository.changePermission(UsbPermission.NotGranted)
                     }
                 }
                 ACTION_USB_ATTACHED -> {
@@ -109,8 +89,8 @@ class UsbService : Service() {
                     }
                 }
                 ACTION_USB_DETACHED -> {
-                    val sendIntent = Intent(ACTION_USB_DISCONNECTED)
-                    context.sendBroadcast(sendIntent)
+                    usbRepository.isUSBReady = false
+                    usbRepository.changeState(UsbState.Disconnected)
                     if (serialPortConnected) {
                         serialPort?.close()
                     }
@@ -134,8 +114,9 @@ class UsbService : Service() {
 
         context = this
         serialPortConnected = false
-        SERVICE_CONNECTED = true
+
         setFilter()
+
         usbManager = getSystemService(USB_SERVICE) as UsbManager
         findSerialPortDevice()
     }
@@ -145,7 +126,6 @@ class UsbService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-
         val channelId =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 createNotificationChannel()
@@ -189,22 +169,16 @@ class UsbService : Service() {
         super.onDestroy()
         serialPort?.close()
         unregisterReceiver(usbReceiver)
-        SERVICE_CONNECTED = false
     }
 
-    fun write(data: ByteArray?) {
-        serialPort?.write(data)
-    }
-
-    fun setHandler(mHandler: Handler?) {
-        this.mHandler = mHandler
+    fun write(data: String) {
+        serialPort?.write(data.toByteArray(Charset.defaultCharset()))
     }
 
     private fun findSerialPortDevice() {
         val usbDevices = usbManager.deviceList
         if (usbDevices.isEmpty()) {
-            val intent = Intent(ACTION_NO_USB)
-            sendBroadcast(intent)
+            usbRepository.changeState(UsbState.NoUsb)
             return
         }
 
@@ -219,8 +193,7 @@ class UsbService : Service() {
             }
         }
         if (device == null) {
-            val intent = Intent(ACTION_NO_USB)
-            sendBroadcast(intent)
+            usbRepository.changeState(UsbState.NoUsb)
         }
     }
 
@@ -264,21 +237,17 @@ class UsbService : Service() {
                     it.read(mCallback)
                     it.getCTS(ctsCallback)
                     it.getDSR(dsrCallback)
-                    val intent = Intent(ACTION_USB_READY)
-                    context.sendBroadcast(intent)
+                    usbRepository.changeState(UsbState.Ready)
                 } else {
                     if (serialPort is CDCSerialDevice) {
-                        val intent = Intent(ACTION_CDC_DRIVER_NOT_WORKING)
-                        context.sendBroadcast(intent)
+                        usbRepository.changeState(UsbState.CdcDriverNotWorking)
                     } else {
-                        val intent = Intent(ACTION_USB_DEVICE_NOT_WORKING)
-                        context.sendBroadcast(intent)
+                        usbRepository.changeState(UsbState.UsbDeviceNotWorking)
                     }
                 }
 
             } ?: run {
-                val intent = Intent(ACTION_USB_NOT_SUPPORTED)
-                context.sendBroadcast(intent)
+                usbRepository.changeState(UsbState.NotSupported)
             }
         }
     }

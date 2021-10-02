@@ -12,27 +12,44 @@ import javax.inject.Singleton
 
 @Singleton
 class UsbRepository @Inject constructor(
-    private val context: Context,
+    context: Context,
     private val preference: DefaultPreference
 ) {
-
     private val _receivedData = MutableLiveData("")
     val receivedData: LiveData<String> = _receivedData
+
+    private val _sendData = MutableLiveData("")
+    val sendData: LiveData<String> = _sendData
 
     private var showTimeStamp: Boolean = false
     private var timestampFormat: String = context.getString(R.string.timestamp_format_default)
     private var tmpReceivedData = ""
 
-    private val _isUSBReady = MutableLiveData(false)
-    val isUSBReady: LiveData<Boolean> = _isUSBReady
-
+    var isUSBReady = false
     var isConnect = false
 
-    private val _isSendFormVisibility = MutableLiveData(true)
-    val isSendFormVisibility: LiveData<Boolean> = _isSendFormVisibility
+    private val _cts = MutableLiveData<Unit>()
+    val cts: LiveData<Unit> = _cts
+
+    private val _dsr = MutableLiveData<Unit>()
+    val dsr: LiveData<Unit> = _dsr
+
+    private val _state = MutableLiveData<UsbState>(UsbState.Initialized)
+    val state: LiveData<UsbState> = _state
+
+    private val _permission = MutableLiveData<UsbPermission>()
+    val permission: LiveData<UsbPermission> = _permission
 
     init {
         updateProperties()
+    }
+
+    fun changeState(state: UsbState) {
+        _state.postValue(state)
+    }
+
+    fun changePermission(permission: UsbPermission) {
+        _permission.postValue(permission)
     }
 
     private fun updateProperties() {
@@ -40,7 +57,24 @@ class UsbRepository @Inject constructor(
         timestampFormat = preference.timestampFormat
     }
 
+    fun changeCTS() {
+        _cts.postValue(Unit)
+    }
+
+    fun changeDSR() {
+        _dsr.postValue(Unit)
+    }
+
+    fun sendData(data: String) {
+        _sendData.postValue(data)
+    }
+
+    fun clearSendData() {
+        _sendData.postValue("")
+    }
+
     fun updateReceivedData(data: String) {
+
         if (showTimeStamp) {
             addReceivedDataWithTime(data)
         } else {
@@ -50,10 +84,6 @@ class UsbRepository @Inject constructor(
 
     fun clearReceivedData() {
         _receivedData.postValue("")
-    }
-
-    fun setUsbReady(isReady: Boolean) {
-        _isUSBReady.postValue(isReady)
     }
 
     private fun addReceivedDataWithTime(data: String) {
@@ -80,19 +110,10 @@ class UsbRepository @Inject constructor(
 
     private fun getLineSeparator(str: String): String {
         return when {
-            str.contains(Util.CR_LF) -> {
-                Util.CR_LF
-            }
-            str.contains(Util.LF) -> {
-                Util.LF
-            }
-            str.contains(Util.CR) -> {
-                Util.CR
-            }
-            else -> {
-                ""
-            }
+            str.contains(Util.CR_LF) -> Util.CR_LF
+            str.contains(Util.LF) -> Util.LF
+            str.contains(Util.CR) -> Util.CR
+            else -> ""
         }
     }
-
 }
