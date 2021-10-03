@@ -15,12 +15,15 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import javax.inject.Inject
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.databinding.FragmentHomeBinding
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import jp.sugnakys.usbserialconsole.util.Util
-import java.io.File
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -71,12 +74,18 @@ class HomeFragment : Fragment() {
                 true
             }
             R.id.action_save_log -> {
-                val fileName = Util.createLogFileName()
+                val fileName = "${
+                    SimpleDateFormat(
+                        "yyyyMMdd_HHmmss",
+                        Locale.US
+                    ).format(Date(System.currentTimeMillis()))
+                }.txt"
+
                 val dirName = Util.getLogDir(requireContext())
 
                 if (viewModel.writeToFile(
-                        File(dirName, fileName),
-                        binding.receivedMsgView.text.toString()
+                        file = File(dirName, fileName),
+                        isTimestamp = preference.timestampVisibility
                     )
                 ) {
                     Snackbar.make(
@@ -108,6 +117,9 @@ class HomeFragment : Fragment() {
 
         setDefaultColor()
 
+        val adapter = LogViewListAdapter(preference)
+        binding.receivedMsgView.adapter = adapter
+
         activity?.title = getString(R.string.app_name)
 
         binding.sendMsgView.addTextChangedListener { text ->
@@ -120,7 +132,8 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.receivedMessage.observe(viewLifecycleOwner, {
-            binding.scrollView.scrollTo(0, binding.receivedMsgView.bottom)
+            adapter.submitList(it)
+            binding.receivedMsgView.scrollToPosition(adapter.itemCount - 1)
         })
 
         binding.sendViewLayout.visibility = if (preference.sendFormVisibility) {
@@ -134,9 +147,9 @@ class HomeFragment : Fragment() {
         }
 
         preference.colorConsoleText?.let {
-            binding.receivedMsgView.setTextColor(it)
             binding.sendMsgView.setTextColor(it)
         }
+
     }
 
     private fun setDefaultColor() {
@@ -150,7 +163,7 @@ class HomeFragment : Fragment() {
         }
 
         if (preference.colorConsoleText == null) {
-            val defaultTextColor = binding.receivedMsgView.textColors.defaultColor
+            val defaultTextColor = binding.sendMsgView.textColors.defaultColor
             preference.colorConsoleText = defaultTextColor
         }
     }

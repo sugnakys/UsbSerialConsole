@@ -68,8 +68,6 @@
     <string name="sleep_mode_summary_on">Screen will never sleep</string>
     <string name="sleep_mode_summary_off">Screen will sleep</string>
 
-    <string name="confirm_finish_text">Finish app?</string>
-
     <string name="color_pref_category_title">Color</string>
     <string name="color_console_text_title">Text</string>
     <string name="color_console_background_title">Background</string>

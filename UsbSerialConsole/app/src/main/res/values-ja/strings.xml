@@ -68,8 +68,6 @@
     <string name="sleep_mode_summary_on">画面をスリープにしない</string>
     <string name="sleep_mode_summary_off">画面をスリープにする</string>
 
-    <string name="confirm_finish_text">アプリを終了しますか?</string>
-
     <string name="color_pref_category_title">色</string>
     <string name="color_console_text_title">テキスト</string>
     <string name="color_console_background_title">背景</string>

@@ -2,32 +2,18 @@ package jp.sugnakys.usbserialconsole.util
 
 import android.app.Activity
 import android.content.Context
-import jp.sugnakys.usbserialconsole.R
 import android.content.pm.ActivityInfo
-import timber.log.Timber
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
+import jp.sugnakys.usbserialconsole.R
+import timber.log.Timber
 
 class Util {
     companion object {
         private const val LOG_DIR_NAME = "Log"
-        private const val LOG_EXT = ".txt"
 
         const val CR_LF = "\r\n"
         const val LF = "\n"
         const val CR = "\r"
-
-        fun getCurrentTime(format: String?): String {
-            return SimpleDateFormat(format, Locale.US).format(Date(System.currentTimeMillis()))
-        }
-
-        fun createLogFileName(): String {
-            return SimpleDateFormat(
-                "yyyyMMdd_HHmmss",
-                Locale.US
-            ).format(Date(System.currentTimeMillis())) + LOG_EXT
-        }
 
         fun getLogDir(context: Context): File {
             val file = File(context.getExternalFilesDir(null), LOG_DIR_NAME)
@@ -51,12 +37,6 @@ class Util {
             }
         }
 
-        fun getLineFeedCd(lineFeedCode: String, context: Context): String {
-            return when (lineFeedCode) {
-                context.getString(R.string.line_feed_code_cr_value) -> CR
-                context.getString(R.string.line_feed_code_lf_value) -> LF
-                else -> CR_LF
-            }
-        }
+
     }
 }
