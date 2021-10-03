@@ -10,7 +10,12 @@ import android.os.IBinder
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import jp.sugnakys.usbserialconsole.usb.UsbPermission
@@ -19,7 +24,6 @@ import jp.sugnakys.usbserialconsole.usb.UsbService
 import jp.sugnakys.usbserialconsole.usb.UsbState
 import jp.sugnakys.usbserialconsole.util.Util
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -58,6 +62,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val navHost = supportFragmentManager.findFragmentById(R.id.main_fragment_host)
+        val navController = navHost!!.findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
         usbRepository.sendData.observe(this, {
             if (it.isNotEmpty()) {
@@ -102,6 +111,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onSupportNavigateUp() =
+        findNavController(R.id.main_fragment_host).navigateUp()
 
     override fun onResume() {
         super.onResume()

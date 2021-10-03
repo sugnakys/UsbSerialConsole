@@ -9,6 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
@@ -36,6 +37,8 @@ class LogFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val file = Uri.parse(args.uriString).toFile()
+        (activity as AppCompatActivity).supportActionBar?.title = file.name
         setHasOptionsMenu(true)
     }
 
@@ -75,9 +78,5 @@ class LogFragment : Fragment() {
         binding.viewmodel = viewModel
 
         viewModel.setLogfile(Uri.parse(args.uriString).toFile())
-
-        viewModel.logFile.observe(viewLifecycleOwner, {
-            activity?.title = it.name
-        })
     }
 }

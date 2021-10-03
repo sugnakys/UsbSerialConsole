@@ -7,6 +7,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="jp.sugnakys.usbserialconsole.presentation.HomeFragment"
+        android:label="@string/app_name"
         tools:layout="@layout/activity_main">
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
@@ -19,6 +20,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="jp.sugnakys.usbserialconsole.presentation.settings.SettingsFragment"
+        android:label="@string/action_settings"
         tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_serialPortPreferenceFragment"
@@ -36,22 +38,27 @@
 
     <fragment
         android:id="@+id/serialPortPreferenceFragment"
+        android:label="@string/serial_port_title"
         android:name="jp.sugnakys.usbserialconsole.presentation.settings.SerialPortPreferenceFragment" />
 
     <fragment
         android:id="@+id/displayPreferenceFragment"
+        android:label="@string/display_title"
         android:name="jp.sugnakys.usbserialconsole.presentation.settings.DisplayPreferenceFragment" />
 
     <fragment
         android:id="@+id/connectionPreferenceFragment"
+        android:label="@string/connection_title"
         android:name="jp.sugnakys.usbserialconsole.presentation.settings.ConnectionPreferenceFragment" />
 
     <fragment
         android:id="@+id/licenseFragment"
+        android:label="@string/license_title"
         android:name="jp.sugnakys.usbserialconsole.presentation.settings.LicenseFragment" />
 
     <fragment
         android:id="@+id/logListFragment"
+        android:label="@string/action_log_list"
         android:name="jp.sugnakys.usbserialconsole.presentation.log.LogListFragment"
         tools:layout="@layout/fragment_log_list">
         <action
@@ -61,6 +68,7 @@
 
     <fragment
         android:id="@+id/logViewFragment"
+        android:label=""
         android:name="jp.sugnakys.usbserialconsole.presentation.log.LogFragment"
         tools:layout="@layout/fragment_log">
         <argument
