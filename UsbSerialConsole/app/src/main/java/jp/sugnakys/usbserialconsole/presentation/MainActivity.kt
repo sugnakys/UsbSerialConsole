@@ -83,8 +83,7 @@ class MainActivity : AppCompatActivity() {
         usbRepository.dsr.observe(this, {
             Timber.d("DSR_CHANGE")
             showToast("DSR_CHANGE")
-        }
-        )
+        })
 
         usbRepository.state.observe(this, {
             when (it) {

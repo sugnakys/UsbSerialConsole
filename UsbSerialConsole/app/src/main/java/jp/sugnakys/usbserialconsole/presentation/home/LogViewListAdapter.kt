@@ -7,20 +7,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import jp.sugnakys.usbserialconsole.R
-import jp.sugnakys.usbserialconsole.data.LogView
+import jp.sugnakys.usbserialconsole.data.LogItem
 import jp.sugnakys.usbserialconsole.databinding.ListLogViewAtBinding
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 
 class LogViewListAdapter(
     private val preference: DefaultPreference
-) : ListAdapter<LogView, LogViewListAdapter.LogViewHolder>(diffCallback) {
+) : ListAdapter<LogItem, LogViewListAdapter.LogViewHolder>(diffCallback) {
     companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<LogView>() {
-            override fun areItemsTheSame(oldItem: LogView, newItem: LogView): Boolean {
-                return oldItem.time.unixTime == newItem.time.unixTime
+        val diffCallback = object : DiffUtil.ItemCallback<LogItem>() {
+            override fun areItemsTheSame(oldItem: LogItem, newItem: LogItem): Boolean {
+                return oldItem.timestamp == newItem.timestamp
             }
 
-            override fun areContentsTheSame(oldItem: LogView, newItem: LogView): Boolean {
+            override fun areContentsTheSame(oldItem: LogItem, newItem: LogItem): Boolean {
                 return oldItem == newItem
             }
         }
@@ -42,8 +42,11 @@ class LogViewListAdapter(
     class LogViewHolder(
         private val binding: ListLogViewAtBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: LogView, pref: DefaultPreference) {
+        fun bind(data: LogItem, pref: DefaultPreference) {
             binding.log = data
+            binding.timeFormat = pref.timestampFormat
+            binding.timeVisibility = pref.timestampVisibility
+
             pref.colorConsoleText?.let{
                 binding.receivedMessage.setTextColor(it)
                 binding.receivedTimestamp.setTextColor(it)

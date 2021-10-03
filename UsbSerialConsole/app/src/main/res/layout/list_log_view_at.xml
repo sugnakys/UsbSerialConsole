@@ -6,7 +6,15 @@
 
         <variable
             name="log"
-            type="jp.sugnakys.usbserialconsole.data.LogView" />
+            type="jp.sugnakys.usbserialconsole.data.LogItem" />
+
+        <variable
+            name="timeFormat"
+            type="String" />
+
+        <variable
+            name="timeVisibility"
+            type="Boolean" />
     </data>
 
     <LinearLayout
@@ -21,9 +29,9 @@
             android:paddingStart="@dimen/textview_horizontal_margin"
             android:paddingEnd="@dimen/textview_horizontal_margin"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            app:timeFormat="@{log.time.format}"
-            app:timestamp="@{log.time.unixTime}"
-            app:visibleOrGone="@{log.time.visibility}" />
+            app:timeFormat="@{timeFormat}"
+            app:timestamp="@{log.timestamp}"
+            app:visibleOrGone="@{timeVisibility}" />
 
         <TextView
             android:id="@+id/received_message"

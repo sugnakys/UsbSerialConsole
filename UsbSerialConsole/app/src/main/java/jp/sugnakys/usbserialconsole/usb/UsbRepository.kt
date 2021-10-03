@@ -2,19 +2,23 @@ package jp.sugnakys.usbserialconsole.usb
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import jp.sugnakys.usbserialconsole.data.LogView
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import jp.sugnakys.usbserialconsole.util.Util
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
+import jp.sugnakys.usbserialconsole.data.LogItem
+import jp.sugnakys.usbserialconsole.data.LogItemDatabase
 
 @Singleton
 class UsbRepository @Inject constructor(
-    private val preference: DefaultPreference
+    private val preference: DefaultPreference,
+    private val database: LogItemDatabase
 ) {
-    private val _receivedData = MutableLiveData<List<LogView>>(listOf())
-    val receivedData: LiveData<List<LogView>> = _receivedData
+
+    private val dao get() = database.getDao()
+
+    val receivedData = dao.getAllItems()
 
     private val _sendData = MutableLiveData("")
     val sendData: LiveData<String> = _sendData
@@ -36,29 +40,15 @@ class UsbRepository @Inject constructor(
     private val _permission = MutableLiveData<UsbPermission>()
     val permission: LiveData<UsbPermission> = _permission
 
-    fun changeState(state: UsbState) {
-        _state.postValue(state)
-    }
+    fun changeState(state: UsbState) = _state.postValue(state)
 
-    fun changePermission(permission: UsbPermission) {
-        _permission.postValue(permission)
-    }
+    fun changePermission(permission: UsbPermission) = _permission.postValue(permission)
 
-    fun changeCTS() {
-        _cts.postValue(Unit)
-    }
+    fun changeCTS() = _cts.postValue(Unit)
+    fun changeDSR() = _dsr.postValue(Unit)
 
-    fun changeDSR() {
-        _dsr.postValue(Unit)
-    }
-
-    fun sendData(data: String) {
-        _sendData.postValue(data)
-    }
-
-    fun clearSendData() {
-        _sendData.postValue("")
-    }
+    fun sendData(data: String) = _sendData.postValue(data)
+    fun clearSendData() = _sendData.postValue("")
 
     fun updateReceivedData(data: String) {
         val timestamp = System.currentTimeMillis()
@@ -73,27 +63,14 @@ class UsbRepository @Inject constructor(
                 } else {
                     if (line.isNotEmpty()) {
                         Timber.d("receivedData: $line")
-                        val list = _receivedData.value?.toMutableList()
-                        list?.add(
-                            LogView(
-                                time = LogView.Time(
-                                    unixTime = timestamp,
-                                    format = preference.timestampFormat,
-                                    visibility = preference.timestampVisibility
-                                ),
-                                text = line
-                            )
-                        )
-                        _receivedData.postValue(list?.toList())
+                        dao.insert(LogItem(timestamp = timestamp, text = line))
                     }
                 }
             }
         }
     }
 
-    fun clearReceivedData() {
-        _receivedData.postValue(listOf())
-    }
+    fun clearReceivedData() = dao.deleteAll()
 
     private fun getLineSeparator(str: String): String {
         return when {

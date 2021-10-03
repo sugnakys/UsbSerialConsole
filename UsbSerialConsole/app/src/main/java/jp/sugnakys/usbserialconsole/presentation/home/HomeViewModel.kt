@@ -22,7 +22,7 @@ import timber.log.Timber
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val usbRepository: UsbRepository,
-    preference: DefaultPreference,
+    private val preference: DefaultPreference,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -59,12 +59,12 @@ class HomeViewModel @Inject constructor(
     fun writeToFile(file: File, isTimestamp: Boolean): Boolean {
         val text = receivedMessage.value?.joinToString(System.lineSeparator()) {
             val timestamp = if (isTimestamp) {
-                "[${
-                    SimpleDateFormat(
-                        it.time.format,
-                        Locale.US
-                    ).format(Date(it.time.unixTime))
-                }] "
+                val formatTime = SimpleDateFormat(
+                    preference.timestampFormat,
+                    Locale.US
+                ).format(Date(it.timestamp))
+
+                "[$formatTime] "
             } else {
                 ""
             }
