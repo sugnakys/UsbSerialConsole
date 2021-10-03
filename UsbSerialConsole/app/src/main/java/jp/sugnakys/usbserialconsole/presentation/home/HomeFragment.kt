@@ -1,4 +1,4 @@
-package jp.sugnakys.usbserialconsole.presentation
+package jp.sugnakys.usbserialconsole.presentation.home
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -23,6 +23,7 @@ import javax.inject.Inject
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.databinding.FragmentHomeBinding
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
+import jp.sugnakys.usbserialconsole.presentation.MainActivity
 import jp.sugnakys.usbserialconsole.util.Util
 
 @AndroidEntryPoint
