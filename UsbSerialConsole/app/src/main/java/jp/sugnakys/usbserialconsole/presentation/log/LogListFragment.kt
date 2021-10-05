@@ -36,8 +36,6 @@ class LogListFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        activity?.title = getString(R.string.action_log_list)
-
         val adapter = LogListAdapter(
             onClick = {
                 val action = LogListFragmentDirections
@@ -73,7 +71,8 @@ class LogListFragment : Fragment() {
     }
 
     private fun updateFileList() {
-        val fileList = Util.getLogDir(requireContext()).listFiles().toList()
+        val fileList = Util.getLogDir(requireContext())
+            .listFiles()?.toList() ?: return
         viewModel.updateFileList(fileList)
     }
 }

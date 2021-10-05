@@ -2,17 +2,17 @@ package jp.sugnakys.usbserialconsole.usb
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import jp.sugnakys.usbserialconsole.util.Util
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 import jp.sugnakys.usbserialconsole.data.LogItem
 import jp.sugnakys.usbserialconsole.data.LogItemDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Singleton
 class UsbRepository @Inject constructor(
-    private val preference: DefaultPreference,
     private val database: LogItemDatabase
 ) {
 
@@ -62,7 +62,6 @@ class UsbRepository @Inject constructor(
                     tmpReceivedData = line
                 } else {
                     if (line.isNotEmpty()) {
-                        Timber.d("receivedData: $line")
                         dao.insert(LogItem(timestamp = timestamp, text = line))
                     }
                 }
@@ -70,7 +69,10 @@ class UsbRepository @Inject constructor(
         }
     }
 
-    fun clearReceivedData() = dao.deleteAll()
+    fun clearReceivedData() =
+        CoroutineScope(Dispatchers.IO).launch {
+            dao.deleteAll()
+        }
 
     private fun getLineSeparator(str: String): String {
         return when {

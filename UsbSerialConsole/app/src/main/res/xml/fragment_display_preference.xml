@@ -5,7 +5,7 @@
     <ListPreference
         android:defaultValue="@string/screen_orientation_default"
         android:entries="@array/screen_orientation_entries"
-        android:entryValues="@array/screen_orientation_entryvalues"
+        android:entryValues="@array/screen_orientation_values"
         android:key="@string/screen_orientation_key"
         android:summary="%s"
         android:title="@string/screen_orientation_title" />

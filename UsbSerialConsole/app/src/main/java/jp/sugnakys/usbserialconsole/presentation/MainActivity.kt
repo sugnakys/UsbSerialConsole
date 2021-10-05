@@ -23,7 +23,6 @@ import jp.sugnakys.usbserialconsole.usb.UsbRepository
 import jp.sugnakys.usbserialconsole.usb.UsbService
 import jp.sugnakys.usbserialconsole.usb.UsbState
 import jp.sugnakys.usbserialconsole.util.Util
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -75,15 +74,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        usbRepository.cts.observe(this, {
-            Timber.d("CTS_CHANGE")
-            showToast("CTS_CHANGE")
-        })
+        usbRepository.cts.observe(this, { showToast("CTS_CHANGE") })
 
-        usbRepository.dsr.observe(this, {
-            Timber.d("DSR_CHANGE")
-            showToast("DSR_CHANGE")
-        })
+        usbRepository.dsr.observe(this, { showToast("DSR_CHANGE") })
 
         usbRepository.state.observe(this, {
             when (it) {
@@ -154,14 +147,6 @@ class MainActivity : AppCompatActivity() {
     private fun bindService() {
         val bindingIntent = Intent(this, UsbService::class.java)
         bindService(bindingIntent, usbConnection, BIND_AUTO_CREATE)
-    }
-
-    fun changeConnection() {
-        if (usbRepository.isConnect) {
-            stopConnection()
-        } else {
-            startConnection()
-        }
     }
 
     private fun startConnection() {

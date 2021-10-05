@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Serial port -->
     <string name="serial_port_key" translatable="false">serial_port</string>
 
     <string name="baudrate_key" translatable="false">baudrate</string>
@@ -8,6 +9,7 @@
     <string name="stopbits_key" translatable="false">stop_bit</string>
     <string name="flowcontrol_key" translatable="false">flow_control</string>
 
+    <!-- Display -->
     <string name="display_key" translatable="false">display</string>
 
     <string name="screen_orientation_key" translatable="false">screen_orientation</string>
@@ -15,6 +17,7 @@
     <string name="color_console_text_key" translatable="false">color_console_text</string>
     <string name="color_console_background_key" translatable="false">color_console_background</string>
 
+    <!-- Connection -->
     <string name="connection_key" translatable="false">connection</string>
 
     <string name="send_form_visible_key" translatable="false">send_form_visible</string>
@@ -22,6 +25,7 @@
     <string name="timestamp_visible_key" translatable="false">timestamp_visible</string>
     <string name="timestamp_format_key" translatable="false">timestamp_format</string>
 
+    <!-- License -->
     <string name="license_key" translatable="false">license</string>
 
 </resources>

@@ -11,7 +11,7 @@
         <ListPreference
             android:defaultValue="@string/line_feed_code_send_default"
             android:entries="@array/line_feed_code_entries"
-            android:entryValues="@array/line_feed_code_entryvalues"
+            android:entryValues="@array/line_feed_code_values"
             android:key="@string/line_feed_code_send_key"
             android:summary="%s"
             android:title="@string/line_feed_code_title" />
@@ -28,7 +28,7 @@
         <ListPreference
             android:defaultValue="@string/timestamp_format_default"
             android:entries="@array/timestamp_format_entries"
-            android:entryValues="@array/timestamp_format_entryvalues"
+            android:entryValues="@array/timestamp_format_values"
             android:key="@string/timestamp_format_key"
             android:summary="%s"
             android:title="@string/timestamp_format_title" />

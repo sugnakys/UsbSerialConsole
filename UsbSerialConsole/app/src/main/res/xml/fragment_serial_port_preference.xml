@@ -5,7 +5,7 @@
         android:defaultValue="@string/baudrate_default"
         android:dialogTitle="@string/baudrate_title"
         android:entries="@array/baudrate_entries"
-        android:entryValues="@array/baudrate_entryvalues"
+        android:entryValues="@array/baudrate_values"
         android:key="@string/baudrate_key"
         android:summary="%s"
         android:title="@string/baudrate_title" />
@@ -13,7 +13,7 @@
     <ListPreference
         android:defaultValue="@string/databits_default"
         android:entries="@array/databits_entries"
-        android:entryValues="@array/databits_entryvalues"
+        android:entryValues="@array/databits_values"
         android:key="@string/databits_key"
         android:summary="%s"
         android:title="@string/databits_title" />
@@ -21,7 +21,7 @@
     <ListPreference
         android:defaultValue="@string/parity_default"
         android:entries="@array/parity_entries"
-        android:entryValues="@array/parity_entryvalues"
+        android:entryValues="@array/parity_values"
         android:key="@string/parity_key"
         android:summary="%s"
         android:title="@string/parity_title" />
@@ -29,7 +29,7 @@
     <ListPreference
         android:defaultValue="@string/stopbits_default"
         android:entries="@array/stopbits_entries"
-        android:entryValues="@array/stopbits_entryvalues"
+        android:entryValues="@array/stopbits_values"
         android:key="@string/stopbits_key"
         android:summary="%s"
         android:title="@string/stopbits_title" />
@@ -37,7 +37,7 @@
     <ListPreference
         android:defaultValue="@string/flowcontrol_default"
         android:entries="@array/flowcontrol_entries"
-        android:entryValues="@array/flowcontrol_entryvalues"
+        android:entryValues="@array/flowcontrol_values"
         android:key="@string/flowcontrol_key"
         android:summary="%s"
         android:title="@string/flowcontrol_title" />

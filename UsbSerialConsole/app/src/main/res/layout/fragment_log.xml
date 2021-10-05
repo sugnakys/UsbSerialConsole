@@ -19,8 +19,8 @@
                 android:id="@+id/log_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/textview_horizontal_margin"
-                android:paddingEnd="@dimen/textview_horizontal_margin"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@{viewmodel.logText}"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </ScrollView>

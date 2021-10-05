@@ -34,8 +34,7 @@ class UsbService : Service() {
         private const val ACTION_USB_PERMISSION = "jp.sugnakys.usbserialconsole.USB_PERMISSION"
         private const val ACTION_USB_ATTACHED = "android.hardware.usb.action.USB_DEVICE_ATTACHED"
         private const val ACTION_USB_DETACHED = "android.hardware.usb.action.USB_DEVICE_DETACHED"
-        const val ACTION_SERIAL_CONFIG_CHANGED =
-            "jp.sugnakys.usbserialconsole.SERIAL_CONFIG_CHANGED"
+        const val ACTION_SERIAL_CONFIG_CHANGED = "jp.sugnakys.usbserialconsole.SERIAL_CONFIG_CHANGED"
     }
 
     @Inject
@@ -60,13 +59,9 @@ class UsbService : Service() {
         }
     }
 
-    private val ctsCallback = UsbCTSCallback {
-        usbRepository.changeCTS()
-    }
+    private val ctsCallback = UsbCTSCallback { usbRepository.changeCTS() }
 
-    private val dsrCallback = UsbDSRCallback {
-        usbRepository.changeDSR()
-    }
+    private val dsrCallback = UsbDSRCallback { usbRepository.changeDSR() }
 
     private val usbReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -91,9 +86,7 @@ class UsbService : Service() {
                 ACTION_USB_DETACHED -> {
                     usbRepository.isUSBReady = false
                     usbRepository.changeState(UsbState.Disconnected)
-                    if (serialPortConnected) {
-                        serialPort?.close()
-                    }
+                    if (serialPortConnected) { serialPort?.close() }
                     serialPortConnected = false
                 }
                 ACTION_SERIAL_CONFIG_CHANGED -> {
@@ -121,9 +114,7 @@ class UsbService : Service() {
         findSerialPortDevice()
     }
 
-    override fun onBind(intent: Intent): IBinder {
-        return binder
-    }
+    override fun onBind(intent: Intent): IBinder  = binder
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         val channelId =

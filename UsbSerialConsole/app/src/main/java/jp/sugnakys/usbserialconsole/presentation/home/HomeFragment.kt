@@ -9,6 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,11 +24,14 @@ import javax.inject.Inject
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.databinding.FragmentHomeBinding
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
-import jp.sugnakys.usbserialconsole.presentation.MainActivity
+import jp.sugnakys.usbserialconsole.usb.UsbRepository
 import jp.sugnakys.usbserialconsole.util.Util
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+
+    @Inject
+    lateinit var usbRepository: UsbRepository
 
     @Inject
     lateinit var preference: DefaultPreference
@@ -67,7 +71,19 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_connect -> {
-                (activity as? MainActivity)?.changeConnection()
+                if (usbRepository.isConnect) {
+                    usbRepository.isConnect = false
+                    Toast.makeText(requireContext(),
+                        getString(R.string.stop_connection),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    usbRepository.isConnect = true
+                    Toast.makeText(requireContext(),
+                        getString(R.string.start_connection),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
                 true
             }
             R.id.action_clear_log -> {

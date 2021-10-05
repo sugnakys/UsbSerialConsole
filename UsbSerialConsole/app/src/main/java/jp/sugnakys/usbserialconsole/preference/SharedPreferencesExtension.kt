@@ -1,5 +1,6 @@
 package jp.sugnakys.usbserialconsole.preference
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -121,6 +122,7 @@ private inline fun <T : Any> SharedPreferences.delegate(
     override fun getValue(thisRef: Any, property: KProperty<*>) =
         getter(key ?: property.name, defaultValue) ?: defaultValue
 
+    @SuppressLint("CommitPrefEdits")
     override fun setValue(thisRef: Any, property: KProperty<*>, value: T) =
         edit().setter(key ?: property.name, value).apply()
 }
@@ -135,6 +137,7 @@ private inline fun <T : Any> SharedPreferences.nullableDelegate(
         return if (contains(target)) getter(target, dummy) else null
     }
 
+    @SuppressLint("CommitPrefEdits")
     override fun setValue(thisRef: Any, property: KProperty<*>, value: T?) {
         val target = key ?: property.name
         if (value == null) {

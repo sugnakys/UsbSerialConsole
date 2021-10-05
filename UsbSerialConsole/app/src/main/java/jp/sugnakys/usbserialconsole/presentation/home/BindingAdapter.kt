@@ -1,4 +1,4 @@
-package jp.sugnakys.usbserialconsole.presentation
+package jp.sugnakys.usbserialconsole.presentation.home
 
 import android.annotation.SuppressLint
 import android.view.View

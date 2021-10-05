@@ -17,7 +17,7 @@
         <item>460800</item>
         <item>921600</item>
     </string-array>
-    <string-array name="baudrate_entryvalues" translatable="false">
+    <string-array name="baudrate_values" translatable="false">
         <item>100</item>
         <item>300</item>
         <item>600</item>
@@ -41,7 +41,7 @@
         <item>7</item>
         <item>8</item>
     </string-array>
-    <string-array name="databits_entryvalues" translatable="false">
+    <string-array name="databits_values" translatable="false">
         <item>5</item>
         <item>6</item>
         <item>7</item>
@@ -55,7 +55,7 @@
         <item>mark</item>
         <item>space</item>
     </string-array>
-    <string-array name="parity_entryvalues" translatable="false">
+    <string-array name="parity_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -68,7 +68,7 @@
         <item>1.5</item>
         <item>2</item>
     </string-array>
-    <string-array name="stopbits_entryvalues" translatable="false">
+    <string-array name="stopbits_values" translatable="false">
         <item>1</item>
         <item>3</item>
         <item>2</item>
@@ -80,7 +80,7 @@
         <item>DSR/DTRd</item>
         <item>Xon/Xoff</item>
     </string-array>
-    <string-array name="flowcontrol_entryvalues" translatable="false">
+    <string-array name="flowcontrol_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -95,7 +95,7 @@
         <item>HH:mm:ss.SSS</item>
         <item>HH:mm:ss</item>
     </string-array>
-    <string-array name="timestamp_format_entryvalues" translatable="false">
+    <string-array name="timestamp_format_values" translatable="false">
         <item>yyyy/MM/dd HH:mm:ss.SSS</item>
         <item>yyyy/MM/dd HH:mm:ss</item>
         <item>MM/dd HH:mm:ss.SSS</item>
@@ -111,7 +111,7 @@
         <item>@string/screen_orientation_reverse_portrait</item>
         <item>@string/screen_orientation_reverse_landscape</item>
     </string-array>
-    <string-array name="screen_orientation_entryvalues" translatable="false">
+    <string-array name="screen_orientation_values" translatable="false">
         <item>@string/screen_orientation_device_setting_value</item>
         <item>@string/screen_orientation_portrait_value</item>
         <item>@string/screen_orientation_landscape_value</item>
@@ -124,7 +124,7 @@
         <item>@string/line_feed_code_lf</item>
         <item>@string/line_feed_code_cr_lf</item>
     </string-array>
-    <string-array name="line_feed_code_entryvalues" translatable="false">
+    <string-array name="line_feed_code_values" translatable="false">
         <item>@string/line_feed_code_cr_value</item>
         <item>@string/line_feed_code_lf_value</item>
         <item>@string/line_feed_code_cr_lf_value</item>

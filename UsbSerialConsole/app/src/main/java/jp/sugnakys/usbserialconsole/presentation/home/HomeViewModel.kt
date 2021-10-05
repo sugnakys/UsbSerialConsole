@@ -52,9 +52,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun clearReceivedMessage() {
-        usbRepository.clearReceivedData()
-    }
+    fun clearReceivedMessage() = usbRepository.clearReceivedData()
 
     fun writeToFile(file: File, isTimestamp: Boolean): Boolean {
         val text = receivedMessage.value?.joinToString(System.lineSeparator()) {
