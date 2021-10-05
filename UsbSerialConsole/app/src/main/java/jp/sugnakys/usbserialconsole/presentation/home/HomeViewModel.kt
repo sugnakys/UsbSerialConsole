@@ -29,7 +29,7 @@ class HomeViewModel @Inject constructor(
     val receivedMessage = usbRepository.receivedData
 
     val isUSBReady get() = usbRepository.isUSBReady
-    val isConnect get() = usbRepository.isConnect
+    val isConnect = usbRepository.isConnect
 
     private var lineFeedCode: String = when (preference.lineFeedCodeSend) {
         application.getString(R.string.line_feed_code_cr_value) -> Util.CR
@@ -53,6 +53,8 @@ class HomeViewModel @Inject constructor(
     }
 
     fun clearReceivedMessage() = usbRepository.clearReceivedData()
+
+    fun changeConnection(isConnect: Boolean) = usbRepository.changeConnection(isConnect)
 
     fun writeToFile(file: File, isTimestamp: Boolean): Boolean {
         val text = receivedMessage.value?.joinToString(System.lineSeparator()) {

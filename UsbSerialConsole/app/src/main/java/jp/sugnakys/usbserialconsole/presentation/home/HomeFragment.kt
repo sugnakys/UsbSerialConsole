@@ -24,14 +24,10 @@ import javax.inject.Inject
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.databinding.FragmentHomeBinding
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
-import jp.sugnakys.usbserialconsole.usb.UsbRepository
 import jp.sugnakys.usbserialconsole.util.Util
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-
-    @Inject
-    lateinit var usbRepository: UsbRepository
 
     @Inject
     lateinit var preference: DefaultPreference
@@ -60,7 +56,7 @@ class HomeFragment : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         val item = menu.findItem(R.id.action_connect)
         item.isEnabled = viewModel.isUSBReady
-        item.title = if (viewModel.isConnect) {
+        item.title = if (viewModel.isConnect.value == true) {
             getString(R.string.action_disconnect)
         } else {
             getString(R.string.action_connect)
@@ -71,15 +67,17 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_connect -> {
-                if (usbRepository.isConnect) {
-                    usbRepository.isConnect = false
-                    Toast.makeText(requireContext(),
+                if (viewModel.isConnect.value == true) {
+                    viewModel.changeConnection(false)
+                    Toast.makeText(
+                        requireContext(),
                         getString(R.string.stop_connection),
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    usbRepository.isConnect = true
-                    Toast.makeText(requireContext(),
+                    viewModel.changeConnection(true)
+                    Toast.makeText(
+                        requireContext(),
                         getString(R.string.start_connection),
                         Toast.LENGTH_SHORT
                     ).show()

@@ -26,7 +26,9 @@ class UsbRepository @Inject constructor(
     private var tmpReceivedData = ""
 
     var isUSBReady = false
-    var isConnect = false
+
+    private val _isConnect = MutableLiveData(false)
+    val isConnect: LiveData<Boolean> = _isConnect
 
     private val _cts = MutableLiveData<Unit>()
     val cts: LiveData<Unit> = _cts
@@ -46,6 +48,8 @@ class UsbRepository @Inject constructor(
 
     fun changeCTS() = _cts.postValue(Unit)
     fun changeDSR() = _dsr.postValue(Unit)
+
+    fun changeConnection(isConnect: Boolean) = _isConnect.postValue(isConnect)
 
     fun sendData(data: String) = _sendData.postValue(data)
     fun clearSendData() = _sendData.postValue("")

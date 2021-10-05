@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.view.WindowManager
@@ -34,17 +33,15 @@ class MainActivity : AppCompatActivity() {
     lateinit var preference: DefaultPreference
 
     private var usbService: UsbService? = null
-    private var bound = false
 
     private val usbConnection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             val binder = service as UsbService.UsbBinder
             usbService = binder.getService()
-            bound = true
         }
 
-        override fun onServiceDisconnected(arg0: ComponentName) {
-            bound = false
+        override fun onServiceDisconnected(className: ComponentName) {
+            usbService = null
         }
     }
 
@@ -60,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         val navHost = supportFragmentManager.findFragmentById(R.id.main_fragment_host)
@@ -102,6 +100,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
+        startService()
     }
 
     override fun onSupportNavigateUp() =
@@ -119,43 +119,32 @@ class MainActivity : AppCompatActivity() {
         Util.setScreenOrientation(preference.screenOrientation, this)
     }
 
-    override fun onStart() {
-        super.onStart()
-        startService()
-    }
-
-    override fun onPause() {
-        if (usbRepository.isConnect) {
+    override fun onDestroy() {
+        super.onDestroy()
+        if (usbRepository.isConnect.value == true) {
             stopConnection()
-            usbRepository.isConnect = false
         }
         unbindService(usbConnection)
-        super.onPause()
     }
 
     private fun startService() {
-        val startService = Intent(this, UsbService::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(startService)
-        } else {
-            startService(startService)
-        }
+        startService(Intent(this, UsbService::class.java))
 
-        bindService()
-    }
+        bindService(
+            Intent(this, UsbService::class.java),
+            usbConnection,
+            BIND_AUTO_CREATE
+        )
 
-    private fun bindService() {
-        val bindingIntent = Intent(this, UsbService::class.java)
-        bindService(bindingIntent, usbConnection, BIND_AUTO_CREATE)
     }
 
     private fun startConnection() {
-        usbRepository.isConnect = true
+        usbRepository.changeConnection(true)
         showToast(getString(R.string.start_connection))
     }
 
     private fun stopConnection() {
-        usbRepository.isConnect = false
+        usbRepository.changeConnection(false)
         showToast(getString(R.string.stop_connection))
     }
 
