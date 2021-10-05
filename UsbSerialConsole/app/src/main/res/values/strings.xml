@@ -54,7 +54,7 @@
     <string name="send_pref_category_title">Send</string>
     <string name="receive_pref_category_title">Receive</string>
 
-    <string name="action_send_to">Send to</string>
+    <string name="action_share">Share</string>
 
     <string name="confirm_connect">Connect device?</string>
 

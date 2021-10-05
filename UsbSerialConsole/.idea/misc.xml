@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../Library/Android/sdk/platforms/android-31/data/res/layout/simple_list_item_1.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/drawable/background_splash.xml" value="0.15416666666666667" />
+        <entry key="app/src/main/res/drawable/share.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_license.xml" value="0.14990942028985507" />
@@ -19,6 +20,7 @@
         <entry key="app/src/main/res/layout/log_view_main.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/settings_main.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu_log_view.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.1" />
         <entry key="app/src/main/res/xml/fragment_connection_preference.xml" value="0.12318840579710146" />
         <entry key="app/src/main/res/xml/fragment_serial_port_preference.xml" value="0.19427083333333334" />

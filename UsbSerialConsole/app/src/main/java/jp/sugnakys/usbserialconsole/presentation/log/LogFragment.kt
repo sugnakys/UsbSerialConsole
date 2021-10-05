@@ -48,7 +48,7 @@ class LogFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_send_to -> {
+            R.id.action_share -> {
                 viewModel.logFile.value?.let{
                     val uri = FileProvider.getUriForFile(
                         requireContext(),
