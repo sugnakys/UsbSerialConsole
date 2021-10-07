@@ -42,9 +42,14 @@ class UsbRepository @Inject constructor(
     private val _permission = MutableLiveData<UsbPermission>()
     val permission: LiveData<UsbPermission> = _permission
 
+    private val _settingsEvent = MutableLiveData<Unit>()
+    val settingsEvent: LiveData<Unit> = _settingsEvent
+
     fun changeState(state: UsbState) = _state.postValue(state)
 
     fun changePermission(permission: UsbPermission) = _permission.postValue(permission)
+
+    fun changeSerialSettings() = _settingsEvent.postValue(Unit)
 
     fun changeCTS() = _cts.postValue(Unit)
     fun changeDSR() = _dsr.postValue(Unit)

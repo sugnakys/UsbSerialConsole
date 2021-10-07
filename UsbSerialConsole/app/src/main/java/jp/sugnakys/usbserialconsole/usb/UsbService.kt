@@ -32,10 +32,6 @@ class UsbService : Service() {
 
     companion object {
         private const val ACTION_USB_PERMISSION = "jp.sugnakys.usbserialconsole.USB_PERMISSION"
-        private const val ACTION_USB_ATTACHED = "android.hardware.usb.action.USB_DEVICE_ATTACHED"
-        private const val ACTION_USB_DETACHED = "android.hardware.usb.action.USB_DEVICE_DETACHED"
-        const val ACTION_SERIAL_CONFIG_CHANGED =
-            "jp.sugnakys.usbserialconsole.SERIAL_CONFIG_CHANGED"
     }
 
     @Inject
@@ -57,7 +53,6 @@ class UsbService : Service() {
 
     private val mCallback = UsbReadCallback { arg ->
         usbRepository.updateReceivedData(String(arg, Charset.defaultCharset()))
-
     }
 
     private val ctsCallback = UsbCTSCallback { usbRepository.changeCTS() }
@@ -77,23 +72,17 @@ class UsbService : Service() {
                         usbRepository.changePermission(UsbPermission.NotGranted)
                     }
                 }
-                ACTION_USB_ATTACHED -> {
+                UsbManager.ACTION_USB_DEVICE_ATTACHED -> {
                     if (!serialPortConnected) {
                         findSerialPortDevice()
                     }
                 }
-                ACTION_USB_DETACHED -> {
+                UsbManager.ACTION_USB_DEVICE_DETACHED -> {
                     usbRepository.isUSBReady = false
                     usbRepository.changeState(UsbState.Disconnected)
                     if (serialPortConnected) {
                         serialPort?.close()
                         serialPortConnected = false
-                    }
-                }
-                ACTION_SERIAL_CONFIG_CHANGED -> {
-                    if (serialPortConnected) {
-                        serialPort?.close()
-                        startConnection()
                     }
                 }
                 else -> Timber.e("Unknown action")
@@ -114,6 +103,13 @@ class UsbService : Service() {
                 startConnection()
             } else {
                 stopConnection()
+            }
+        }
+
+        usbRepository.settingsEvent.observeForever {
+            if (serialPortConnected) {
+                serialPort?.close()
+                startConnection()
             }
         }
     }
@@ -157,9 +153,8 @@ class UsbService : Service() {
     private fun setFilter() {
         val filter = IntentFilter()
         filter.addAction(ACTION_USB_PERMISSION)
-        filter.addAction(ACTION_USB_DETACHED)
-        filter.addAction(ACTION_USB_ATTACHED)
-        filter.addAction(ACTION_SERIAL_CONFIG_CHANGED)
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
         registerReceiver(usbReceiver, filter)
     }
 
