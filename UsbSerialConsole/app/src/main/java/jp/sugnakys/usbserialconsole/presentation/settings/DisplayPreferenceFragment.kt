@@ -10,11 +10,14 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import jp.sugnakys.usbserialconsole.R
+import jp.sugnakys.usbserialconsole.device.DeviceRepository
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
-import jp.sugnakys.usbserialconsole.util.Util
 
 @AndroidEntryPoint
 class DisplayPreferenceFragment : PreferenceFragmentCompat() {
+
+    @Inject
+    lateinit var deviceRepository: DeviceRepository
 
     @Inject
     lateinit var preference: DefaultPreference
@@ -24,7 +27,7 @@ class DisplayPreferenceFragment : PreferenceFragmentCompat() {
 
         findPreference<ListPreference>(getString(R.string.screen_orientation_key))
             ?.setOnPreferenceChangeListener { _, newValue ->
-                Util.setScreenOrientation(
+                deviceRepository.setScreenOrientation(
                     newValue as String,
                     requireActivity()
                 )

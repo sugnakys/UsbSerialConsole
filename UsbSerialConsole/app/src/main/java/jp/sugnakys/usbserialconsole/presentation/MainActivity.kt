@@ -16,15 +16,18 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import jp.sugnakys.usbserialconsole.R
+import jp.sugnakys.usbserialconsole.device.DeviceRepository
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import jp.sugnakys.usbserialconsole.usb.UsbPermission
 import jp.sugnakys.usbserialconsole.usb.UsbRepository
 import jp.sugnakys.usbserialconsole.usb.UsbService
 import jp.sugnakys.usbserialconsole.usb.UsbState
-import jp.sugnakys.usbserialconsole.util.Util
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var deviceRepository: DeviceRepository
 
     @Inject
     lateinit var usbRepository: UsbRepository
@@ -116,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
 
-        Util.setScreenOrientation(preference.screenOrientation, this)
+        deviceRepository.setScreenOrientation(preference.screenOrientation, this)
     }
 
     override fun onDestroy() {

@@ -13,14 +13,16 @@ import java.util.Date
 import java.util.Locale
 import java.util.regex.Pattern
 import javax.inject.Inject
-import jp.sugnakys.usbserialconsole.R
+import jp.sugnakys.usbserialconsole.device.DeviceRepository
+import jp.sugnakys.usbserialconsole.log.LogRepository
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import jp.sugnakys.usbserialconsole.usb.UsbRepository
-import jp.sugnakys.usbserialconsole.util.Util
 import timber.log.Timber
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val logRepository: LogRepository,
+    private val deviceRepository: DeviceRepository,
     private val usbRepository: UsbRepository,
     private val preference: DefaultPreference,
     application: Application
@@ -31,17 +33,11 @@ class HomeViewModel @Inject constructor(
     val isUSBReady get() = usbRepository.isUSBReady
     val isConnect = usbRepository.isConnect
 
-    private var lineFeedCode: String = when (preference.lineFeedCodeSend) {
-        application.getString(R.string.line_feed_code_cr_value) -> Util.CR
-        application.getString(R.string.line_feed_code_lf_value) -> Util.LF
-        else -> Util.CR_LF
-    }
-
     fun sendMessage(message: String) {
         if (message.isNotEmpty()) {
             val pattern = Pattern.compile("\n$")
             val matcher = pattern.matcher(message)
-            val strResult = matcher.replaceAll("") + lineFeedCode
+            val strResult = matcher.replaceAll("") + deviceRepository.getLineFeedCode()
             try {
                 usbRepository.sendData(strResult)
                 Timber.d("SendMessage: $message")
@@ -88,4 +84,6 @@ class HomeViewModel @Inject constructor(
         }
         return result
     }
+
+    fun getLogDir() = logRepository.getLogDir()
 }

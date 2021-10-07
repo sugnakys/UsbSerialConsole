@@ -11,9 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.databinding.FragmentLogListBinding
-import jp.sugnakys.usbserialconsole.util.Util
 
 class LogListFragment : Fragment() {
+
     private val viewModel by viewModels<LogListViewModel>()
     private lateinit var binding: FragmentLogListBinding
 
@@ -70,9 +70,5 @@ class LogListFragment : Fragment() {
         updateFileList()
     }
 
-    private fun updateFileList() {
-        val fileList = Util.getLogDir(requireContext())
-            .listFiles()?.toList() ?: return
-        viewModel.updateFileList(fileList)
-    }
+    private fun updateFileList() = viewModel.updateFileList()
 }

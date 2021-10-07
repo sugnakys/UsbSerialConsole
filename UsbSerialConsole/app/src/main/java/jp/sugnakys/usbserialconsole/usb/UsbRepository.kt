@@ -2,11 +2,11 @@ package jp.sugnakys.usbserialconsole.usb
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import jp.sugnakys.usbserialconsole.util.Util
 import javax.inject.Inject
 import javax.inject.Singleton
 import jp.sugnakys.usbserialconsole.data.LogItem
 import jp.sugnakys.usbserialconsole.data.LogItemDatabase
+import jp.sugnakys.usbserialconsole.device.DeviceRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -80,9 +80,9 @@ class UsbRepository @Inject constructor(
 
     private fun getLineSeparator(str: String): String {
         return when {
-            str.contains(Util.CR_LF) -> Util.CR_LF
-            str.contains(Util.LF) -> Util.LF
-            str.contains(Util.CR) -> Util.CR
+            str.contains(DeviceRepository.CR_LF) -> DeviceRepository.CR_LF
+            str.contains(DeviceRepository.LF) -> DeviceRepository.LF
+            str.contains(DeviceRepository.CR) -> DeviceRepository.CR
             else -> ""
         }
     }
