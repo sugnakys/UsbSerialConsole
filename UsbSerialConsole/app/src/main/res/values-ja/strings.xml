@@ -73,4 +73,6 @@
     <string name="confirm_clear_color">色の設定をクリアしますか?</string>
     <string name="clear_color">色の設定をクリアしました</string>
 
+    <string name="delete">削除</string>
+
 </resources>

@@ -20,4 +20,10 @@ class LogListViewModel @Inject constructor(
             .listFiles()?.toList() ?: return
         _fileList.postValue(fileList)
     }
+
+    fun deleteFile(file: File) {
+        if (file.delete()) {
+            updateFileList()
+        }
+    }
 }

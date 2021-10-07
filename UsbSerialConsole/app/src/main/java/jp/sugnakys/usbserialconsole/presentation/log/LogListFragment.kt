@@ -9,9 +9,12 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.databinding.FragmentLogListBinding
 
+@AndroidEntryPoint
 class LogListFragment : Fragment() {
 
     private val viewModel by viewModels<LogListViewModel>()
@@ -42,23 +45,8 @@ class LogListFragment : Fragment() {
                     .actionLogListFragmentToLogViewFragment(it.toUri().toString())
                 findNavController().navigate(action)
             },
-            onLongClick = {
-                AlertDialog.Builder(requireContext())
-                    .setTitle(getString(R.string.delete_log_file_title))
-                    .setMessage(
-                        """
-                        |${getString(R.string.delete_log_file_text)}
-                        |${getString(R.string.file_name)}: ${it.name}
-                        """.trimMargin()
-                    )
-                    .setPositiveButton(android.R.string.ok) { _, _ ->
-                        if (it.delete()) {
-                            updateFileList()
-                        }
-                    }
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show()
-                true
+            onDeleteClick = {
+                showDeleteDialog(it)
             }
         )
         binding.listView.adapter = adapter
@@ -67,8 +55,23 @@ class LogListFragment : Fragment() {
             adapter.submitList(it)
         })
 
-        updateFileList()
+        viewModel.updateFileList()
     }
 
-    private fun updateFileList() = viewModel.updateFileList()
+
+    private fun showDeleteDialog(file: File) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.delete_log_file_title))
+            .setMessage(
+                """
+                |${getString(R.string.delete_log_file_text)}
+                |${getString(R.string.file_name)}: ${file.name}
+                """.trimMargin()
+            )
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                viewModel.deleteFile(file)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
 }

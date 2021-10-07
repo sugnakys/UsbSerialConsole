@@ -12,7 +12,7 @@ import java.io.File
 
 class LogListAdapter(
     private val onClick: (file: File) -> Unit,
-    private val onLongClick: (file: File) -> Boolean
+    private val onDeleteClick: (file: File) -> Unit
 ) : ListAdapter<File, LogListAdapter.LogListViewHolder>(diffCallback) {
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<File>() {
@@ -31,7 +31,7 @@ class LogListAdapter(
         return LogListViewHolder(
             DataBindingUtil.inflate(inflater, viewType, parent, false),
             onClick,
-            onLongClick
+            onDeleteClick
         )
     }
 
@@ -46,15 +46,15 @@ class LogListAdapter(
     class LogListViewHolder(
         private val binding: ListLogAtBinding,
         private val onClick: (file: File) -> Unit,
-        private val onLongClick: (file: File) -> Boolean
+        private val onDeleteClick: (file: File) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(file: File) {
             binding.title = file.name
             binding.logFile.setOnClickListener {
                 onClick(file)
             }
-            binding.logFile.setOnLongClickListener {
-                onLongClick(file)
+            binding.delete.setOnClickListener {
+                onDeleteClick(file)
             }
         }
     }
