@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -29,6 +30,15 @@ class DisplayPreferenceFragment : PreferenceFragmentCompat() {
             ?.setOnPreferenceChangeListener { _, newValue ->
                 deviceRepository.setScreenOrientation(
                     newValue as String,
+                    requireActivity()
+                )
+                true
+            }
+
+        findPreference<SwitchPreference>(getString(R.string.sleep_mode_key))
+            ?.setOnPreferenceChangeListener { _, newValue ->
+                deviceRepository.setSleepMode(
+                    newValue as Boolean,
                     requireActivity()
                 )
                 true

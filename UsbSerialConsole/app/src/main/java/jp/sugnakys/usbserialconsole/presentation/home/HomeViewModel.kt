@@ -37,7 +37,8 @@ class HomeViewModel @Inject constructor(
         if (message.isNotEmpty()) {
             val pattern = Pattern.compile("\n$")
             val matcher = pattern.matcher(message)
-            val strResult = matcher.replaceAll("") + deviceRepository.getLineFeedCode()
+            val strResult =
+                matcher.replaceAll("") + deviceRepository.getLineFeedCode(preference.lineFeedCodeSend)
             try {
                 usbRepository.sendData(strResult)
                 Timber.d("SendMessage: $message")

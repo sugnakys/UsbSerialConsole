@@ -61,6 +61,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        deviceRepository.setSleepMode(preference.sleepMode, this)
+        deviceRepository.setScreenOrientation(preference.screenOrientation, this)
+
         setContentView(R.layout.activity_main)
 
         val navHost = supportFragmentManager.findFragmentById(R.id.main_fragment_host)
@@ -109,18 +112,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp() =
         findNavController(R.id.main_fragment_host).navigateUp()
-
-    override fun onResume() {
-        super.onResume()
-
-        if (preference.sleepMode) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        } else {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        }
-
-        deviceRepository.setScreenOrientation(preference.screenOrientation, this)
-    }
 
     override fun onDestroy() {
         super.onDestroy()
