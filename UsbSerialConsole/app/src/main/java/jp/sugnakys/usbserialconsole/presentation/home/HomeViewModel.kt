@@ -86,5 +86,13 @@ class HomeViewModel @Inject constructor(
         return result
     }
 
+    fun getFileName(date: Date): String {
+        val dateText = SimpleDateFormat(
+            "yyyyMMdd_HHmmss",
+            Locale.US
+        ).format(date)
+        return "$dateText.txt"
+    }
+
     fun getLogDir() = logRepository.getLogDir()
 }

@@ -17,9 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.databinding.FragmentHomeBinding
@@ -88,15 +86,8 @@ class HomeFragment : Fragment() {
                 true
             }
             R.id.action_save_log -> {
-                val fileName = "${
-                    SimpleDateFormat(
-                        "yyyyMMdd_HHmmss",
-                        Locale.US
-                    ).format(Date(System.currentTimeMillis()))
-                }.txt"
-
+                val fileName = viewModel.getFileName(Date(System.currentTimeMillis()))
                 val dirName = viewModel.getLogDir()
-
                 if (viewModel.writeToFile(
                         file = File(dirName, fileName),
                         isTimestamp = preference.timestampVisibility
