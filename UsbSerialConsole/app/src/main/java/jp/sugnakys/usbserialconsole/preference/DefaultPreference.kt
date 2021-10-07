@@ -18,8 +18,16 @@ class DefaultPreference @Inject constructor(
         context.getString(R.string.color_console_background_key)
     )
 
+    var colorConsoleBackgroundDefault: Int? by preferences.nullableInt(
+        context.getString(R.string.color_console_background_key_default)
+    )
+
     var colorConsoleText: Int? by preferences.nullableInt(
         context.getString(R.string.color_console_text_key)
+    )
+
+    var colorConsoleTextDefault: Int? by preferences.nullableInt(
+        context.getString(R.string.color_console_text_key_default)
     )
 
     var sleepMode: Boolean by preferences.boolean(

@@ -35,6 +35,7 @@
     <string name="flowcontrol_title">Flow control</string>
 
     <string name="display_title">Display</string>
+    <string name="display_clear">Clear</string>
 
     <string name="send_form_visible_title">Send form</string>
     <string name="timestamp_title">Timestamp</string>
@@ -71,5 +72,8 @@
     <string name="color_pref_category_title">Color</string>
     <string name="color_console_text_title">Text</string>
     <string name="color_console_background_title">Background</string>
+
+    <string name="confirm_clear_color">Clear color settings?</string>
+    <string name="clear_color">Color settings is cleared</string>
 
 </resources>

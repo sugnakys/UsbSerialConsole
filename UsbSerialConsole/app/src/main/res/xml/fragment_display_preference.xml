@@ -27,6 +27,11 @@
             android:key="@string/color_console_background_key"
             android:title="@string/color_console_background_title"
             app:cpv_showAlphaSlider="true" />
+
+        <Preference
+            android:key="@string/color_console_clear_key"
+            android:title="@string/display_clear" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

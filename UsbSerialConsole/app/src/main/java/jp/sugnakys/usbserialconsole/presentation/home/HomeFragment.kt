@@ -166,18 +166,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun setDefaultColor() {
-        if (preference.colorConsoleBackground == null) {
+        if (preference.colorConsoleBackgroundDefault == null) {
             var defaultBackgroundColor = Color.TRANSPARENT
             val background = binding.mainLayout.background
             if (background is ColorDrawable) {
                 defaultBackgroundColor = background.color
             }
-            preference.colorConsoleBackground = defaultBackgroundColor
+            preference.colorConsoleBackgroundDefault = defaultBackgroundColor
+            if (preference.colorConsoleBackground == null) {
+                preference.colorConsoleBackground = preference.colorConsoleBackgroundDefault
+            }
         }
 
-        if (preference.colorConsoleText == null) {
+        if (preference.colorConsoleTextDefault == null) {
             val defaultTextColor = binding.sendMsgView.textColors.defaultColor
-            preference.colorConsoleText = defaultTextColor
+            preference.colorConsoleTextDefault = defaultTextColor
+            if (preference.colorConsoleText == null) {
+                preference.colorConsoleText = preference.colorConsoleTextDefault
+            }
         }
     }
 }
