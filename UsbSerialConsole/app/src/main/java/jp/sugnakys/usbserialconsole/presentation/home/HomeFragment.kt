@@ -134,6 +134,7 @@ class HomeFragment : Fragment() {
 
         val adapter = LogViewListAdapter(preference)
         binding.receivedMsgView.adapter = adapter
+        binding.receivedMsgView.itemAnimator = null
 
         binding.sendMsgView.addTextChangedListener { text ->
             binding.sendBtn.isEnabled = text?.isNotEmpty() ?: false
