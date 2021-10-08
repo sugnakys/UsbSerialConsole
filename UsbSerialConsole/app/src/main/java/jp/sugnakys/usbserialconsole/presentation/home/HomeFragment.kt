@@ -14,6 +14,9 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -31,6 +34,8 @@ class HomeFragment : Fragment() {
 
     private val viewModel by viewModels<HomeViewModel>()
     private lateinit var binding: FragmentHomeBinding
+
+    private var isAutoScroll = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -126,6 +131,22 @@ class HomeFragment : Fragment() {
         binding.receivedMsgView.adapter = adapter
         binding.receivedMsgView.itemAnimator = null
 
+        binding.receivedMsgView.addOnScrollListener(object : OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == SCROLL_STATE_DRAGGING) {
+                    isAutoScroll = false
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1)) {
+                    isAutoScroll = true
+                }
+            }
+        })
+
         binding.sendMsgView.addTextChangedListener { text ->
             binding.sendBtn.isEnabled = text?.isNotEmpty() ?: false
         }
@@ -137,7 +158,9 @@ class HomeFragment : Fragment() {
 
         viewModel.receivedMessage.observe(viewLifecycleOwner, {
             adapter.submitList(it)
-            binding.receivedMsgView.scrollToPosition(adapter.itemCount - 1)
+            if (isAutoScroll) {
+                binding.receivedMsgView.scrollToPosition(adapter.itemCount - 1)
+            }
         })
 
         binding.sendViewLayout.visibility = if (preference.sendFormVisibility) {
