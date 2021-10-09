@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,6 +26,7 @@ import javax.inject.Inject
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.databinding.FragmentHomeBinding
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
+import jp.sugnakys.usbserialconsole.presentation.log.LogViewFragmentArgs
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -93,17 +95,27 @@ class HomeFragment : Fragment() {
             R.id.action_save_log -> {
                 val fileName = viewModel.getFileName(Date(System.currentTimeMillis()))
                 val dirName = viewModel.getLogDir()
+                val targetFile = File(dirName, fileName)
                 if (viewModel.writeToFile(
-                        file = File(dirName, fileName),
+                        file = targetFile,
                         isTimestamp = preference.timestampVisibility
                     )
                 ) {
-                    Snackbar.make(
+                   val snackBar = Snackbar.make(
                         requireContext(),
                         binding.mainLayout,
                         "${requireContext().getString(R.string.action_save_log)} : $fileName",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackBar.setAction(R.string.open) {
+                        val args = LogViewFragmentArgs(targetFile.toUri().toString()).toBundle()
+                        findNavController()
+                            .navigate(
+                                R.id.action_homeFragment_to_logViewFragment,
+                                args
+                            )
+                    }
+                    snackBar.show()
                 }
                 true
             }

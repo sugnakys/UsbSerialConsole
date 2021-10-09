@@ -19,11 +19,11 @@ import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.databinding.FragmentLogBinding
 import timber.log.Timber
 
-class LogFragment : Fragment() {
+class LogViewFragment : Fragment() {
 
-    private val args: LogFragmentArgs by navArgs()
+    private val args: LogViewFragmentArgs by navArgs()
 
-    private val viewModel by viewModels<LogViewModel>()
+    private val viewModel by viewModels<LogViewViewModel>()
     private lateinit var binding: FragmentLogBinding
 
     override fun onCreateView(

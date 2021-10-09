@@ -9,6 +9,8 @@
     <string name="action_settings">設定</string>
     <string name="action_log_list">ログリスト</string>
 
+    <string name="open">開く</string>
+
     <string name="visible">表示</string>
     <string name="invisible">非表示</string>
 

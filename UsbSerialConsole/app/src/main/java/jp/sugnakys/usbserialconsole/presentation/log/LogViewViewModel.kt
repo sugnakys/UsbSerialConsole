@@ -9,7 +9,7 @@ import java.io.FileInputStream
 import java.io.IOException
 import java.nio.charset.Charset
 
-class LogViewModel: ViewModel() {
+class LogViewViewModel: ViewModel() {
 
     private val _logFile = MutableLiveData<File>()
     val logFile = _logFile

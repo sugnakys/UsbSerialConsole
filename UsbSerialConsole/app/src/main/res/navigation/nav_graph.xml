@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_homeFragment_to_logListFragment"
             app:destination="@id/logListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_logViewFragment"
+            app:destination="@id/logViewFragment" />
     </fragment>
 
     <fragment
@@ -69,7 +72,7 @@
     <fragment
         android:id="@+id/logViewFragment"
         android:label=""
-        android:name="jp.sugnakys.usbserialconsole.presentation.log.LogFragment"
+        android:name="jp.sugnakys.usbserialconsole.presentation.log.LogViewFragment"
         tools:layout="@layout/fragment_log">
         <argument
             android:name="uriString"

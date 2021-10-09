@@ -3,7 +3,7 @@
 
         <variable
             name="viewmodel"
-            type="jp.sugnakys.usbserialconsole.presentation.log.LogViewModel" />
+            type="jp.sugnakys.usbserialconsole.presentation.log.LogViewViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
