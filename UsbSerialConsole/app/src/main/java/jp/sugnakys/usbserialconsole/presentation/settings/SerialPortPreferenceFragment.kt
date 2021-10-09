@@ -1,6 +1,5 @@
 package jp.sugnakys.usbserialconsole.presentation.settings
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
@@ -8,7 +7,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.usb.UsbRepository
-import jp.sugnakys.usbserialconsole.usb.UsbService
 import timber.log.Timber
 
 @AndroidEntryPoint

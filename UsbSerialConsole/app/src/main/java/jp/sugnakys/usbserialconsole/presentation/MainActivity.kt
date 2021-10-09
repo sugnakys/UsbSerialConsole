@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -78,9 +77,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        usbRepository.cts.observe(this, { showToast("CTS_CHANGE") })
+        usbRepository.cts.observe(this, {
+            showToast("CTS change state: $it")
+        })
 
-        usbRepository.dsr.observe(this, { showToast("DSR_CHANGE") })
+        usbRepository.dsr.observe(this, {
+            showToast("DSR change state: $it")
+        })
 
         usbRepository.state.observe(this, {
             when (it) {

@@ -7,7 +7,6 @@ import android.view.WindowManager
 import javax.inject.Inject
 import javax.inject.Singleton
 import jp.sugnakys.usbserialconsole.R
-import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 
 @Singleton
 class DeviceRepository @Inject constructor(

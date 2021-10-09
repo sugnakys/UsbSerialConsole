@@ -14,3 +14,13 @@ sealed class UsbPermission {
     object Granted : UsbPermission()
     object NotGranted : UsbPermission()
 }
+
+sealed class CTSState {
+    object Raised : CTSState()
+    object NotRaised : CTSState()
+}
+
+sealed class DSRState {
+    object Raised : DSRState()
+    object NotRaised : DSRState()
+}

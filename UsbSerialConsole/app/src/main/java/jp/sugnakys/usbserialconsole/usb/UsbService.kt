@@ -17,9 +17,11 @@ import com.felhr.usbserial.UsbSerialDevice
 import com.felhr.usbserial.UsbSerialInterface.UsbCTSCallback
 import com.felhr.usbserial.UsbSerialInterface.UsbDSRCallback
 import com.felhr.usbserial.UsbSerialInterface.UsbReadCallback
+import com.felhr.utils.ProtocolBuffer
 import dagger.hilt.android.AndroidEntryPoint
 import java.nio.charset.Charset
 import javax.inject.Inject
+import jp.sugnakys.usbserialconsole.device.DeviceRepository
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +40,9 @@ class UsbService : Service() {
     lateinit var usbRepository: UsbRepository
 
     @Inject
+    lateinit var deviceRepository: DeviceRepository
+
+    @Inject
     lateinit var preference: DefaultPreference
 
     private val binder = UsbBinder()
@@ -51,13 +56,23 @@ class UsbService : Service() {
 
     private var connectionJob: Job? = null
 
+    private val buffer = ProtocolBuffer(ProtocolBuffer.TEXT)
     private val mCallback = UsbReadCallback { arg ->
-        usbRepository.updateReceivedData(String(arg, Charset.defaultCharset()))
+        buffer.appendData(arg)
+        while(buffer.hasMoreCommands()) {
+            usbRepository.updateReceivedData(buffer.nextTextCommand())
+        }
     }
 
-    private val ctsCallback = UsbCTSCallback { usbRepository.changeCTS() }
+    private val ctsCallback = UsbCTSCallback { state ->
+        val cts = if (state) CTSState.Raised else CTSState.NotRaised
+        usbRepository.changeCTS(cts)
+    }
 
-    private val dsrCallback = UsbDSRCallback { usbRepository.changeDSR() }
+    private val dsrCallback = UsbDSRCallback { state ->
+        val dsr = if (state) DSRState.Raised else DSRState.NotRaised
+        usbRepository.changeDSR(dsr)
+    }
 
     private val usbReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -177,6 +192,7 @@ class UsbService : Service() {
             serialPort?.let {
                 if (it.open()) {
                     serialPortConnected = true
+                    buffer.setDelimiter(deviceRepository.getLineFeedCode(preference.lineFeedCodeSend))
                     it.setBaudRate(preference.baudrate.toInt())
                     it.setDataBits(preference.databits.toInt())
                     it.setStopBits(preference.stopbits.toInt())

@@ -30,11 +30,11 @@ class UsbRepository @Inject constructor(
     private val _isConnect = MutableLiveData(false)
     val isConnect: LiveData<Boolean> = _isConnect
 
-    private val _cts = MutableLiveData<Unit>()
-    val cts: LiveData<Unit> = _cts
+    private val _cts = MutableLiveData<CTSState>()
+    val cts: LiveData<CTSState> = _cts
 
-    private val _dsr = MutableLiveData<Unit>()
-    val dsr: LiveData<Unit> = _dsr
+    private val _dsr = MutableLiveData<DSRState>()
+    val dsr: LiveData<DSRState> = _dsr
 
     private val _state = MutableLiveData<UsbState>(UsbState.Initialized)
     val state: LiveData<UsbState> = _state
@@ -51,8 +51,8 @@ class UsbRepository @Inject constructor(
 
     fun changeSerialSettings() = _settingsEvent.postValue(Unit)
 
-    fun changeCTS() = _cts.postValue(Unit)
-    fun changeDSR() = _dsr.postValue(Unit)
+    fun changeCTS(state: CTSState) = _cts.postValue(state)
+    fun changeDSR(state: DSRState) = _dsr.postValue(state)
 
     fun changeConnection(isConnect: Boolean) = _isConnect.postValue(isConnect)
 
