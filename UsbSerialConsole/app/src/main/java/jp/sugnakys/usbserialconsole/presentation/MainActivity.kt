@@ -17,10 +17,13 @@ import javax.inject.Inject
 import jp.sugnakys.usbserialconsole.R
 import jp.sugnakys.usbserialconsole.device.DeviceRepository
 import jp.sugnakys.usbserialconsole.preference.DefaultPreference
+import jp.sugnakys.usbserialconsole.usb.CTSState
+import jp.sugnakys.usbserialconsole.usb.DSRState
 import jp.sugnakys.usbserialconsole.usb.UsbPermission
 import jp.sugnakys.usbserialconsole.usb.UsbRepository
 import jp.sugnakys.usbserialconsole.usb.UsbService
 import jp.sugnakys.usbserialconsole.usb.UsbState
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -78,11 +81,19 @@ class MainActivity : AppCompatActivity() {
         })
 
         usbRepository.cts.observe(this, {
-            showToast("CTS change state: $it")
+            val state = when(it) {
+                CTSState.NotRaised -> "Not raised"
+                CTSState.Raised -> "Raised"
+            }
+            Timber.d("CTS change state: $state")
         })
 
         usbRepository.dsr.observe(this, {
-            showToast("DSR change state: $it")
+            val state = when(it) {
+                DSRState.NotRaised -> "Not raised"
+                DSRState.Raised -> "Raised"
+            }
+            Timber.d("DSR change state: $state")
         })
 
         usbRepository.state.observe(this, {
