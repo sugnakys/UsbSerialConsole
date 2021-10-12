@@ -466,3 +466,98 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/license/LICENSE-2.0.txt
   url: https://github.com/JetBrains/java-annotations
+- artifact: androidx.hilt:hilt-common:+
+  name: hilt-common
+  copyrightHolder: Google.Inc
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/hilt#1.0.0-alpha03
+- artifact: androidx.hilt:hilt-lifecycle-viewmodel:+
+  name: hilt-lifecycle-viewmodel
+  copyrightHolder: Google.Inc
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/hilt#1.0.0-alpha03
+- artifact: androidx.multidex:multidex:+
+  name: multidex
+  copyrightHolder: Google.Inc
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: androidx.paging:paging-common:+
+  name: paging-common
+  copyrightHolder: Google.Inc
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/paging#3.1.0-alpha04
+- artifact: androidx.room:room-common:+
+  name: room-common
+  copyrightHolder: Google.Inc
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/room#2.4.0-alpha05
+- artifact: androidx.room:room-ktx:+
+  name: room-ktx
+  copyrightHolder: Google.Inc
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/room#2.4.0-alpha05
+- artifact: androidx.room:room-paging:+
+  name: room-paging
+  copyrightHolder: Google.Inc
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/room#2.4.0-alpha05
+- artifact: androidx.room:room-runtime:+
+  name: room-runtime
+  copyrightHolder: Google.Inc
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/room#2.4.0-alpha05
+- artifact: androidx.sqlite:sqlite-framework:+
+  name: sqlite-framework
+  copyrightHolder: Google.Inc
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/sqlite#2.2.0-alpha02
+- artifact: androidx.sqlite:sqlite:+
+  name: sqlite
+  copyrightHolder: Google.Inc
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/sqlite#2.2.0-alpha02
+- artifact: com.google.code.findbugs:jsr305:+
+  name: jsr305
+  copyrightHolder: Bill Pugh and David Hovemeyer
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://findbugs.sourceforge.net/
+- artifact: com.google.dagger:dagger-lint-aar:+
+  name: dagger-lint-aar
+  copyrightHolder: Google.Inc
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/google/dagger
+- artifact: com.google.dagger:dagger:+
+  name: dagger
+  copyrightHolder: Google.Inc
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/google/dagger
+- artifact: com.google.dagger:hilt-android:+
+  name: hilt-android
+  copyrightHolder: Google.Inc
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/google/dagger
+- artifact: com.google.dagger:hilt-core:+
+  name: hilt-core
+  copyrightHolder: Google.Inc
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/google/dagger
+- artifact: javax.inject:javax.inject:+
+  name: javax.inject
+  copyrightHolder: The JSR-330 Expert Group
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://code.google.com/p/atinject/
