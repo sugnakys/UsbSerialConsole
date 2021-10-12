@@ -1,38 +1,97 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 31
+    buildToolsVersion '31.0.0'
 
     defaultConfig {
         applicationId "jp.sugnakys.usbserialconsole"
         minSdkVersion 19
-        targetSdkVersion 25
-        versionCode 10100
-        versionName "1.1.0"
+        targetSdkVersion 31
+        versionCode 20000
+        versionName "2.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            debuggable false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            minifyEnabled true
+            debuggable true
+            shrinkResources true
+        }
+    }
+    dataBinding {
+        enabled = true
     }
     lintOptions {
         disable 'GoogleAppIndexingWarning'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
-    androidTestCompile 'com.android.support:support-annotations:25.2.0'
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
-    compile 'com.github.felHR85:UsbSerial:4.5'
-    compile 'com.jrummyapps:colorpicker:2.1.5'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "io.mockk:mockk:1.12.0"
+    testImplementation "com.google.truth:truth:1.1.3"
+
+    implementation 'com.google.android.material:material:1.4.0'
+
+    // Android KTX
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.fragment:fragment-ktx:1.3.6'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation "androidx.navigation:navigation-runtime-ktx:${versions.navigation}"
+    implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
+    implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
+    implementation "androidx.preference:preference-ktx:1.1.1"
+
+    // room
+    implementation "androidx.room:room-runtime:${versions.room}"
+    annotationProcessor "androidx.room:room-compiler:${versions.room}"
+    kapt("androidx.room:room-compiler:${versions.room}")
+    implementation "androidx.room:room-ktx:${versions.room}"
+    testImplementation "androidx.room:room-testing:${versions.room}"
+    implementation("androidx.room:room-paging:2.4.0-alpha05")
+
+    // UsbSerial
+    implementation 'com.github.felHR85:UsbSerial:6.1.0'
+
+    implementation 'com.jaredrummler:colorpicker:1.1.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:${versions.hilt}"
+    kapt "com.google.dagger:hilt-android-compiler:${versions.hilt}"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+}
+repositories {
+    mavenCentral()
 }

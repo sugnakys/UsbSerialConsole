@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="log"
+            type="jp.sugnakys.usbserialconsole.data.LogItem" />
+
+        <variable
+            name="timeFormat"
+            type="String" />
+
+        <variable
+            name="timeVisibility"
+            type="Boolean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <TextView
+            android:id="@+id/received_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:timeFormat="@{timeFormat}"
+            app:timestamp="@{log.timestamp}"
+            app:visibleOrGone="@{timeVisibility}" />
+
+        <TextView
+            android:id="@+id/received_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@{log.text}"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+</layout>
