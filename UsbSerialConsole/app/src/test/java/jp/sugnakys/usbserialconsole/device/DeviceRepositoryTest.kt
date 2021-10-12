@@ -125,6 +125,18 @@ class DeviceRepositoryTest {
     }
 
     @Test
+    fun setScreenOrientation_setUnspecified() {
+        // arrange
+
+        // act
+        target.setScreenOrientation("unknown", activity)
+        // assert
+        verify(exactly = 1) {
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        }
+    }
+
+    @Test
     fun setSleepMode_setTrue() {
         // arrange
 
