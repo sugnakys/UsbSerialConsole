@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.net.toFile
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -39,42 +41,48 @@ class LogViewFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val file = Uri.parse(args.uriString).toFile()
         (activity as AppCompatActivity).supportActionBar?.title = file.name
-        setHasOptionsMenu(true)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_log_view, menu)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_share -> {
-                viewModel.logFile.value?.let{
-                    val uri = FileProvider.getUriForFile(
-                        requireContext(),
-                        requireContext().packageName+ ".provider",
-                        it
-                    )
-                    val intent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_STREAM, uri)
-                        type = "text/plain"
-                    }
-                    startActivity(Intent.createChooser(intent, resources.getText(R.string.send)))
-                }
-                true
-            }
-            else -> {
-                Timber.e("Unknown id")
-                false
-            }
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_log_view, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_share -> {
+                        viewModel.logFile.value?.let {
+                            val uri = FileProvider.getUriForFile(
+                                requireContext(),
+                                requireContext().packageName + ".provider",
+                                it
+                            )
+                            val intent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_STREAM, uri)
+                                type = "text/plain"
+                            }
+                            startActivity(
+                                Intent.createChooser(
+                                    intent,
+                                    resources.getText(R.string.send)
+                                )
+                            )
+                        }
+                        true
+                    }
+
+                    else -> {
+                        Timber.e("Unknown id")
+                        false
+                    }
+                }
+            }
+        }, viewLifecycleOwner)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel

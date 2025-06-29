@@ -20,11 +20,6 @@ class LogListFragment : Fragment() {
     private val viewModel by viewModels<LogListViewModel>()
     private lateinit var binding: FragmentLogListBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.net.toUri
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -48,94 +50,95 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        val item = menu.findItem(R.id.action_connect)
-        item.isEnabled = viewModel.isUSBReady
-        item.title = if (viewModel.isConnect.value == true) {
-            getString(R.string.action_disconnect)
-        } else {
-            getString(R.string.action_connect)
-        }
-        super.onPrepareOptionsMenu(menu)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_connect -> {
-                if (viewModel.isConnect.value == true) {
-                    viewModel.changeConnection(false)
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.stop_connection),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    viewModel.changeConnection(true)
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.start_connection),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                true
-            }
-            R.id.action_clear_log -> {
-                viewModel.clearReceivedMessage()
-                true
-            }
-            R.id.action_save_log -> {
-                val fileName = viewModel.getFileName(Date(System.currentTimeMillis()))
-                val dirName = viewModel.getLogDir()
-                val targetFile = File(dirName, fileName)
-                if (viewModel.writeToFile(
-                        file = targetFile,
-                        isTimestamp = preference.timestampVisibility
-                    )
-                ) {
-                   val snackBar = Snackbar.make(
-                        requireContext(),
-                        binding.mainLayout,
-                        "${requireContext().getString(R.string.action_save_log)} : $fileName",
-                        Snackbar.LENGTH_LONG
-                    )
-                    snackBar.setAction(R.string.open) {
-                        val args = LogViewFragmentArgs(targetFile.toUri().toString()).toBundle()
-                        findNavController()
-                            .navigate(
-                                R.id.action_homeFragment_to_logViewFragment,
-                                args
-                            )
-                    }
-                    snackBar.show()
-                }
-                true
-            }
-            R.id.action_settings -> {
-                findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
-                true
-            }
-            R.id.action_log_list -> {
-                findNavController().navigate(R.id.action_homeFragment_to_logListFragment)
-                true
-            }
-            else -> false
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_main, menu)
+            }
+
+            override fun onPrepareMenu(menu: Menu) {
+                val item = menu.findItem(R.id.action_connect)
+                item.isEnabled = viewModel.isUSBReady
+                item.title = if (viewModel.isConnect.value == true) {
+                    getString(R.string.action_disconnect)
+                } else {
+                    getString(R.string.action_connect)
+                }
+                super.onPrepareMenu(menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_connect -> {
+                        if (viewModel.isConnect.value == true) {
+                            viewModel.changeConnection(false)
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.stop_connection),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            viewModel.changeConnection(true)
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.start_connection),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        true
+                    }
+
+                    R.id.action_clear_log -> {
+                        viewModel.clearReceivedMessage()
+                        true
+                    }
+
+                    R.id.action_save_log -> {
+                        val fileName = viewModel.getFileName(Date(System.currentTimeMillis()))
+                        val dirName = viewModel.getLogDir()
+                        val targetFile = File(dirName, fileName)
+                        if (viewModel.writeToFile(
+                                file = targetFile,
+                                isTimestamp = preference.timestampVisibility
+                            )
+                        ) {
+                            val snackBar = Snackbar.make(
+                                requireContext(),
+                                binding.mainLayout,
+                                "${requireContext().getString(R.string.action_save_log)} : $fileName",
+                                Snackbar.LENGTH_LONG
+                            )
+                            snackBar.setAction(R.string.open) {
+                                val args =
+                                    LogViewFragmentArgs(targetFile.toUri().toString()).toBundle()
+                                findNavController()
+                                    .navigate(
+                                        R.id.action_homeFragment_to_logViewFragment,
+                                        args
+                                    )
+                            }
+                            snackBar.show()
+                        }
+                        true
+                    }
+
+                    R.id.action_settings -> {
+                        findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+                        true
+                    }
+
+                    R.id.action_log_list -> {
+                        findNavController().navigate(R.id.action_homeFragment_to_logListFragment)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
