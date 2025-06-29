@@ -1,10 +1,10 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
-    id("androidx.navigation.safeargs.kotlin")
-    id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp")
+    id(libs.plugins.android.application.get().pluginId)
+    id(libs.plugins.kotlin.android.get().pluginId)
+    id(libs.plugins.kotlin.kapt.get().pluginId)
+    id(libs.plugins.navigation.safeargs.kotlin.get().pluginId)
+    id(libs.plugins.hilt.android.get().pluginId)
+    id(libs.plugins.google.devtools.ksp.get().pluginId)
 }
 
 android {
@@ -50,56 +50,50 @@ android {
 }
 
 dependencies {
-    val kotlinVersion = project.properties["kotlin"] as String
-    val navigationVersion = project.properties["navigation"] as String
-    val hiltVersion = project.properties["hilt"] as String
-    val roomVersion = project.properties["room"] as String
-    val pagingVersion = project.properties["paging"] as String
-
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("io.mockk:mockk:1.14.4")
-    testImplementation("com.google.truth:truth:1.4.4")
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.truth)
 
-    implementation("com.google.android.material:material:1.12.0")
+    implementation(libs.material)
 
     // Android KTX
-    implementation("androidx.appcompat:appcompat:1.7.1")
-    implementation("androidx.core:core-ktx:1.16.0")
-    implementation("androidx.fragment:fragment-ktx:1.8.8")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.9.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1")
-    implementation("androidx.navigation:navigation-runtime-ktx:${navigationVersion}")
-    implementation("androidx.navigation:navigation-fragment-ktx:${navigationVersion}")
-    implementation("androidx.navigation:navigation-ui-ktx:${navigationVersion}")
-    implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation(libs.appcompat)
+    implementation(libs.core.ktx)
+    implementation(libs.fragment.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.navigation.runtime.ktx)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+    implementation(libs.preference.ktx)
 
     // room
-    implementation("androidx.room:room-runtime:${roomVersion}")
-    ksp("androidx.room:room-compiler:${roomVersion}")
-    implementation("androidx.room:room-ktx:${roomVersion}")
-    testImplementation("androidx.room:room-testing:${roomVersion}")
-    implementation("androidx.room:room-paging:${pagingVersion}")
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
+    testImplementation(libs.room.testing)
+    implementation(libs.room.paging)
 
     // UsbSerial
-    implementation("com.github.felHR85:UsbSerial:6.1.0")
+    implementation(libs.usbserial)
 
-    implementation("com.jaredrummler:colorpicker:1.1.0")
+    implementation(libs.colorpicker)
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinVersion}")
+    implementation(libs.kotlin.stdlib.jdk7)
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:${hiltVersion}")
-    ksp("com.google.dagger:hilt-android-compiler:${hiltVersion}")
-    ksp("androidx.hilt:hilt-compiler:1.2.0")
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    ksp(libs.hilt.compiler)
 
     // Timber
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation(libs.timber)
 
     // LeakCanary
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
+    debugImplementation(libs.leakcanary)
 
-    implementation("androidx.multidex:multidex:2.0.1")
+    implementation(libs.multidex)
 }

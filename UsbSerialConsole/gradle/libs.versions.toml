@@ -1,0 +1,75 @@
+
+[versions]
+android-gradle-plugin = "8.11.0"
+kotlin = "2.2.0"
+navigation = "2.9.0"
+hilt = "2.56.2"
+hilt-compiler = "1.2.0"
+room = "2.7.2"
+paging = "3.3.6"
+junit = "4.13.2"
+mockk = "1.14.4"
+truth = "1.4.4"
+material = "1.12.0"
+appcompat = "1.7.1"
+core-ktx = "1.16.0"
+fragment-ktx = "1.8.8"
+lifecycle-runtime-ktx = "2.9.1"
+lifecycle-livedata-ktx = "2.9.1"
+lifecycle-viewmodel-ktx = "2.9.1"
+preference-ktx = "1.2.1"
+usbserial = "6.1.0"
+colorpicker = "1.1.0"
+timber = "5.0.1"
+leakcanary = "2.14"
+multidex = "2.0.1"
+ksp = "2.2.0-2.0.2"
+cookpad-android-plugin-license-tools = "1.2.8"
+
+[libraries]
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
+hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
+
+junit = { module = "junit:junit", version.ref = "junit" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment-ktx" }
+lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle-livedata-ktx" }
+lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle-viewmodel-ktx" }
+navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigation" }
+navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preference-ktx" }
+
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
+
+usbserial = { module = "com.github.felHR85:UsbSerial", version.ref = "usbserial" }
+colorpicker = { module = "com.jaredrummler:colorpicker", version.ref = "colorpicker" }
+kotlin-stdlib-jdk7 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk7", version.ref = "kotlin" }
+
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-compiler" }
+
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
+multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+navigation-safeargs-kotlin = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+cookpad-android-plugin-license-tools = { id = "com.cookpad.android.plugin.license-tools", version.ref = "cookpad-android-plugin-license-tools" }
