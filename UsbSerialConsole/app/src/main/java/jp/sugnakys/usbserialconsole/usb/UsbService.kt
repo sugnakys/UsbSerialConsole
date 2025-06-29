@@ -12,6 +12,7 @@ import android.hardware.usb.UsbManager
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
+import androidx.core.content.ContextCompat
 import com.felhr.usbserial.CDCSerialDevice
 import com.felhr.usbserial.UsbSerialDevice
 import com.felhr.usbserial.UsbSerialInterface.UsbCTSCallback
@@ -170,7 +171,7 @@ class UsbService : Service() {
         filter.addAction(ACTION_USB_PERMISSION)
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
-        registerReceiver(usbReceiver, filter)
+        ContextCompat.registerReceiver(this, usbReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
     }
 
     private fun requestUserPermission() {

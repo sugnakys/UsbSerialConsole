@@ -6,7 +6,12 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
+import android.os.Build
 import android.widget.Toast
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -67,6 +72,13 @@ class MainActivity : AppCompatActivity() {
         deviceRepository.setScreenOrientation(preference.screenOrientation, this)
 
         setContentView(R.layout.activity_main)
+
+        // 通知権限のリクエスト
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 100)
+            }
+        }
 
         val navHost = supportFragmentManager.findFragmentById(R.id.main_fragment_host)
         val navController = navHost!!.findNavController()
