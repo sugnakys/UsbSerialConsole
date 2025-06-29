@@ -30,6 +30,12 @@ import jp.sugnakys.usbserialconsole.usb.UsbService
 import jp.sugnakys.usbserialconsole.usb.UsbState
 import timber.log.Timber
 
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.ViewCompat
+import androidx.appcompat.widget.Toolbar
+import com.google.android.material.appbar.AppBarLayout
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -68,12 +74,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         deviceRepository.setSleepMode(preference.sleepMode, this)
         deviceRepository.setScreenOrientation(preference.screenOrientation, this)
 
         setContentView(R.layout.activity_main)
 
-        // 通知権限のリクエスト
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        val appBarLayout: AppBarLayout = findViewById(R.id.app_bar_layout)
+        ViewCompat.setOnApplyWindowInsetsListener(appBarLayout) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, 0) // bottom は 0 に設定
+            insets
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 100)
@@ -84,6 +101,8 @@ class MainActivity : AppCompatActivity() {
         val navController = navHost!!.findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        toolbar.overflowIcon?.setTint(ContextCompat.getColor(this, android.R.color.white))
 
         usbRepository.sendData.observe(this, {
             if (it.isNotEmpty()) {
